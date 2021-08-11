@@ -4,6 +4,7 @@ import 'colors.dart';
 
 class CustomsThemes {
   CustomsThemes();
+
   static final defaultThemeData = ThemeData(
     /// Dialog Color
     colorScheme: ColorScheme.light(
@@ -18,7 +19,7 @@ class CustomsThemes {
     iconTheme: IconThemeData(
       color: CustomColors.primaryColor,
     ),
-    scaffoldBackgroundColor: Colors.grey[50],
+    scaffoldBackgroundColor: Colors.white,
 
     /// color of unchecked check box
     unselectedWidgetColor: Colors.black,
@@ -26,8 +27,29 @@ class CustomsThemes {
       /// color black ,size 25 , weight 400
       headline1: TextStyle(
         fontSize: 25,
+        fontWeight: FontWeight.w400,
+        color: CustomColors.yellowDeepColor,
+      ),
+
+      ///color black ,size 16 , weight 500
+      headline2: TextStyle(
+        fontSize: 16,
         fontWeight: FontWeight.w600,
-        color: Colors.black,
+        color: CustomColors.yellowDeepColor,
+      ),
+
+      ///color brown,size 12 , weight 400 (brown small)
+      headline3: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        color: CustomColors.primaryColor,
+      ),
+
+      ///color brown,size 12 , weight 800 (brown small bold)
+      headline4: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w800,
+        color: CustomColors.primaryColor,
       ),
 
       ///color brown,size 18 , weight 400 (brown medium)
@@ -35,13 +57,6 @@ class CustomsThemes {
         fontSize: 18,
         fontWeight: FontWeight.w400,
         color: CustomColors.primaryColor,
-      ),
-
-      ///color black ,size 16 , weight 500
-      headline2: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-        color: CustomColors.black,
       ),
 
       ///color brown,size 16 , weight 800 (brown medium bold)
@@ -69,21 +84,6 @@ class CustomsThemes {
       bodyText2: TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w300,
-        color: CustomColors.yellowDeepColor,
-      ),
-
-      ///color brown,size 12 , weight 400 (brown small)
-      headline3: TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
-        color: CustomColors.primaryColor,
-      ),
-
-      ///color brown,size 12 , weight 800 (brown small bold)
-      headline4: TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.w800,
-        color: CustomColors.primaryColor,
       ),
 
       ///color grey,size 12 , weight 400 (grey small)
@@ -97,15 +97,13 @@ class CustomsThemes {
       subtitle2: TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w400,
-        color: CustomColors.blueLightColor,
       ),
+
       ///color blue,size 12 , weight 500 (blue medium)
       overline: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.w500,
-        color: CustomColors.blueLightColor,
       ),
-
     ),
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
@@ -120,6 +118,9 @@ class CustomsThemes {
         //   Colors.transparent,
         // ),
         foregroundColor: MaterialStateProperty.all(
+          CustomColors.primaryColor,
+        ),
+        backgroundColor: MaterialStateProperty.all(
           CustomColors.primaryColor,
         ),
       ),

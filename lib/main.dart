@@ -28,15 +28,15 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: CustomsThemes.defaultThemeData,
-      initialRoute: Routes.loginPage,
+      initialRoute: Routes.splashPage,
       getPages: Routes.setPages(),
-      onInit: InitControllers,
+      // onInit: InitControllers,
       title: 'Chat',
-      // home: LoginPage(),
+      // home: SplashPage(),
     );
   }
 }
 
-void InitControllers() {
+// void InitControllers() {
   // Get.lazyPut(() => LoginController());
-}
+// }

@@ -380,13 +380,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
-  logging:
-    dependency: transitive
+  lottie:
+    dependency: "direct main"
     description:
-      name: logging
+      name: lottie
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.1.0"
   matcher:
     dependency: transitive
     description:
