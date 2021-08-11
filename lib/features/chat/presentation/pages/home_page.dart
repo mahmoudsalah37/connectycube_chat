@@ -79,13 +79,13 @@ class _HomePageState extends State<HomePage>
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
                 color: CustomColors.primaryColor,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(12),
               ),
               child: TabBar(
                 unselectedLabelColor: Colors.black,
                 labelColor: CustomColors.accentColor,
                 indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(12),
                     color: Colors.white),
                 labelStyle: theme.textTheme.headline4,
                 tabs: [
@@ -114,5 +114,11 @@ class _HomePageState extends State<HomePage>
         child: Icon(Icons.add, size: 40, color: Colors.white),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 }
