@@ -3,7 +3,7 @@ import 'package:connectycube_chat/core/src/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomeNewUserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,8 +22,10 @@ class WelcomePage extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(bottom: 40),
               child: CustomButton(
-                  onPressed: () => Get.toNamed(Routes.homePage),
-                  title: '  Yalla Chat!  '),
+                onPressed: () => Get.toNamed(Routes.homePage),
+                title: 'Yalla Chat!',
+                paddingHorizontal: 70,
+              ),
             ),
           )
         ],

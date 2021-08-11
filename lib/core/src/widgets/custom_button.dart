@@ -7,24 +7,18 @@ class CustomButton extends StatelessWidget {
   final Alignment? alignment;
   final Color? backgroundColor;
   final double? elevation;
+  final double paddingHorizontal;
   final Widget? child;
 
-  CustomButton(
-      {required this.onPressed,
-      required this.title,
-      this.alignment = Alignment.center,
-      this.backgroundColor = CustomColors.primaryColor,
-      this.elevation = 6,
-      this.child
-      // = const Text(
-      //   'title',
-      //   style: TextStyle(
-      //     fontSize: 20,
-      //     fontWeight: FontWeight.w600,
-      //     color: CustomColors.yellowDeepColor,
-      //   ),
-      // ),
-      });
+  CustomButton({
+    required this.onPressed,
+    required this.title,
+    this.alignment = Alignment.center,
+    this.backgroundColor = CustomColors.primaryColor,
+    this.elevation = 6,
+    this.child,
+    this.paddingHorizontal = 20,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +31,8 @@ class CustomButton extends StatelessWidget {
             style: theme.textTheme.headline2?.copyWith(fontSize: 20),
           ),
       style: TextButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding:
+            EdgeInsets.symmetric(horizontal: paddingHorizontal, vertical: 10),
         backgroundColor: backgroundColor,
         elevation: elevation,
         alignment: alignment,

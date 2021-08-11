@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
             padding: EdgeInsets.symmetric(horizontal: res.getWidth(20)),
             child: CustomButton(
               title: 'Login',
-              onPressed: () {},
+              onPressed: () =>Get.toNamed(Routes.homePage),
             ),
           ),
           SizedBox(height: res.getHeight(16)),

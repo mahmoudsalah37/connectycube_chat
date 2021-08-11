@@ -23,15 +23,7 @@ class AuthTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 8,
-            offset: Offset(2, 2),
-          )
-        ],
-      ),
+      decoration: CustomStyle.containerShadowDecoration,
       child: TextField(
         obscureText: obscureText,
         controller: controller,
@@ -39,9 +31,10 @@ class AuthTextField extends StatelessWidget {
         keyboardType: inputType,
         textInputAction: TextInputAction.next,
         decoration: CustomStyle.authInputDecoration.copyWith(
-            hintText: hint,
-            suffixIcon: suffixIcon,
-            prefixIcon: Icon(prefixIcon, color: CustomColors.primaryColor)),
+          hintText: hint,
+          suffixIcon: suffixIcon,
+          prefixIcon: Icon(prefixIcon, color: CustomColors.primaryColor),
+        ),
       ),
     );
   }

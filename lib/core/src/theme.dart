@@ -31,10 +31,10 @@ class CustomsThemes {
         color: CustomColors.yellowDeepColor,
       ),
 
-      ///color black ,size 16 , weight 500
+      ///color black ,size 22 , weight 900
       headline2: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
+        fontSize: 22,
+        fontWeight: FontWeight.w900,
         color: CustomColors.yellowDeepColor,
       ),
 
@@ -45,18 +45,18 @@ class CustomsThemes {
         color: CustomColors.primaryColor,
       ),
 
-      ///color brown,size 12 , weight 800 (brown small bold)
+      ///color brown,size 12 , weight w500 (brown small bold)
       headline4: TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.w800,
-        color: CustomColors.primaryColor,
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: CustomColors.brownLightColor,
       ),
 
       ///color brown,size 18 , weight 400 (brown medium)
       headline5: TextStyle(
         fontSize: 18,
-        fontWeight: FontWeight.w400,
-        color: CustomColors.primaryColor,
+        fontWeight: FontWeight.w600,
+        color: CustomColors.accentColor,
       ),
 
       ///color brown,size 16 , weight 800 (brown medium bold)
@@ -86,17 +86,17 @@ class CustomsThemes {
         fontWeight: FontWeight.w300,
       ),
 
-      ///color grey,size 12 , weight 400 (grey small)
+      ///color black,size 12 , weight w800 (grey small)
       subtitle1: TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
-        color: CustomColors.greyColor,
+        color: Colors.black,
+        fontWeight: FontWeight.w800,
       ),
 
       ///color blue,size 12 , weight 400 (blue small)
       subtitle2: TextStyle(
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: FontWeight.w400,
+        color: Colors.grey
       ),
 
       ///color blue,size 12 , weight 500 (blue medium)
@@ -114,12 +114,14 @@ class CustomsThemes {
             color: Colors.white,
           ),
         ),
+
         // overlayColor: MaterialStateProperty.all(
         //   Colors.transparent,
         // ),
         foregroundColor: MaterialStateProperty.all(
           CustomColors.primaryColor,
         ),
+
         backgroundColor: MaterialStateProperty.all(
           CustomColors.primaryColor,
         ),
