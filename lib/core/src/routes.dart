@@ -4,7 +4,7 @@ class Routes {
   static const String loginPage = '/',
       registerPage = '/registerPage',
       chatPage = '/chatPage';
-
+  //All Routes
   static List<GetPage> setPages() {
     return <GetPage>[
       // GetPage(name: loginPage, page: () => LoginPage()),
