@@ -1,8 +1,10 @@
 import 'package:connectycube_chat/core/src/colors.dart';
+import 'package:connectycube_chat/core/src/routes.dart';
 import 'package:connectycube_chat/core/src/widgets/custom_button.dart';
 import 'package:connectycube_chat/core/utils/resposive.dart';
 import 'package:connectycube_chat/features/auth/presentation/widgets/auth_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -33,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
           AuthTextField(
             controller: userNameTEC,
             hint: 'User name',
-            inputType: TextInputType.number,
+            inputType: TextInputType.text,
             prefixIcon: Icons.person_outline,
           ),
           SizedBox(height: res.getHeight(2)),
@@ -52,17 +54,12 @@ class _LoginPageState extends State<LoginPage> {
                   setState(() => passwordVisibility = !passwordVisibility),
             ),
           ),
-          TextButton(
+          CustomButton(
             onPressed: () {},
-            style: TextButton.styleFrom(
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              backgroundColor: Colors.transparent,
-            ),
-            child: Text(
-              'Forget Password ?',
-              style: theme.textTheme.headline2,
-            ),
+            title: 'Forget password?',
+            alignment: Alignment.centerLeft,
+            elevation: 0,
+            backgroundColor: Colors.transparent,
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: res.getWidth(20)),
@@ -72,11 +69,12 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           SizedBox(height: res.getHeight(16)),
-          TextButton(
-            onPressed: () {},
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.transparent,
-            ),
+          CustomButton(
+            onPressed: () => Get.toNamed(Routes.registerPage),
+            title: 'Forget password?',
+            alignment: Alignment.center,
+            elevation: 0,
+            backgroundColor: Colors.transparent,
             child: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
@@ -92,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
