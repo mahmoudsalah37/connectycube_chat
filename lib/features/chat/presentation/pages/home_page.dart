@@ -1,8 +1,8 @@
-import 'package:connectycube_chat/core/src/colors.dart';
-import 'package:connectycube_chat/core/src/routes.dart';
-import 'package:connectycube_chat/core/utils/resposive.dart';
-import 'package:connectycube_chat/features/chat/presentation/pages/groups_page.dart';
-import 'package:connectycube_chat/features/chat/presentation/pages/persons_page.dart';
+import '../../../../core/src/colors.dart';
+import '../../../../core/src/routes.dart';
+import '../../../../core/utils/resposive.dart';
+import 'groups_page.dart';
+import 'persons_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

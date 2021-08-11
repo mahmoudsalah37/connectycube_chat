@@ -1,21 +1,13 @@
-import 'package:connectycube_chat/core/src/colors.dart';
-import 'package:connectycube_chat/core/src/routes.dart';
-import 'package:connectycube_chat/core/src/widgets/custom_button.dart';
-import 'package:connectycube_chat/core/utils/resposive.dart';
-import 'package:connectycube_chat/features/auth/presentation/widgets/auth_text_field.dart';
+import '../../../../core/src/colors.dart';
+import '../../../../core/src/routes.dart';
+import '../../../../core/src/widgets/custom_button.dart';
+import '../../../../core/utils/resposive.dart';
+import '../getx/login_controller.dart';
+import '../widgets/auth_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  final TextEditingController userNameTEC = TextEditingController(text: ''),
-      passwordTEC = TextEditingController(text: '');
-  bool passwordVisibility = true;
-
+class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     final res = Responsive(context);
@@ -33,26 +25,18 @@ class _LoginPageState extends State<LoginPage> {
           ),
           SizedBox(height: res.getHeight(6)),
           AuthTextField(
-            controller: userNameTEC,
+            controller: controller.userNameTEC,
             hint: 'User name',
             inputType: TextInputType.text,
             prefixIcon: Icons.person_outline,
           ),
           SizedBox(height: res.getHeight(2)),
           AuthTextField(
-            controller: passwordTEC,
+            controller: controller.passwordTEC,
             hint: 'Password',
             inputType: TextInputType.visiblePassword,
-            obscureText: passwordVisibility,
+            obscureText: true,
             prefixIcon: Icons.lock_outline,
-            suffixIcon: IconButton(
-              icon: Icon(
-                passwordVisibility ? Icons.visibility_off : Icons.visibility,
-                color: CustomColors.primaryColor,
-              ),
-              onPressed: () =>
-                  setState(() => passwordVisibility = !passwordVisibility),
-            ),
           ),
           CustomButton(
             onPressed: () {},
@@ -65,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
             padding: EdgeInsets.symmetric(horizontal: res.getWidth(20)),
             child: CustomButton(
               title: 'Login',
-              onPressed: () {},
+              onPressed: controller.login,
             ),
           ),
           SizedBox(height: res.getHeight(16)),

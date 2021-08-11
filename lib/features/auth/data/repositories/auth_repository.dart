@@ -1,10 +1,10 @@
-import 'package:connectycube_chat/core/network/network_information.dart';
-import 'package:connectycube_chat/features/auth/data/datasources/user_local_data_source.dart';
-import 'package:connectycube_chat/features/auth/data/datasources/user_remote_data_source.dart';
-import 'package:connectycube_chat/features/auth/domin/repositories/auth_repository.dart';
+import '../../../../core/network/network_information.dart';
+import '../datasources/user_local_data_source.dart';
+import '../datasources/user_remote_data_source.dart';
+import '../../domin/repositories/auth_repository.dart';
 import 'package:connectycube_sdk/src/core/users/models/cube_user.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/register.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/login.dart';
+import '../../domin/usecases/register_usecase.dart';
+import '../../domin/usecases/login_usecase.dart';
 
 class AuthRepositoryImp implements AuthRepository {
   final UserLocalDataSource userLocalDataSource;

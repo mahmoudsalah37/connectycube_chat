@@ -1,5 +1,5 @@
 import 'package:connectycube_chat/features/auth/domin/repositories/auth_repository.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/register.dart';
+import 'package:connectycube_chat/features/auth/domin/usecases/register_usecase.dart';
 import 'package:connectycube_sdk/connectycube_calls.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

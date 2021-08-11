@@ -1,4 +1,4 @@
-import 'package:connectycube_chat/core/src/routes.dart';
+import '../../../../core/src/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';

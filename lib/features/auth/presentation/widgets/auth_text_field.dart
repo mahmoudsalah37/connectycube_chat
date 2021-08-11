@@ -1,8 +1,8 @@
-import 'package:connectycube_chat/core/src/colors.dart';
-import 'package:connectycube_chat/core/src/styles.dart';
+import '../../../../core/src/colors.dart';
+import '../../../../core/src/styles.dart';
 import 'package:flutter/material.dart';
 
-class AuthTextField extends StatelessWidget {
+class AuthTextField extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType inputType;
   final String hint;
@@ -20,6 +20,18 @@ class AuthTextField extends StatelessWidget {
   });
 
   @override
+  _AuthTextFieldState createState() => _AuthTextFieldState();
+}
+
+class _AuthTextFieldState extends State<AuthTextField> {
+  late bool passwordVisibility;
+  @override
+  void initState() {
+    super.initState();
+    passwordVisibility = widget.obscureText;
+  }
+
+  @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return Container(
@@ -33,16 +45,34 @@ class AuthTextField extends StatelessWidget {
         ],
       ),
       child: TextField(
-        obscureText: obscureText,
-        controller: controller,
+        obscureText: passwordVisibility,
+        controller: widget.controller,
         style: theme.textTheme.headline2,
-        keyboardType: inputType,
+        keyboardType: widget.inputType,
         textInputAction: TextInputAction.next,
         decoration: CustomStyle.authInputDecoration.copyWith(
-            hintText: hint,
-            suffixIcon: suffixIcon,
-            prefixIcon: Icon(prefixIcon, color: CustomColors.primaryColor)),
+            hintText: widget.hint,
+            suffixIcon: widget.obscureText
+                ? IconButton(
+                    icon: Icon(
+                      passwordVisibility
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: CustomColors.primaryColor,
+                    ),
+                    onPressed: () => setState(
+                        () => passwordVisibility = !passwordVisibility),
+                  )
+                : null,
+            prefixIcon:
+                Icon(widget.prefixIcon, color: CustomColors.primaryColor)),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    widget.controller.dispose();
+    super.dispose();
   }
 }

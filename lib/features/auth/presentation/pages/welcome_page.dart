@@ -1,5 +1,5 @@
-import 'package:connectycube_chat/core/src/routes.dart';
-import 'package:connectycube_chat/core/src/widgets/custom_button.dart';
+import '../../../../core/src/routes.dart';
+import '../../../../core/src/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

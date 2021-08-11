@@ -1,11 +1,11 @@
-import 'package:connectycube_chat/features/auth/presentation/pages/login_page.dart';
-import 'package:connectycube_chat/features/auth/presentation/pages/register_page.dart';
-import 'package:connectycube_chat/features/auth/presentation/pages/splash_page.dart';
-import 'package:connectycube_chat/features/auth/presentation/pages/welcome_page.dart';
-import 'package:connectycube_chat/features/chat/presentation/pages/chat_page.dart';
-import 'package:connectycube_chat/features/chat/presentation/pages/groups_page.dart';
-import 'package:connectycube_chat/features/chat/presentation/pages/home_page.dart';
-import 'package:connectycube_chat/features/chat/presentation/pages/persons_page.dart';
+import '../../features/auth/presentation/pages/login_page.dart';
+import '../../features/auth/presentation/pages/register_page.dart';
+import '../../features/auth/presentation/pages/splash_page.dart';
+import '../../features/auth/presentation/pages/welcome_page.dart';
+import '../../features/chat/presentation/pages/chat_page.dart';
+import '../../features/chat/presentation/pages/groups_page.dart';
+import '../../features/chat/presentation/pages/home_page.dart';
+import '../../features/chat/presentation/pages/persons_page.dart';
 import 'package:get/get.dart';
 
 class Routes {

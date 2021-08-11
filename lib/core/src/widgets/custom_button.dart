@@ -1,4 +1,4 @@
-import 'package:connectycube_chat/core/src/colors.dart';
+import '../colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {

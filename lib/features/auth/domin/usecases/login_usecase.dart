@@ -1,11 +1,11 @@
-import 'package:connectycube_chat/core/usecases/usecase.dart';
-import 'package:connectycube_chat/features/auth/domin/repositories/auth_repository.dart';
+import '../../../../core/usecases/usecase.dart';
+import '../repositories/auth_repository.dart';
 import 'package:connectycube_sdk/connectycube_calls.dart';
 import 'package:equatable/equatable.dart';
 
-class Login extends UseCase<CubeUser, LoginParams> {
+class LoginUseCase extends UseCase<CubeUser, LoginParams> {
   final AuthRepository authRepository;
-  Login({required this.authRepository});
+  LoginUseCase({required this.authRepository});
   @override
   Future<CubeUser?> call({required LoginParams params}) {
     return authRepository.login(params);

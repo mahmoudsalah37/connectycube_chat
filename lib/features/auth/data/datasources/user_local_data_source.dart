@@ -1,4 +1,4 @@
-import 'package:connectycube_chat/core/utils/pref_util.dart';
+import '../../../../core/utils/pref_util.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
