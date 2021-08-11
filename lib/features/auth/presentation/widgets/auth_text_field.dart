@@ -35,15 +35,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 8,
-            offset: Offset(2, 2),
-          )
-        ],
-      ),
+      decoration: CustomStyle.containerShadowDecoration,
       child: TextField(
         obscureText: passwordVisibility,
         controller: widget.controller,

@@ -9,6 +9,7 @@ class CustomStyle {
     hintText: 'Search...',
     fillColor: CustomColors.yellowLightColor,
     filled: true,
+    prefixIcon: Icon(Icons.search,color: CustomColors.brownLightColor),
     hintStyle: TextStyle(fontSize: 12),
     contentPadding: EdgeInsets.all(10),
     border: OutlineInputBorder(
