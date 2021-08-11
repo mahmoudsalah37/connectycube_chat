@@ -20,9 +20,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    init(CustomConfig.appID, CustomConfig.authKey, CustomConfig.authSecret);
-    // CubeSettings.instance.isDebugEnabled =
-    //     true; // to enable ConnectyCube SDK logs;
+    ConnectyCubeConfig.initial();
   }
 
   @override
