@@ -8,7 +8,9 @@ import 'core/src/routes.dart';
 import 'core/utils/injection_container.dart';
 import 'features/auth/presentation/getx/login_controller.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Injection.init();
   runApp(MyApp());
 }
 
@@ -22,7 +24,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     ConnectyCubeConfig.initial();
-    Injection.init();
   }
 
   @override
@@ -32,12 +33,12 @@ class _MyAppState extends State<MyApp> {
       theme: CustomsThemes.defaultThemeData,
       initialRoute: Routes.splashPage,
       getPages: Routes.setPages(),
-      onInit: InitControllers,
+      onInit: initControllers,
       title: 'Chat',
     );
   }
 }
 
-void InitControllers() {
+void initControllers() {
   Get.lazyPut(() => Injection.sl<LoginController>());
 }

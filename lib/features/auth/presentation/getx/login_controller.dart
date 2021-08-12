@@ -1,7 +1,9 @@
+import 'package:connectycube_chat/core/src/routes.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 
 import '../../domin/usecases/login_usecase.dart';
-import 'package:flutter/material.dart' show TextEditingController;
+import 'package:flutter/material.dart'
+    show BuildContext, ScaffoldMessenger, SnackBar, Text, TextEditingController;
 import 'package:get/get.dart';
 
 class LoginController extends GetxController with StateMixin<CubeUser?> {
@@ -16,7 +18,7 @@ class LoginController extends GetxController with StateMixin<CubeUser?> {
     change(null, status: RxStatus.empty());
   }
 
-  void login() async {
+  void login(BuildContext context) async {
     change(null, status: RxStatus.loading());
     final login = userNameTEC.text;
     final password = passwordTEC.text;
@@ -24,8 +26,11 @@ class LoginController extends GetxController with StateMixin<CubeUser?> {
     try {
       final user = await loginUseCase(params: params);
       change(user, status: RxStatus.success());
+      Get.toNamed(Routes.homePage);
     } catch (e) {
-      RxStatus.error(e.toString());
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('${e.toString()}')));
+      change(null, status: RxStatus.error(e.toString()));
     }
   }
 

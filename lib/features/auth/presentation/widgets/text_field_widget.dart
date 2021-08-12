@@ -2,28 +2,28 @@ import '../../../../core/src/colors.dart';
 import '../../../../core/src/styles.dart';
 import 'package:flutter/material.dart';
 
-class AuthTextField extends StatefulWidget {
+class TextFieldWidget extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType inputType;
   final String hint;
   final bool obscureText;
   final Widget? suffixIcon;
   final IconData prefixIcon;
-
-  AuthTextField({
-    required this.controller,
-    required this.inputType,
-    required this.hint,
-    this.obscureText = false,
-    this.suffixIcon,
-    required this.prefixIcon,
-  });
+  final String? Function(String? v)? validator;
+  TextFieldWidget(
+      {required this.controller,
+      required this.inputType,
+      required this.hint,
+      this.obscureText = false,
+      this.suffixIcon,
+      required this.prefixIcon,
+      this.validator});
 
   @override
-  _AuthTextFieldState createState() => _AuthTextFieldState();
+  _TextFieldWidgetState createState() => _TextFieldWidgetState();
 }
 
-class _AuthTextFieldState extends State<AuthTextField> {
+class _TextFieldWidgetState extends State<TextFieldWidget> {
   late bool passwordVisibility;
   @override
   void initState() {
@@ -33,13 +33,14 @@ class _AuthTextFieldState extends State<AuthTextField> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
+    // final theme = Theme.of(context);
     return Container(
       decoration: CustomStyle.containerShadowDecoration,
-      child: TextField(
+      child: TextFormField(
         obscureText: passwordVisibility,
         controller: widget.controller,
-        style: theme.textTheme.headline,
+        validator: widget.validator,
+        // style: theme.textTheme.headline,
         keyboardType: widget.inputType,
         textInputAction: TextInputAction.next,
         decoration: CustomStyle.authInputDecoration.copyWith(

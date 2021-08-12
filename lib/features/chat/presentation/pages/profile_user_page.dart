@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:connectycube_chat/core/src/colors.dart';
 import 'package:connectycube_chat/core/src/widgets/custom_button.dart';
 import 'package:connectycube_chat/core/utils/resposive.dart';
-import 'package:connectycube_chat/features/auth/presentation/widgets/auth_text_field.dart';
+import 'package:connectycube_chat/features/auth/presentation/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -58,7 +58,8 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: file != null
-                            ? DecorationImage(image: FileImage(file!),fit: BoxFit.cover)
+                            ? DecorationImage(
+                                image: FileImage(file!), fit: BoxFit.cover)
                             : DecorationImage(
                                 image: AssetImage('assets/test/person.jpeg'),
                                 fit: BoxFit.cover),
@@ -80,35 +81,35 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
             ),
           ),
           SizedBox(height: res.getHeight(4)),
-          AuthTextField(
+          TextFieldWidget(
             controller: firstNameTEC,
             hint: 'First Name',
             inputType: TextInputType.text,
             prefixIcon: Icons.person_outline,
           ),
           SizedBox(height: res.getHeight(4)),
-          AuthTextField(
+          TextFieldWidget(
             controller: lastNameTEC,
             hint: 'Last Name',
             inputType: TextInputType.text,
             prefixIcon: Icons.person_outline,
           ),
           SizedBox(height: res.getHeight(4)),
-          AuthTextField(
+          TextFieldWidget(
             controller: userNameTEC,
             hint: 'User Name',
             inputType: TextInputType.text,
             prefixIcon: Icons.person_outline,
           ),
           SizedBox(height: res.getHeight(4)),
-          AuthTextField(
+          TextFieldWidget(
             controller: firstNameTEC,
             hint: 'password',
             inputType: TextInputType.text,
             prefixIcon: Icons.lock_outline,
           ),
           SizedBox(height: res.getHeight(4)),
-          AuthTextField(
+          TextFieldWidget(
             controller: phoneTEC,
             hint: 'phone',
             inputType: TextInputType.text,

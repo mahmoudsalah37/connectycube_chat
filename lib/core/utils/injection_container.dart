@@ -14,7 +14,7 @@ class Injection {
 
   static Future<void> init() async {
     // login
-    final sharedPreferences = await SharedPreferences.getInstance();
+
     // Controller
     sl.registerFactory<LoginController>(
       () => LoginController(loginUseCase: sl()),
@@ -36,6 +36,7 @@ class Injection {
     sl.registerLazySingleton<NetworkInformation>(
         () => NetworkInformationImp(internetConnectionChecker: sl()));
     // External
+    final sharedPreferences = await SharedPreferences.getInstance();
     sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
     sl.registerLazySingleton<InternetConnectionChecker>(
         () => InternetConnectionChecker());
