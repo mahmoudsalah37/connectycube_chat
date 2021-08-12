@@ -39,7 +39,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
       child: TextField(
         obscureText: passwordVisibility,
         controller: widget.controller,
-        style: theme.textTheme.headline2,
+        style: theme.textTheme.headline,
         keyboardType: widget.inputType,
         textInputAction: TextInputAction.next,
         decoration: CustomStyle.authInputDecoration.copyWith(

@@ -26,7 +26,7 @@ class CustomsThemes {
     textTheme: const TextTheme(
       /// color black ,size 25 , weight 400
       headline1: TextStyle(
-        fontSize: 25,
+        fontSize: 22,
         fontWeight: FontWeight.w400,
         color: CustomColors.yellowDeepColor,
       ),
