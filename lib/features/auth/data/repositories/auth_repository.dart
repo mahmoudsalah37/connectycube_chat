@@ -1,3 +1,5 @@
+import 'package:connectycube_sdk/connectycube_sdk.dart';
+
 import '../../../../core/network/network_information.dart';
 import '../datasources/user_local_data_source.dart';
 import '../datasources/user_remote_data_source.dart';
@@ -17,12 +19,29 @@ class AuthRepositoryImp implements AuthRepository {
       required this.networkInformation});
   @override
   Future<CubeUser?> login(LoginParams params) async {
-    return userRemoteDataSource.login(params);
+    final user = await userRemoteDataSource.login(params);
+    if (user != null) userLocalDataSource.saveUser(user);
+    return user;
   }
 
   @override
   Future<CubeUser?> register(RegisterParams params) async {
     // TODO: implement register
     throw UnimplementedError();
+  }
+
+  @override
+  CubeUser? getCacheUser() {
+    return userLocalDataSource.getUser();
+  }
+
+  @override
+  Future<bool> logoutUser() async {
+    final isdeleted = await userLocalDataSource.deleteUser();
+    await signOut().whenComplete(() {
+      CubeChatConnection.instance.destroy();
+    });
+    print('vbdfvfdvfdvdfvfdvfdvfdvfdv');
+    return isdeleted;
   }
 }

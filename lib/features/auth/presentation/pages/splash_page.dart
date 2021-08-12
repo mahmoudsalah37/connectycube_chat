@@ -13,7 +13,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     Future.delayed(
       Duration(milliseconds: 5000),
-      () => Get.toNamed(Routes.loginPage),
+      () => Get.offNamed(Routes.loginPage),
     );
 
     super.initState();

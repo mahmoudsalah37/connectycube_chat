@@ -1,3 +1,8 @@
+import 'package:connectycube_chat/core/usecases/usecase.dart';
+import 'package:connectycube_chat/core/utils/injection_container.dart';
+import 'package:connectycube_chat/features/auth/domin/usecases/delete_cache_user_usecase.dart';
+import 'package:connectycube_chat/features/auth/presentation/getx/login_controller.dart';
+
 import '../../../../core/src/colors.dart';
 import '../../../../core/src/routes.dart';
 import '../../../../core/utils/resposive.dart';
@@ -35,11 +40,22 @@ class _HomePageState extends State<HomePage>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  IconButton(
+                      onPressed: () async {
+                        try {
+                          // final lo = Injection.sl<LoginController>();
+                          final loginController = Get.find<LoginController>();
+                          await loginController.logout(context);
+                        } catch (e) {
+                          Get.snackbar('error', '$e');
+                        }
+                      },
+                      icon: Icon(Icons.logout)),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () async {},
                     child: Container(
                       padding: EdgeInsets.all(8),
-                      width: res.size.width - 100,
+                      width: res.size.width - 150,
                       decoration: BoxDecoration(
                         color: CustomColors.yellowLightColor,
                         borderRadius: BorderRadius.circular(10),

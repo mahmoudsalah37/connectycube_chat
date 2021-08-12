@@ -12,10 +12,10 @@ class LoginPage extends GetView<LoginController> {
   Widget build(BuildContext context) {
     final res = Responsive(context);
     ThemeData theme = Theme.of(context);
-    final formKey = GlobalKey<FormState>();
+
     return Scaffold(
       body: Form(
-        key: formKey,
+        key: controller.formKey,
         child: ListView(
           padding: EdgeInsets.only(top: res.getHeight(10), left: 10, right: 10),
           children: [
@@ -27,26 +27,30 @@ class LoginPage extends GetView<LoginController> {
               ),
             ),
             SizedBox(height: res.getHeight(6)),
-            TextFieldWidget(
-              controller: controller.userNameTEC,
-              hint: 'Login',
-              inputType: TextInputType.text,
-              prefixIcon: Icons.person_outline,
-              validator: isEmpty,
-            ),
-            SizedBox(height: res.getHeight(2)),
-            TextFieldWidget(
-              controller: controller.passwordTEC,
-              hint: 'Password',
-              inputType: TextInputType.visiblePassword,
-              obscureText: true,
-              prefixIcon: Icons.lock_outline,
-              validator: (v) {
-                final value = v ?? '';
-                if (value.isEmpty) {
-                  return 'أدخل قيمة';
-                }
-              },
+            Column(
+              children: [
+                TextFieldWidget(
+                  controller: controller.userNameTEC,
+                  hint: 'Login',
+                  inputType: TextInputType.text,
+                  prefixIcon: Icons.person_outline,
+                  validator: isEmpty,
+                ),
+                SizedBox(height: res.getHeight(2)),
+                TextFieldWidget(
+                  controller: controller.passwordTEC,
+                  hint: 'Password',
+                  inputType: TextInputType.visiblePassword,
+                  obscureText: true,
+                  prefixIcon: Icons.lock_outline,
+                  validator: (v) {
+                    final value = v ?? '';
+                    if (value.isEmpty) {
+                      return 'أدخل قيمة';
+                    }
+                  },
+                ),
+              ],
             ),
             CustomButton(
               onPressed: () {},
@@ -60,7 +64,8 @@ class LoginPage extends GetView<LoginController> {
               child: CustomButton(
                 title: 'Login',
                 onPressed: () {
-                  final isValid = formKey.currentState?.validate() ?? false;
+                  final isValid =
+                      controller.formKey.currentState?.validate() ?? false;
                   if (isValid) controller.login(context);
                 },
               ),

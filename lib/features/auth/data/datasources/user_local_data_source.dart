@@ -1,9 +1,12 @@
-import '../../../../core/utils/pref_util.dart';
+import 'dart:convert';
+
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class UserLocalDataSource {
-  Future<CubeUser> getUser();
+  CubeUser? getUser();
+  Future<bool> saveUser(CubeUser user);
+  Future<bool> deleteUser();
 }
 
 const CacheUser = 'CacheUser';
@@ -13,8 +16,21 @@ class UserLocalDataSourceImp implements UserLocalDataSource {
   final SharedPreferences sharedPreferences;
 
   @override
-  Future<CubeUser> getUser() {
-    // TODO: implement getUser
-    throw UnimplementedError();
+  CubeUser? getUser() {
+    final jsonString = sharedPreferences.getString(CacheUser);
+
+    if (jsonString != null) {
+      return CubeUser.fromJson(json.decode(jsonString));
+    }
+  }
+
+  @override
+  Future<bool> saveUser(CubeUser user) {
+    return sharedPreferences.setString(CacheUser, json.encode(user.toJson()));
+  }
+
+  @override
+  Future<bool> deleteUser() async {
+    return await sharedPreferences.remove(CacheUser);
   }
 }

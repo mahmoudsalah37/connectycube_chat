@@ -1,3 +1,6 @@
+import 'package:connectycube_chat/features/auth/domin/usecases/delete_cache_user_usecase.dart';
+import 'package:connectycube_chat/features/auth/domin/usecases/get_cache_user_usecase.dart';
+
 import '../network/network_information.dart';
 import '../../features/auth/data/datasources/user_local_data_source.dart';
 import '../../features/auth/data/datasources/user_remote_data_source.dart';
@@ -17,10 +20,17 @@ class Injection {
 
     // Controller
     sl.registerFactory<LoginController>(
-      () => LoginController(loginUseCase: sl()),
+      () => LoginController(
+          loginUseCase: sl(),
+          getUserAuthUseCase: sl(),
+          logOutUserUseCase: sl()),
     );
     // Use cases
     sl.registerLazySingleton(() => LoginUseCase(authRepository: sl()));
+    sl.registerFactory<LogOutUserUseCase>(
+        () => LogOutUserUseCase(authRepository: sl()));
+    sl.registerLazySingleton<GetCacheUserUseCase>(
+        () => GetCacheUserUseCase(authRepository: sl()));
     sl.registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImp(
         userRemoteDataSource: sl(),

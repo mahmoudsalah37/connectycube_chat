@@ -5,14 +5,21 @@ import '../widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
+  @override
+  _RegisterPageState createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController loginTEC = TextEditingController(text: ''),
       lastNameTEC = TextEditingController(text: ''),
       fullNameTEC = TextEditingController(text: ''),
       NameTEC = TextEditingController(text: ''),
       passwordTEC = TextEditingController(text: ''),
       rePasswordTEC = TextEditingController(text: '');
+
   final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final res = Responsive(context);
@@ -80,6 +87,12 @@ class RegisterPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    formKey.currentState?.dispose();
+    super.dispose();
   }
 }
 

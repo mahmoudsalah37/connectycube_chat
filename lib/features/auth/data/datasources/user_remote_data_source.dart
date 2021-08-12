@@ -10,8 +10,8 @@ class UserRemoteDataSourceImp implements UserRemoteDataSource {
   @override
   Future<CubeUser?> login(LoginParams params) async {
     CubeUser? user = await newSession(params);
-    CubeChatConnectionSettings.instance.totalReconnections = 0;
     if (user != null) {
+      CubeChatConnectionSettings.instance.totalReconnections = 0;
       user = await CubeChatConnection.instance.login(user);
     }
     return user;
