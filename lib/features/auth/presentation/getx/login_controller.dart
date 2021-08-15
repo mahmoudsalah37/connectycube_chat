@@ -43,36 +43,41 @@ class LoginController extends GetxController with StateMixin<CubeUser?> {
       final password = cacheUser.password ?? '';
       final params = LoginParams(login: login, password: password);
       await loginUseCase(params: params);
-      Get.toNamed(Routes.homePage);
+      Get.offNamed(Routes.homePage);
     }
   }
 
   Future<void> logout(BuildContext context) async {
     final isLogout = await logOutUserUseCase(params: NoParams());
     if (isLogout) {
-      Navigator.of(context).popUntil(ModalRoute.withName(Routes.loginPage));
+      Get.offAllNamed(Routes.loginPage);
     }
   }
 
-  void login(BuildContext context) async {
+  void login({required LoginParams params}) async {
     change(null, status: RxStatus.loading());
-    final login = userNameTEC.text;
-    final password = passwordTEC.text;
-    final params = LoginParams(login: login, password: password);
+
     try {
       final user = await loginUseCase(params: params);
       change(user, status: RxStatus.success());
-      Get.toNamed(Routes.homePage);
+      clearTEC();
+      Get.offNamed(Routes.homePage);
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('${e.toString()}')));
+      Get.snackbar('home', '${e.toString()}');
       change(null, status: RxStatus.error(e.toString()));
     }
+  }
+
+  void clearTEC() {
+    userNameTEC.clear();
+    passwordTEC.clear();
   }
 
   @override
   void onClose() {
     formKey.currentState?.dispose();
+    userNameTEC.dispose();
+    passwordTEC.dispose();
     super.onClose();
   }
 }

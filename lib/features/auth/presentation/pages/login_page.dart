@@ -1,3 +1,5 @@
+import 'package:connectycube_chat/features/auth/domin/usecases/login_usecase.dart';
+
 import '../../../../core/src/colors.dart';
 import '../../../../core/src/routes.dart';
 import '../../../../core/src/widgets/custom_button.dart';
@@ -66,13 +68,19 @@ class LoginPage extends GetView<LoginController> {
                 onPressed: () {
                   final isValid =
                       controller.formKey.currentState?.validate() ?? false;
-                  if (isValid) controller.login(context);
+                  if (isValid) {
+                    final userName = controller.userNameTEC.text;
+                    final password = controller.passwordTEC.text;
+                    final params =
+                        LoginParams(login: userName, password: password);
+                    controller.login(params: params);
+                  }
                 },
               ),
             ),
             SizedBox(height: res.getHeight(16)),
             CustomButton(
-              onPressed: () => Get.toNamed(Routes.registerPage),
+              onPressed: () => Get.offNamed(Routes.registerPage),
               title: 'Forget password?',
               alignment: Alignment.center,
               elevation: 0,

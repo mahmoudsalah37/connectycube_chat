@@ -7,11 +7,11 @@ import 'package:mockito/mockito.dart';
 class MockAuthRepository extends Mock implements AuthRepository {}
 
 void main() {
-  late Register register;
+  late RegisterUseCase register;
   late MockAuthRepository mockAuthRepository;
   setUp(() {
     mockAuthRepository = MockAuthRepository();
-    register = Register(authRepository: mockAuthRepository);
+    register = RegisterUseCase(authRepository: mockAuthRepository);
   });
   final RegisterParams params = RegisterParams(
       fullName: 'fullName', login: 'login', password: 'password');

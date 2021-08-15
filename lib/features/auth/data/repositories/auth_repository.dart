@@ -20,14 +20,15 @@ class AuthRepositoryImp implements AuthRepository {
   @override
   Future<CubeUser?> login(LoginParams params) async {
     final user = await userRemoteDataSource.login(params);
-    if (user != null) userLocalDataSource.saveUser(user);
+    if (user != null) await userLocalDataSource.saveUser(user);
     return user;
   }
 
   @override
   Future<CubeUser?> register(RegisterParams params) async {
-    // TODO: implement register
-    throw UnimplementedError();
+    final user = await userRemoteDataSource.register(params);
+    final isCached = await userLocalDataSource.saveUser(user);
+    return isCached ? user : null;
   }
 
   @override
@@ -41,7 +42,6 @@ class AuthRepositoryImp implements AuthRepository {
     await signOut().whenComplete(() {
       CubeChatConnection.instance.destroy();
     });
-    print('vbdfvfdvfdvdfvfdvfdvfdvfdv');
     return isdeleted;
   }
 }
