@@ -23,6 +23,11 @@ class Injection {
   static final sl = GetIt.instance;
 
   static Future<void> init() async {
+    // External
+    final sharedPreferences = await SharedPreferences.getInstance();
+    sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+    sl.registerLazySingleton<InternetConnectionChecker>(
+        () => InternetConnectionChecker());
     _auth();
     _chat();
   }
@@ -67,11 +72,6 @@ class Injection {
         () => UserLocalDataSourceImp(sharedPreferences: sl()));
     sl.registerLazySingleton<NetworkInformation>(
         () => NetworkInformationImp(internetConnectionChecker: sl()));
-    // External
-    final sharedPreferences = await SharedPreferences.getInstance();
-    sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
-    sl.registerLazySingleton<InternetConnectionChecker>(
-        () => InternetConnectionChecker());
   }
 
   static void _chat() async {

@@ -1,5 +1,7 @@
+import 'package:connectycube_chat/core/usecases/usecase.dart';
 import 'package:connectycube_chat/core/utils/injection_container.dart';
 import 'package:connectycube_chat/features/auth/data/datasources/user_local_data_source.dart';
+import 'package:connectycube_chat/features/auth/domin/usecases/get_cache_user_usecase.dart';
 
 import '../../../../core/src/routes.dart';
 import 'package:flutter/material.dart';
@@ -12,16 +14,21 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  final userCachedData = Injection.sl<UserLocalDataSource>();
+  final userCachedData = Injection.sl<GetCacheUserUseCase>();
   @override
   void initState() {
+    newMethod();
+    super.initState();
+  }
+
+  void newMethod() async {
+    final v = await userCachedData(params: NoParams());
     Future.delayed(
-      Duration(milliseconds: 5000),
-      () => userCachedData.getUser() != null
+      Duration(milliseconds: 1000),
+      () => v != null
           ? Get.offNamed(Routes.channelsPage)
           : Get.offNamed(Routes.loginPage),
     );
-    super.initState();
   }
 
   @override
