@@ -21,14 +21,18 @@ class LoginController extends GetxController with StateMixin<CubeUser?> {
   final TextEditingController userNameTEC = TextEditingController(text: ''),
       passwordTEC = TextEditingController(text: '');
   final formKey = GlobalKey<FormState>();
+
   // final AuthRepositoryImp authRepositoryImp;
   final LoginUseCase loginUseCase;
   final GetCacheUserUseCase getUserAuthUseCase;
   final LogOutUserUseCase logOutUserUseCase;
-  LoginController(
-      {required this.loginUseCase,
-      required this.getUserAuthUseCase,
-      required this.logOutUserUseCase});
+
+  LoginController({
+    required this.loginUseCase,
+    required this.getUserAuthUseCase,
+    required this.logOutUserUseCase,
+  });
+
   @override
   void onInit() async {
     super.onInit();

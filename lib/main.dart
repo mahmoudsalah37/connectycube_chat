@@ -11,6 +11,7 @@ import 'core/src/routes.dart';
 import 'core/utils/injection_container.dart';
 import 'features/auth/domin/usecases/get_cache_user_usecase.dart';
 import 'features/auth/presentation/getx/login_controller.dart';
+import 'features/auth/presentation/getx/profile_controller.dart';
 import 'features/auth/presentation/getx/register_controller.dart';
 
 void main() async {
@@ -54,4 +55,5 @@ class _MyAppState extends State<MyApp> {
 void initControllers() {
   Get.lazyPut(() => Injection.sl<LoginController>());
   Get.lazyPut(() => Injection.sl<RegisterController>(), fenix: true);
+  Get.lazyPut(() => Injection.sl<ProfileController>(), fenix: true);
 }

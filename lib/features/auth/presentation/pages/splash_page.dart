@@ -1,3 +1,6 @@
+import 'package:connectycube_chat/core/utils/injection_container.dart';
+import 'package:connectycube_chat/features/auth/data/datasources/user_local_data_source.dart';
+
 import '../../../../core/src/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,13 +12,15 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  final userCachedData = Injection.sl<UserLocalDataSource>();
   @override
   void initState() {
     Future.delayed(
       Duration(milliseconds: 5000),
-      () => Get.offNamed(Routes.loginPage),
+      () => userCachedData.getUser() != null
+          ? Get.offNamed(Routes.homePage)
+          : Get.offNamed(Routes.loginPage),
     );
-
     super.initState();
   }
 

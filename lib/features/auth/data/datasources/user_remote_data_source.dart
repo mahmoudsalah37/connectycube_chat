@@ -1,12 +1,21 @@
+import 'package:connectycube_chat/core/usecases/usecase.dart';
+import 'package:connectycube_chat/core/utils/injection_container.dart';
+import 'package:connectycube_chat/features/auth/data/datasources/user_local_data_source.dart';
+import 'package:connectycube_chat/features/auth/domin/usecases/get_cache_user_usecase.dart';
 import 'package:connectycube_chat/features/auth/domin/usecases/register_usecase.dart';
+import 'package:connectycube_chat/features/auth/domin/usecases/update_user_data_usecase.dart';
 
 import '../../domin/usecases/login_usecase.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 
 abstract class UserRemoteDataSource {
   Future<CubeUser?> login(LoginParams params);
+
   Future<CubeUser?> newSession(LoginParams params);
+
   Future<CubeUser> register(RegisterParams params);
+
+  Future<CubeUser> updateUserData(UpdateUserDataParams params);
 }
 
 class UserRemoteDataSourceImp implements UserRemoteDataSource {
@@ -37,6 +46,8 @@ class UserRemoteDataSourceImp implements UserRemoteDataSource {
       } catch (error) {
         print('registerError>>> $error');
       }
+    } else {
+      print('Active session not valid');
     }
     final user = CubeUser(
       fullName: params.fullName,
@@ -46,6 +57,24 @@ class UserRemoteDataSourceImp implements UserRemoteDataSource {
 
     final data = await signUp(user);
     user.id = data.id;
+    return user;
+  }
+
+  @override
+  Future<CubeUser> updateUserData(UpdateUserDataParams params) async {
+    final userCachedData = Injection.sl<UserLocalDataSource>();
+    final user = CubeUser(
+      id: userCachedData.getUser()?.id,
+      login: params.userName,
+      password: params.password,
+      fullName: params.fullName,
+      avatar: params.avatar,
+    );
+    try {
+      await updateUser(user);
+    } catch (e) {
+      print('updateUserError = $e');
+    }
     return user;
   }
 }

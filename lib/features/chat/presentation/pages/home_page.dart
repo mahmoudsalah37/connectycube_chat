@@ -2,6 +2,7 @@ import 'package:connectycube_chat/core/usecases/usecase.dart';
 import 'package:connectycube_chat/core/utils/injection_container.dart';
 import 'package:connectycube_chat/features/auth/domin/usecases/delete_cache_user_usecase.dart';
 import 'package:connectycube_chat/features/auth/presentation/getx/login_controller.dart';
+import 'package:connectycube_chat/features/auth/presentation/getx/profile_controller.dart';
 
 import '../../../../core/src/colors.dart';
 import '../../../../core/src/routes.dart';
@@ -78,9 +79,8 @@ class _HomePageState extends State<HomePage>
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                            image: AssetImage('assets/test/person.jpeg'),
-                            fit: BoxFit.cover,
-                          ),
+                                  image: AssetImage('assets/test/person.jpeg'),
+                                  fit: BoxFit.cover),
                         ),
                       ),
                     ),

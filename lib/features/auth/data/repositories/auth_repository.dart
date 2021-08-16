@@ -1,3 +1,4 @@
+import 'package:connectycube_chat/features/auth/domin/usecases/update_user_data_usecase.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 
 import '../../../../core/network/network_information.dart';
@@ -17,6 +18,7 @@ class AuthRepositoryImp implements AuthRepository {
       {required this.userLocalDataSource,
       required this.userRemoteDataSource,
       required this.networkInformation});
+
   @override
   Future<CubeUser?> login(LoginParams params) async {
     final user = await userRemoteDataSource.login(params);
@@ -43,5 +45,12 @@ class AuthRepositoryImp implements AuthRepository {
       CubeChatConnection.instance.destroy();
     });
     return isdeleted;
+  }
+
+  @override
+  Future<CubeUser?> updateUserData(UpdateUserDataParams params) async {
+    final user = await userRemoteDataSource.updateUserData(params);
+    await userLocalDataSource.saveUser(user);
+    return user;
   }
 }
