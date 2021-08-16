@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 
 class ChatItemWidget extends StatelessWidget {
   final VoidCallback onPressed;
-
-  ChatItemWidget({required this.onPressed});
+  final String image, title, lastMessage;
+  ChatItemWidget(
+      {required this.onPressed,
+      required this.title,
+      this.image = '',
+      this.lastMessage = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +35,21 @@ class ChatItemWidget extends StatelessWidget {
               ),
             ),
             SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text('The Rock', style: theme.textTheme.headline5),
-                    SizedBox(width: res.getWidth(30)),
-                    Text('3:02 PM', style: theme.textTheme.subtitle1),
-                  ],
-                ),
-                SizedBox(height: 8),
-                Text('this is sent message', style: theme.textTheme.subtitle2)
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('$title', style: theme.textTheme.headline5),
+                      Text('3:02 PM', style: theme.textTheme.subtitle1),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Text('$lastMessage', style: theme.textTheme.subtitle2)
+                ],
+              ),
             ),
           ],
         ),

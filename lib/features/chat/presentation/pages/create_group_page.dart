@@ -1,6 +1,5 @@
 import 'package:connectycube_chat/core/src/styles.dart';
 import 'package:connectycube_chat/core/src/widgets/custom_button.dart';
-import 'package:connectycube_chat/core/utils/resposive.dart';
 import 'package:flutter/material.dart';
 
 class CreateGroupPage extends StatelessWidget {
@@ -8,7 +7,6 @@ class CreateGroupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final res = Responsive(context);
     final theme = Theme.of(context);
     return Scaffold(
       body: SafeArea(

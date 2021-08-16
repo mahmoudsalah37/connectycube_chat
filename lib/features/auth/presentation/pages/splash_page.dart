@@ -18,7 +18,7 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(
       Duration(milliseconds: 5000),
       () => userCachedData.getUser() != null
-          ? Get.offNamed(Routes.homePage)
+          ? Get.offNamed(Routes.channelsPage)
           : Get.offNamed(Routes.loginPage),
     );
     super.initState();
