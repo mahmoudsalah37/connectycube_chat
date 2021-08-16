@@ -33,14 +33,17 @@ class LoginController extends GetxController with StateMixin<CubeUser?> {
     // await autoLogin();
   }
 
-  Future<void> autoLogin() async {
+  Future<CubeUser?> autoLogin() async {
     final cacheUser = await getUserAuthUseCase(params: NoParams());
     if (cacheUser != null) {
       final login = cacheUser.login ?? '';
       final password = cacheUser.password ?? '';
       final params = LoginParams(login: login, password: password);
-      await loginUseCase(params: params);
-      Get.offNamed(Routes.channelsPage);
+      final user = await loginUseCase(params: params);
+      if (user != null) {
+        Get.offNamed(Routes.channelsPage);
+        return user;
+      }
     }
   }
 
