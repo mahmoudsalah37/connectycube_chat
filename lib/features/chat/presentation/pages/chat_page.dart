@@ -1,6 +1,5 @@
 import 'package:connectycube_chat/core/src/colors.dart';
 import 'package:connectycube_chat/core/src/styles.dart';
-import 'package:connectycube_chat/core/utils/resposive.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatefulWidget {
@@ -15,8 +14,6 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    final res = Responsive(context);
-    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,

@@ -65,7 +65,7 @@ class LoginPage extends GetView<LoginController> {
               padding: EdgeInsets.symmetric(horizontal: res.getWidth(20)),
               child: CustomButton(
                 title: 'Login',
-                onPressed: () {
+                onPressed: () async {
                   final isValid =
                       controller.formKey.currentState?.validate() ?? false;
                   if (isValid) {

@@ -7,14 +7,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../domin/usecases/login_usecase.dart';
 import 'package:flutter/material.dart'
-    show
-        BuildContext,
-        FormState,
-        GlobalKey,
-        ScaffoldMessenger,
-        SnackBar,
-        Text,
-        TextEditingController;
+    show BuildContext, FormState, GlobalKey, TextEditingController;
 import 'package:get/get.dart';
 
 class LoginController extends GetxController with StateMixin<CubeUser?> {
@@ -47,7 +40,7 @@ class LoginController extends GetxController with StateMixin<CubeUser?> {
       final password = cacheUser.password ?? '';
       final params = LoginParams(login: login, password: password);
       await loginUseCase(params: params);
-      Get.offNamed(Routes.homePage);
+      Get.offNamed(Routes.channelsPage);
     }
   }
 
@@ -65,7 +58,7 @@ class LoginController extends GetxController with StateMixin<CubeUser?> {
       final user = await loginUseCase(params: params);
       change(user, status: RxStatus.success());
       clearTEC();
-      Get.offNamed(Routes.homePage);
+      Get.offNamed(Routes.channelsPage);
     } catch (e) {
       Get.snackbar('home', '${e.toString()}');
       change(null, status: RxStatus.error(e.toString()));

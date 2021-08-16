@@ -13,6 +13,7 @@ import 'features/auth/domin/usecases/get_cache_user_usecase.dart';
 import 'features/auth/presentation/getx/login_controller.dart';
 import 'features/auth/presentation/getx/profile_controller.dart';
 import 'features/auth/presentation/getx/register_controller.dart';
+import 'features/chat/presentation/getx/channels_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,14 +47,18 @@ class _MyAppState extends State<MyApp> {
       theme: CustomsThemes.defaultThemeData,
       initialRoute: Routes.splashPage,
       getPages: Routes.setPages(),
-      onInit: () => initControllers(),
+      onInit: _initControllers,
       title: 'Chat',
     );
   }
-}
 
-void initControllers() {
-  Get.lazyPut(() => Injection.sl<LoginController>());
-  Get.lazyPut(() => Injection.sl<RegisterController>(), fenix: true);
-  Get.lazyPut(() => Injection.sl<ProfileController>(), fenix: true);
+  void _initControllers() {
+    // Auth
+    Get.lazyPut(() => Injection.sl<LoginController>());
+    Get.lazyPut(() => Injection.sl<RegisterController>(), fenix: true);
+    Get.lazyPut(() => Injection.sl<ProfileController>(), fenix: true);
+
+    // Chat
+    Get.lazyPut(() => Injection.sl<ChannelsController>());
+  }
 }
