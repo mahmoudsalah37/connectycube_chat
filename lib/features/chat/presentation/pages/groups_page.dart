@@ -10,10 +10,10 @@ class GroupsPage extends StatelessWidget {
       body: ListView.builder(
         padding: EdgeInsets.zero,
         itemBuilder: (context, index) => ChatItemWidget(
-          onPressed: () =>Get.toNamed(Routes.chatPage),
+          title: '',
+          onPressed: () => Get.toNamed(Routes.chatPage),
         ),
       ),
     );
   }
 }
-

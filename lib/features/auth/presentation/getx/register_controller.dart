@@ -1,7 +1,6 @@
 import 'package:connectycube_chat/core/src/routes.dart';
 import 'package:connectycube_chat/features/auth/domin/usecases/login_usecase.dart';
 import 'package:connectycube_chat/features/auth/domin/usecases/register_usecase.dart';
-import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 

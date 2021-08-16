@@ -22,7 +22,7 @@ class WelcomeNewUserPage extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(bottom: 40),
               child: CustomButton(
-                onPressed: () => Get.offNamed(Routes.homePage),
+                onPressed: () => Get.offNamed(Routes.channelsPage),
                 title: 'Yalla Chat!',
                 paddingHorizontal: 70,
               ),

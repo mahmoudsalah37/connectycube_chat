@@ -1,4 +1,5 @@
 import 'package:connectycube_chat/features/auth/domin/usecases/login_usecase.dart';
+import 'package:connectycube_sdk/connectycube_sdk.dart';
 
 import '../../../../core/src/colors.dart';
 import '../../../../core/src/routes.dart';
@@ -65,7 +66,7 @@ class LoginPage extends GetView<LoginController> {
               padding: EdgeInsets.symmetric(horizontal: res.getWidth(20)),
               child: CustomButton(
                 title: 'Login',
-                onPressed: () {
+                onPressed: () async {
                   final isValid =
                       controller.formKey.currentState?.validate() ?? false;
                   if (isValid) {

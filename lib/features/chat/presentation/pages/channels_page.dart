@@ -1,31 +1,15 @@
-import 'package:connectycube_chat/core/usecases/usecase.dart';
-import 'package:connectycube_chat/core/utils/injection_container.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/delete_cache_user_usecase.dart';
 import 'package:connectycube_chat/features/auth/presentation/getx/login_controller.dart';
+import 'package:connectycube_chat/features/chat/presentation/getx/channels_controller.dart';
 
 import '../../../../core/src/colors.dart';
 import '../../../../core/src/routes.dart';
 import '../../../../core/utils/resposive.dart';
+import 'users_page.dart';
 import 'groups_page.dart';
-import 'persons_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    _tabController = new TabController(length: 2, vsync: this);
-    super.initState();
-  }
-
+class ChannelsPage extends GetView<ChannelsController> {
   @override
   Widget build(BuildContext context) {
     final res = Responsive(context);
@@ -108,17 +92,17 @@ class _HomePageState extends State<HomePage>
                   Tab(text: 'Chats'),
                   Tab(text: 'Groups'),
                 ],
-                controller: _tabController,
+                controller: controller.tabController,
                 indicatorSize: TabBarIndicatorSize.tab,
               ),
             ),
             Expanded(
               child: TabBarView(
                 children: [
-                  PersonsPage(),
+                  UsersPage(),
                   GroupsPage(),
                 ],
-                controller: _tabController,
+                controller: controller.tabController,
               ),
             ),
           ],
@@ -130,11 +114,5 @@ class _HomePageState extends State<HomePage>
         child: Icon(Icons.add, size: 40, color: Colors.white),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
   }
 }
