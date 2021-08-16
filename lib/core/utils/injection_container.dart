@@ -37,7 +37,7 @@ class Injection {
     sl.registerFactory<LoginController>(
       () => LoginController(
           loginUseCase: sl(),
-          getUserAuthUseCase: sl(),
+          getCacheUserUseCase: sl(),
           logOutUserUseCase: sl()),
     );
     sl.registerFactory<RegisterController>(

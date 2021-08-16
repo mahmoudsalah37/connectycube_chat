@@ -26,7 +26,8 @@ class UserLocalDataSourceImp implements UserLocalDataSource {
 
   @override
   Future<bool> saveUser(CubeUser user) {
-    return sharedPreferences.setString(CacheUser, json.encode(user.toJson()));
+    final userJson = json.encode(user.toJson());
+    return sharedPreferences.setString(CacheUser, userJson);
   }
 
   @override

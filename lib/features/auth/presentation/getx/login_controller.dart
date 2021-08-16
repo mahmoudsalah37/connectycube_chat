@@ -17,12 +17,12 @@ class LoginController extends GetxController with StateMixin<CubeUser?> {
 
   // final AuthRepositoryImp authRepositoryImp;
   final LoginUseCase loginUseCase;
-  final GetCacheUserUseCase getUserAuthUseCase;
+  final GetCacheUserUseCase getCacheUserUseCase;
   final LogOutUserUseCase logOutUserUseCase;
 
   LoginController({
     required this.loginUseCase,
-    required this.getUserAuthUseCase,
+    required this.getCacheUserUseCase,
     required this.logOutUserUseCase,
   });
 
@@ -34,7 +34,7 @@ class LoginController extends GetxController with StateMixin<CubeUser?> {
   }
 
   Future<CubeUser?> autoLogin() async {
-    final cacheUser = await getUserAuthUseCase(params: NoParams());
+    final cacheUser = await getCacheUserUseCase(params: NoParams());
     if (cacheUser != null) {
       final login = cacheUser.login ?? '';
       final password = cacheUser.password ?? '';
