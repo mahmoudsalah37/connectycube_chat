@@ -1,15 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectycube_chat/core/src/styles.dart';
 import 'package:connectycube_chat/core/utils/resposive.dart';
+import 'package:connectycube_sdk/connectycube_calls.dart';
 import 'package:flutter/material.dart';
 
 class ChatItemWidget extends StatelessWidget {
   final VoidCallback onPressed;
-  final String image, title, lastMessage;
-  ChatItemWidget(
-      {required this.onPressed,
-      required this.title,
-      this.image = '',
-      this.lastMessage = ''});
+
+  // final String image, title, lastMessage;
+  final CubeUser cubeUser;
+
+  ChatItemWidget({
+    required this.onPressed,
+    required this.cubeUser,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +27,15 @@ class ChatItemWidget extends StatelessWidget {
         decoration: CustomStyle.containerShadowDecoration,
         child: Row(
           children: [
-            Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage('assets/test/person.jpeg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
+            ClipOval(
+              child: cubeUser.avatar == null
+                  ? Image.asset('assets/test/person.jpeg',
+                      height: 60, width: 60, fit: BoxFit.cover)
+                  : CachedNetworkImage(
+                      imageUrl: cubeUser.avatar!,
+                      height: 60,
+                      width: 60,
+                      fit: BoxFit.cover),
             ),
             SizedBox(width: 16),
             Expanded(
@@ -42,12 +45,18 @@ class ChatItemWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('$title', style: theme.textTheme.headline5),
-                      Text('3:02 PM', style: theme.textTheme.subtitle1),
+                      Text(cubeUser.fullName!,
+                          style: theme.textTheme.headline5!
+                              .copyWith(fontSize: 14)),
+                      Text(
+                        '${cubeUser.lastRequestAt!.hour.toString()}:${cubeUser.lastRequestAt!.minute}',
+                        style:
+                            theme.textTheme.subtitle1!.copyWith(fontSize: 12),
+                      ),
                     ],
                   ),
                   SizedBox(height: 8),
-                  Text('$lastMessage', style: theme.textTheme.subtitle2)
+                  Text('hey', style: theme.textTheme.subtitle2)
                 ],
               ),
             ),

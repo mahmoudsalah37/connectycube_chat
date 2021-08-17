@@ -8,9 +8,12 @@ import 'package:get/get.dart';
 class ChannelsController extends GetxController
     with SingleGetTickerProviderMixin, StateMixin<PagedResult<CubeUser>?> {
   ChannelsController({required this.getUsersUseCase});
+
   final GetUsersUseCase getUsersUseCase;
   late TabController tabController;
   PagedResult<CubeUser>? users;
+  late CubeUser cubeUser;
+
   @override
   void onInit() {
     super.onInit();
@@ -24,6 +27,13 @@ class ChannelsController extends GetxController
     users = await getUsersUseCase(params: NoParams());
     change(users, status: RxStatus.success());
   }
+
+  set setUser(CubeUser cubeUser) {
+    this.cubeUser = cubeUser;
+    update();
+  }
+
+  CubeUser get getUser => cubeUser;
 
   @override
   void onClose() {

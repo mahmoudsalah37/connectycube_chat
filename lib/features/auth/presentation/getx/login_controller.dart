@@ -56,7 +56,7 @@ class LoginController extends GetxController with StateMixin<CubeUser?> {
 
   void login({required LoginParams params}) async {
     change(null, status: RxStatus.loading());
-
+    
     try {
       final user = await loginUseCase(params: params);
       change(user, status: RxStatus.success());

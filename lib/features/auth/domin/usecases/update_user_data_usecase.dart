@@ -15,15 +15,14 @@ class UpdateUserDataUseCase extends UseCase<CubeUser, UpdateUserDataParams> {
 }
 
 class UpdateUserDataParams extends Equatable {
-  final String userName, fullName, password, avatar;
+  final String userName, fullName,avatar;
 
   UpdateUserDataParams({
    required this.userName,
    required this.fullName,
-   required this.password,
    required this.avatar,
   });
 
   @override
-  List<Object?> get props => [userName, fullName, password, avatar];
+  List<Object?> get props => [userName, fullName, avatar];
 }

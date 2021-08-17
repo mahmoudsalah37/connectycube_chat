@@ -46,6 +46,7 @@ class Injection {
     sl.registerFactory<ProfileController>(
       () => ProfileController(
         updateUserDataUseCase: sl(),
+        getCacheUserUseCase: sl(),
       ),
     );
     // Use cases

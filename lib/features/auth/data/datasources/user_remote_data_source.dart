@@ -66,7 +66,6 @@ class UserRemoteDataSourceImp implements UserRemoteDataSource {
     final user = CubeUser(
       id: userCachedData.getUser()?.id,
       login: params.userName,
-      password: params.password,
       fullName: params.fullName,
       avatar: params.avatar,
     );

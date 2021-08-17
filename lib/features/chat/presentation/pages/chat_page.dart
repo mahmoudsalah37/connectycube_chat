@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectycube_chat/core/src/colors.dart';
 import 'package:connectycube_chat/core/src/styles.dart';
+import 'package:connectycube_chat/features/chat/presentation/getx/channels_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ChatPage extends StatefulWidget {
   @override
@@ -14,11 +17,21 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    final channelController = Get.find<ChannelsController>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
-        title: Text('chat userName'),
+        title: Row(
+          children: [
+            ClipOval(
+              child: CachedNetworkImage( imageUrl: channelController.getUser.avatar!,
+                  height: 40, width: 40, fit: BoxFit.cover,),
+            ),
+            SizedBox(width: 10),
+            Text(channelController.getUser.fullName.toString()),
+          ],
+        ),
       ),
       body: Column(
         children: [

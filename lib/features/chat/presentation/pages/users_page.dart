@@ -18,8 +18,11 @@ class UsersPage extends GetView<ChannelsController> {
             itemBuilder: (context, index) {
               final user = users.elementAt(index);
               return ChatItemWidget(
-                title: user.fullName ?? '',
-                onPressed: () => Get.toNamed(Routes.chatPage),
+                cubeUser: user,
+                onPressed: () {
+                  controller.setUser = user;
+                  Get.toNamed(Routes.chatPage);
+                },
               );
             },
           );
