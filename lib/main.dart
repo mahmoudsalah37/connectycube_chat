@@ -14,6 +14,7 @@ import 'features/auth/presentation/getx/login_controller.dart';
 import 'features/auth/presentation/getx/profile_controller.dart';
 import 'features/auth/presentation/getx/register_controller.dart';
 import 'features/chat/presentation/getx/channels_controller.dart';
+import 'features/chat/presentation/getx/chat_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,5 +61,7 @@ class _MyAppState extends State<MyApp> {
 
     // Chat
     Get.lazyPut(() => Injection.sl<ChannelsController>());
+    //TODO: chat controller throw error without fenix
+    Get.lazyPut(() => Injection.sl<ChatController>(),fenix: true);
   }
 }

@@ -47,7 +47,7 @@ class LoginController extends GetxController with StateMixin<CubeUser?> {
     }
   }
 
-  Future<void> logout(BuildContext context) async {
+  Future<void> logout() async {
     final isLogout = await logOutUserUseCase(params: NoParams());
     if (isLogout) {
       Get.offAllNamed(Routes.loginPage);

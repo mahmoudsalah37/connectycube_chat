@@ -1,18 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectycube_chat/core/src/styles.dart';
 import 'package:connectycube_chat/core/utils/resposive.dart';
+import 'package:connectycube_chat/features/auth/domin/usecases/get_first_chat_use_case.dart';
 import 'package:connectycube_sdk/connectycube_calls.dart';
 import 'package:flutter/material.dart';
 
 class ChatItemWidget extends StatelessWidget {
   final VoidCallback onPressed;
-
-  // final String image, title, lastMessage;
   final CubeUser cubeUser;
+  final GetFirstCharUseCase getFirstCharUseCase;
 
   ChatItemWidget({
     required this.onPressed,
     required this.cubeUser,
+    required this.getFirstCharUseCase,
   });
 
   @override
@@ -29,13 +30,23 @@ class ChatItemWidget extends StatelessWidget {
           children: [
             ClipOval(
               child: cubeUser.avatar == null
-                  ? Image.asset('assets/test/person.jpeg',
-                      height: 60, width: 60, fit: BoxFit.cover)
+                  ? CircleAvatar(
+                      radius: 28,
+                      child: Text(
+                        getFirstCharUseCase.getFirstChar(
+                          string: cubeUser.fullName!.toUpperCase(),
+                          limitTo: 1,
+                        ),
+                      ),
+                    )
                   : CachedNetworkImage(
                       imageUrl: cubeUser.avatar!,
                       height: 60,
                       width: 60,
-                      fit: BoxFit.cover),
+                      fit: BoxFit.cover,
+                      progressIndicatorBuilder: (_, url, progress) =>
+                          CircularProgressIndicator(),
+                    ),
             ),
             SizedBox(width: 16),
             Expanded(

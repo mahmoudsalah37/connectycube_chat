@@ -5,8 +5,10 @@ import 'package:connectycube_chat/features/auth/domin/usecases/update_user_data_
 import 'package:connectycube_chat/features/auth/presentation/getx/profile_controller.dart';
 import 'package:connectycube_chat/features/auth/presentation/getx/register_controller.dart';
 import 'package:connectycube_chat/features/chat/data/datasources/chat_remote_data_source.dart';
+import 'package:connectycube_chat/features/auth/domin/usecases/get_first_chat_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/get_users_use_case.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/channels_controller.dart';
+import 'package:connectycube_chat/features/chat/presentation/getx/chat_controller.dart';
 
 import '../network/network_information.dart';
 import '../../features/auth/data/datasources/user_local_data_source.dart';
@@ -47,6 +49,7 @@ class Injection {
       () => ProfileController(
         updateUserDataUseCase: sl(),
         getCacheUserUseCase: sl(),
+        getFirstCharUseCase: sl(),
       ),
     );
     // Use cases
@@ -66,6 +69,8 @@ class Injection {
         () => RegisterUseCase(authRepository: sl()));
     sl.registerLazySingleton<UpdateUserDataUseCase>(
         () => UpdateUserDataUseCase(authRepository: sl()));
+    sl.registerLazySingleton<GetFirstCharUseCase>(() => GetFirstCharUseCase());
+
     // Data sources
     sl.registerLazySingleton<UserRemoteDataSource>(
         () => UserRemoteDataSourceImp());
@@ -77,8 +82,11 @@ class Injection {
 
   static void _chat() async {
     // Controllers
-    sl.registerFactory<ChannelsController>(
-        () => ChannelsController(getUsersUseCase: sl()));
+    sl.registerFactory<ChannelsController>(() => ChannelsController(
+        getUsersUseCase: sl(),
+        getCacheUserUseCase: sl(),
+        getFirstCharUseCase: sl()));
+    sl.registerFactory<ChatController>(() => ChatController());
 
     // Use cases
     sl.registerLazySingleton<GetUsersUseCase>(

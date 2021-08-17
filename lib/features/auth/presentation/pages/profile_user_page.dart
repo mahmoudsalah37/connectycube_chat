@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectycube_chat/core/src/colors.dart';
 import 'package:connectycube_chat/core/src/widgets/custom_button.dart';
 import 'package:connectycube_chat/core/utils/resposive.dart';
@@ -39,13 +40,16 @@ class ProfileUserPage extends GetView<ProfileController> {
                               )
                             : avatar!.isNotEmpty
                                 ? ClipOval(
-                                    child: Image.network(
-                                      avatar,
-                                      fit: BoxFit.fitWidth,
+                                    child: CachedNetworkImage(
+                                      imageUrl: avatar,
+                                      fit: BoxFit.cover,
+                                      progressIndicatorBuilder:
+                                          (_, url, progress) =>
+                                              CircularProgressIndicator(),
                                     ),
                                   )
                                 : Text(
-                                    controller
+                                    controller.getFirstCharUseCase
                                         .getFirstChar(
                                             string: controller.fullNameTEC.text,
                                             limitTo: 1)
