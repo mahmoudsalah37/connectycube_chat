@@ -6,7 +6,7 @@ import 'package:connectycube_chat/features/chat/presentation/getx/chat_controlle
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ChatPage extends StatelessWidget {
+class ChatPage extends GetView<ChatController> {
   @override
   Widget build(BuildContext context) {
     final channelController = Get.find<ChannelsController>();
@@ -19,12 +19,14 @@ class ChatPage extends StatelessWidget {
             title: Row(
               children: [
                 ClipOval(
-                  child: CachedNetworkImage(
-                    imageUrl: channelController.getUser.avatar!,
-                    height: 40,
-                    width: 40,
-                    fit: BoxFit.cover,
-                  ),
+                  child: channelController.getUser.avatar == null
+                      ? Container()
+                      : CachedNetworkImage(
+                          imageUrl: channelController.getUser.avatar!,
+                          height: 40,
+                          width: 40,
+                          fit: BoxFit.cover,
+                        ),
                 ),
                 SizedBox(width: 10),
                 Text(channelController.getUser.fullName.toString()),
@@ -33,18 +35,19 @@ class ChatPage extends StatelessWidget {
           ),
           body: Column(
             children: [
-              Expanded(
-                child: Text('chat page'),
-              ),
+              Expanded(child: Text('chat page')),
               Container(
                 padding: EdgeInsets.all(8.0),
                 decoration: CustomStyle.containerShadowDecoration
                     .copyWith(borderRadius: BorderRadius.circular(0)),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      backgroundColor: CustomColors.primaryColor,
-                      child: Icon(Icons.add, size: 20, color: Colors.white),
+                    GestureDetector(
+                      onTap: () {},
+                      child: CircleAvatar(
+                        backgroundColor: CustomColors.primaryColor,
+                        child: Icon(Icons.add, size: 20, color: Colors.white),
+                      ),
                     ),
                     Expanded(
                       child: Padding(

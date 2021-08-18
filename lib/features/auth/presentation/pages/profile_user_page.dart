@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectycube_chat/core/src/colors.dart';
+import 'package:connectycube_chat/core/src/widgets/circle_image_widget.dart';
 import 'package:connectycube_chat/core/src/widgets/custom_button.dart';
 import 'package:connectycube_chat/core/utils/resposive.dart';
 import 'package:connectycube_chat/features/auth/presentation/getx/profile_controller.dart';
@@ -13,7 +14,6 @@ class ProfileUserPage extends GetView<ProfileController> {
     final avatar =
         controller.getCacheUserUseCase.authRepository.getCacheUser()!.avatar;
     final res = Responsive(context);
-    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: Form(
         key: controller.formKey,
@@ -28,36 +28,20 @@ class ProfileUserPage extends GetView<ProfileController> {
                   children: [
                     Hero(
                       tag: 'profile_hero',
-                      child: Container(
-                        width: res.getWidth(40),
-                        height: res.getHeight(20),
-                        child: controller.pickedImgFile != null
-                            ? ClipOval(
-                                child: Image.file(
-                                  controller.pickedImgFile!,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              )
-                            : avatar!.isNotEmpty
-                                ? ClipOval(
-                                    child: CachedNetworkImage(
-                                      imageUrl: avatar,
-                                      fit: BoxFit.cover,
-                                      progressIndicatorBuilder:
-                                          (_, url, progress) =>
-                                              CircularProgressIndicator(),
-                                    ),
-                                  )
-                                : Text(
-                                    controller.getFirstCharUseCase
-                                        .getFirstChar(
-                                            string: controller.fullNameTEC.text,
-                                            limitTo: 1)
-                                        .toUpperCase(),
-                                    style: textTheme.headline1
-                                        ?.copyWith(fontSize: 40),
-                                  ),
-                      ),
+                      child: controller.pickedImgFile != null
+                          ? ClipOval(
+                              child: Image.file(
+                                controller.pickedImgFile!,
+                                fit: BoxFit.cover,
+                                width: res.getWidth(40),
+                                height: res.getHeight(20),
+                              ),
+                            )
+                          : CircleImageWidget(
+                              avatar: avatar.toString(),
+                              fullName: controller.fullNameTEC.text,
+                              imageSize: 80,
+                            ),
                     ),
                     Positioned(
                       bottom: 0,

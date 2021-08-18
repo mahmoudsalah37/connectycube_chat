@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:connectycube_chat/core/src/widgets/circle_image_widget.dart';
 import 'package:connectycube_chat/features/auth/presentation/getx/login_controller.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/channels_controller.dart';
 
@@ -58,26 +59,10 @@ class ChannelsPage extends GetView<ChannelsController> {
                     onTap: () => Get.toNamed(Routes.profileUserPage),
                     child: Hero(
                       tag: 'profile_hero',
-                      child: CircleAvatar(
-                        backgroundColor: Colors.grey[300],
-                        child: ClipOval(
-                          child: cachedUser.avatar == null
-                              ? Text(
-                                  controller.getFirstCharUseCase.getFirstChar(
-                                    string: cachedUser.fullName!.toUpperCase(),
-                                    limitTo: 1,
-                                  ),
-                                )
-                              : CachedNetworkImage(
-                                  imageUrl: cachedUser.avatar.toString(),
-                                  height: 50,
-                                  width: 50,
-                                  fit: BoxFit.cover,
-                                  progressIndicatorBuilder:
-                                      (_, url, progress) =>
-                                          CircularProgressIndicator(),
-                                ),
-                        ),
+                      child: CircleImageWidget(
+                        avatar: cachedUser.avatar.toString(),
+                        fullName: cachedUser.fullName ?? 'A',
+                        imageSize: 24,
                       ),
                     ),
                   ),

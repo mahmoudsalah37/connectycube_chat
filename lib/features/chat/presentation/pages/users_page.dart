@@ -23,7 +23,6 @@ class UsersPage extends GetView<ChannelsController> {
                   controller.setUser = user;
                   Get.toNamed(Routes.chatPage);
                 },
-                getFirstCharUseCase: controller.getFirstCharUseCase,
               );
             },
           );

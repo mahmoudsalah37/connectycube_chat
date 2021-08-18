@@ -1,10 +1,7 @@
 import 'dart:io';
 
-import 'package:connectycube_chat/core/utils/injection_container.dart';
-import 'package:connectycube_chat/features/auth/data/datasources/user_local_data_source.dart';
 import 'package:connectycube_chat/features/auth/domin/usecases/get_cache_user_usecase.dart';
 import 'package:connectycube_chat/features/auth/domin/usecases/update_user_data_usecase.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/get_first_chat_use_case.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,12 +20,10 @@ class ProfileController extends GetxController {
   File? pickedImgFile;
   UpdateUserDataUseCase updateUserDataUseCase;
   GetCacheUserUseCase getCacheUserUseCase;
-  GetFirstCharUseCase getFirstCharUseCase;
 
   ProfileController({
     required this.updateUserDataUseCase,
     required this.getCacheUserUseCase,
-    required this.getFirstCharUseCase,
   });
 
   @override
@@ -72,6 +67,13 @@ class ProfileController extends GetxController {
     print('avatarUrl = $avatarUrl');
     update();
   }
+
+  // Future<void> uploadImage()async {
+  //   await uploadFile(pickedImgFile!, isPublic: true).then((cubeFile) {
+  //     avatarUrl = cubeFile.getPublicUrl()!;
+  //   });
+  //   print('avatarUrl = $avatarUrl');
+  // }
 
   @override
   void onClose() {
