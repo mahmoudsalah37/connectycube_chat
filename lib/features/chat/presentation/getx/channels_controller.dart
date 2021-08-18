@@ -1,6 +1,6 @@
 import 'package:connectycube_chat/core/usecases/usecase.dart';
 import 'package:connectycube_chat/features/auth/domin/usecases/get_cache_user_usecase.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/get_first_chat_use_case.dart';
+import 'package:connectycube_chat/features/auth/domin/usecases/get_first_char_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/get_users_use_case.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart'
     show CubeUser, PagedResult;

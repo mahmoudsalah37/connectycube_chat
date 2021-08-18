@@ -5,7 +5,7 @@ import 'package:connectycube_chat/features/auth/domin/usecases/update_user_data_
 import 'package:connectycube_chat/features/auth/presentation/getx/profile_controller.dart';
 import 'package:connectycube_chat/features/auth/presentation/getx/register_controller.dart';
 import 'package:connectycube_chat/features/chat/data/datasources/chat_remote_data_source.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/get_first_chat_use_case.dart';
+import 'package:connectycube_chat/features/auth/domin/usecases/get_first_char_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/get_users_use_case.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/channels_controller.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/chat_controller.dart';
