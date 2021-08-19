@@ -3,10 +3,11 @@ import 'package:connectycube_chat/core/src/colors.dart';
 import 'package:connectycube_chat/core/src/styles.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/channels_controller.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/chat_controller.dart';
+import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ChatPage extends StatelessWidget {
+class ChatPage extends GetView<ChatController> {
   @override
   Widget build(BuildContext context) {
     final channelController = Get.find<ChannelsController>();
@@ -62,7 +63,9 @@ class ChatPage extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await controller.sendStringMessage();
+                      },
                       icon: controller.getTextFieldIsEmpty
                           ? Icon(Icons.mic, color: CustomColors.primaryColor)
                           : Icon(Icons.send, color: CustomColors.primaryColor),
@@ -75,5 +78,14 @@ class ChatPage extends StatelessWidget {
         );
       },
     );
+  }
+
+  CubeMessage createCubeStringMsg(String message) {
+    final cubeMessage = CubeMessage();
+    cubeMessage.dateSent = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+    cubeMessage.markable = true;
+    cubeMessage.saveToHistory = true;
+    cubeMessage.body = message;
+    return cubeMessage;
   }
 }

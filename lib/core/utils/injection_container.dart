@@ -6,7 +6,11 @@ import 'package:connectycube_chat/features/auth/presentation/getx/profile_contro
 import 'package:connectycube_chat/features/auth/presentation/getx/register_controller.dart';
 import 'package:connectycube_chat/features/chat/data/datasources/chat_remote_data_source.dart';
 import 'package:connectycube_chat/features/auth/domin/usecases/get_first_chat_use_case.dart';
+import 'package:connectycube_chat/features/chat/data/repositories/chat_repository_imp.dart';
+import 'package:connectycube_chat/features/chat/domin/repositories/chat_repository.dart';
+import 'package:connectycube_chat/features/chat/domin/usecases/create_new_private_dialog.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/get_users_use_case.dart';
+import 'package:connectycube_chat/features/chat/domin/usecases/send_string_message_use_case.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/channels_controller.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/chat_controller.dart';
 
@@ -35,6 +39,26 @@ class Injection {
   }
 
   static void _auth() async {
+    sl.registerLazySingleton<AuthRepository>(
+      () => AuthRepositoryImp(
+        userRemoteDataSource: sl(),
+        userLocalDataSource: sl(),
+        networkInformation: sl(),
+      ),
+    );
+    // Use cases
+    sl.registerLazySingleton(() => LoginUseCase(authRepository: sl()));
+    sl.registerLazySingleton<LogOutUserUseCase>(
+        () => LogOutUserUseCase(authRepository: sl()));
+    sl.registerLazySingleton<GetCacheUserUseCase>(
+        () => GetCacheUserUseCase(authRepository: sl()));
+
+    sl.registerLazySingleton<RegisterUseCase>(
+        () => RegisterUseCase(authRepository: sl()));
+    sl.registerLazySingleton<UpdateUserDataUseCase>(
+        () => UpdateUserDataUseCase(authRepository: sl()));
+    sl.registerLazySingleton<GetFirstCharUseCase>(() => GetFirstCharUseCase());
+
     // Controller
     sl.registerFactory<LoginController>(
       () => LoginController(
@@ -52,24 +76,6 @@ class Injection {
         getFirstCharUseCase: sl(),
       ),
     );
-    // Use cases
-    sl.registerLazySingleton(() => LoginUseCase(authRepository: sl()));
-    sl.registerLazySingleton<LogOutUserUseCase>(
-        () => LogOutUserUseCase(authRepository: sl()));
-    sl.registerLazySingleton<GetCacheUserUseCase>(
-        () => GetCacheUserUseCase(authRepository: sl()));
-    sl.registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImp(
-        userRemoteDataSource: sl(),
-        userLocalDataSource: sl(),
-        networkInformation: sl(),
-      ),
-    );
-    sl.registerLazySingleton<RegisterUseCase>(
-        () => RegisterUseCase(authRepository: sl()));
-    sl.registerLazySingleton<UpdateUserDataUseCase>(
-        () => UpdateUserDataUseCase(authRepository: sl()));
-    sl.registerLazySingleton<GetFirstCharUseCase>(() => GetFirstCharUseCase());
 
     // Data sources
     sl.registerLazySingleton<UserRemoteDataSource>(
@@ -81,16 +87,26 @@ class Injection {
   }
 
   static void _chat() async {
-    // Controllers
-    sl.registerFactory<ChannelsController>(() => ChannelsController(
-        getUsersUseCase: sl(),
-        getCacheUserUseCase: sl(),
-        getFirstCharUseCase: sl()));
-    sl.registerFactory<ChatController>(() => ChatController());
-
+    sl.registerLazySingleton<ChatRepository>(
+        () => ChatRepositoryImp(chatRemoteDataSource: sl()));
     // Use cases
     sl.registerLazySingleton<GetUsersUseCase>(
-        () => GetUsersUseCase(chatRemoteDataSource: sl()));
+        () => GetUsersUseCase(chatRepository: sl()));
+    sl.registerLazySingleton<CreateNewPrivateDialogUseCase>(
+        () => CreateNewPrivateDialogUseCase(chatRepository: sl()));
+    sl.registerLazySingleton<SendStringMessageUseCase>(
+        () => SendStringMessageUseCase(chatRepository: sl()));
+    // Controllers
+    sl.registerFactory<ChannelsController>(
+      () => ChannelsController(
+        getUsersUseCase: sl(),
+        getCacheUserUseCase: sl(),
+        getFirstCharUseCase: sl(),
+        createNewPrivateDialogUseCase: sl(),
+      ),
+    );
+    sl.registerFactory<ChatController>(
+        () => ChatController(sendStringMessageUseCase: sl()));
     // Data sources
     sl.registerLazySingleton<ChatRemoteDataSource>(
         () => ChatRemoteDataSourceImp());

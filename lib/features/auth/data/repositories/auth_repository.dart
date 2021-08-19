@@ -23,7 +23,7 @@ class AuthRepositoryImp implements AuthRepository {
   Future<CubeUser?> login(LoginParams params) async {
     final user = await userRemoteDataSource.login(params);
 
-    if (user != null) {
+    if (userLocalDataSource.getUser() == null && user != null) {
       await userLocalDataSource.saveUser(user);
     }
     return user;
