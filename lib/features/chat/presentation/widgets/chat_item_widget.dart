@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectycube_chat/core/src/styles.dart';
+import 'package:connectycube_chat/core/src/widgets/circle_image_widget.dart';
 import 'package:connectycube_chat/core/utils/resposive.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/get_first_chat_use_case.dart';
+import 'package:connectycube_chat/features/auth/domin/usecases/get_first_char_use_case.dart';
+import 'package:connectycube_chat/features/chat/presentation/pages/channels_page.dart';
 import 'package:connectycube_sdk/connectycube_calls.dart';
 import 'package:flutter/material.dart';
 
@@ -28,25 +30,10 @@ class ChatItemWidget extends StatelessWidget {
         decoration: CustomStyle.containerShadowDecoration,
         child: Row(
           children: [
-            ClipOval(
-              child: cubeUser.avatar == null
-                  ? CircleAvatar(
-                      radius: 28,
-                      child: Text(
-                        getFirstCharUseCase.getFirstChar(
-                          string: cubeUser.fullName!.toUpperCase(),
-                          limitTo: 1,
-                        ),
-                      ),
-                    )
-                  : CachedNetworkImage(
-                      imageUrl: cubeUser.avatar!,
-                      height: 60,
-                      width: 60,
-                      fit: BoxFit.cover,
-                      progressIndicatorBuilder: (_, url, progress) =>
-                          CircularProgressIndicator(),
-                    ),
+            CircleImageWidget(
+              avatar: cubeUser.avatar.toString(),
+              fullName: cubeUser.fullName ?? '',
+              imageSize: 30,
             ),
             SizedBox(width: 16),
             Expanded(

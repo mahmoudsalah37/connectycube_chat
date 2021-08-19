@@ -1,11 +1,11 @@
 import 'package:connectycube_chat/features/auth/domin/usecases/delete_cache_user_usecase.dart';
 import 'package:connectycube_chat/features/auth/domin/usecases/get_cache_user_usecase.dart';
+import 'package:connectycube_chat/features/auth/domin/usecases/get_first_char_use_case.dart';
 import 'package:connectycube_chat/features/auth/domin/usecases/register_usecase.dart';
 import 'package:connectycube_chat/features/auth/domin/usecases/update_user_data_usecase.dart';
 import 'package:connectycube_chat/features/auth/presentation/getx/profile_controller.dart';
 import 'package:connectycube_chat/features/auth/presentation/getx/register_controller.dart';
 import 'package:connectycube_chat/features/chat/data/datasources/chat_remote_data_source.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/get_first_chat_use_case.dart';
 import 'package:connectycube_chat/features/chat/data/repositories/chat_repository_imp.dart';
 import 'package:connectycube_chat/features/chat/domin/repositories/chat_repository.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/create_new_private_dialog.dart';
