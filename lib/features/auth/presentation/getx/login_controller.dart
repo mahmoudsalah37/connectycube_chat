@@ -7,7 +7,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../domin/usecases/login_usecase.dart';
 import 'package:flutter/material.dart'
-    show BuildContext, FormState, GlobalKey, TextEditingController;
+    show FormState, GlobalKey, TextEditingController;
 import 'package:get/get.dart';
 
 class LoginController extends GetxController with StateMixin<CubeUser?> {
@@ -56,7 +56,7 @@ class LoginController extends GetxController with StateMixin<CubeUser?> {
 
   void login({required LoginParams params}) async {
     change(null, status: RxStatus.loading());
-    
+
     try {
       final user = await loginUseCase(params: params);
       change(user, status: RxStatus.success());
