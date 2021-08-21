@@ -1,6 +1,5 @@
 import 'package:connectycube_chat/features/auth/domin/usecases/delete_cache_user_usecase.dart';
 import 'package:connectycube_chat/features/auth/domin/usecases/get_cache_user_usecase.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/get_first_char_use_case.dart';
 import 'package:connectycube_chat/features/auth/domin/usecases/register_usecase.dart';
 import 'package:connectycube_chat/features/auth/domin/usecases/update_user_data_usecase.dart';
 import 'package:connectycube_chat/features/auth/presentation/getx/profile_controller.dart';
@@ -57,7 +56,6 @@ class Injection {
         () => RegisterUseCase(authRepository: sl()));
     sl.registerLazySingleton<UpdateUserDataUseCase>(
         () => UpdateUserDataUseCase(authRepository: sl()));
-    sl.registerLazySingleton<GetFirstCharUseCase>(() => GetFirstCharUseCase());
 
     // Controller
     sl.registerFactory<LoginController>(
@@ -73,7 +71,6 @@ class Injection {
       () => ProfileController(
         updateUserDataUseCase: sl(),
         getCacheUserUseCase: sl(),
-        getFirstCharUseCase: sl(),
       ),
     );
 
@@ -101,7 +98,6 @@ class Injection {
       () => ChannelsController(
         getUsersUseCase: sl(),
         getCacheUserUseCase: sl(),
-        getFirstCharUseCase: sl(),
         createNewPrivateDialogUseCase: sl(),
       ),
     );
