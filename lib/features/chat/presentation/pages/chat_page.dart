@@ -44,7 +44,7 @@ class ChatPage extends GetView<ChatController> {
                 child: Row(
                   children: [
                     GestureDetector(
-                      onTap: () async => await controller.openGallery(),
+                      onTap: () async => await controller.sendImageMessage(),
                       child: CircleAvatar(
                         backgroundColor: CustomColors.primaryColor,
                         child: Icon(Icons.add_a_photo,
