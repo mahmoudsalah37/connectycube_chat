@@ -3,6 +3,7 @@ import 'package:connectycube_chat/core/src/colors.dart';
 import 'package:connectycube_chat/core/src/styles.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/channels_controller.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/chat_controller.dart';
+import 'package:connectycube_chat/features/chat/presentation/widgets/record_dialog_widget.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,21 +18,19 @@ class ChatPage extends GetView<ChatController> {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             shadowColor: Colors.transparent,
-            title: Row(
-              children: [
-                ClipOval(
-                  child: channelController.getUser.avatar == null
-                      ? Container()
-                      : CachedNetworkImage(
-                          imageUrl: channelController.getUser.avatar!,
-                          height: 40,
-                          width: 40,
-                          fit: BoxFit.cover,
-                        ),
-                ),
-                SizedBox(width: 10),
-                Text(channelController.getUser.fullName.toString()),
-              ],
+            title: ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: ClipOval(
+                child: channelController.getUser.avatar == null
+                    ? Container()
+                    : CachedNetworkImage(
+                        imageUrl: channelController.getUser.avatar!,
+                        height: 40,
+                        width: 40,
+                        fit: BoxFit.cover,
+                      ),
+              ),
+              title: Text(channelController.getUser.fullName.toString()),
             ),
           ),
           body: Column(
@@ -67,9 +66,17 @@ class ChatPage extends GetView<ChatController> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () async {
-                        final x  = await controller.sendStringMessage();
-                      },
+                      onPressed: () async => !controller.getTextFieldIsEmpty
+                          ? await controller.sendStringMessage()
+                          : showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (_) => RecordDialogWidget(
+                                onTapCancel: () => Get.back(),
+                                onTapPause: () {},
+                                onTapSendVoice: () {},
+                              ),
+                            ),
                       icon: controller.getTextFieldIsEmpty
                           ? Icon(Icons.mic, color: CustomColors.primaryColor)
                           : Icon(Icons.send, color: CustomColors.primaryColor),

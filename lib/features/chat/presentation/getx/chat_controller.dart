@@ -46,6 +46,7 @@ class ChatController extends GetxController {
     final cubeMessage = await sendStringMessageUseCase(
         params: StringMessageParam(message: message));
     messageTEC.clear();
+    setTextFieldIsEmpty = true;
     return cubeMessage;
   }
 
