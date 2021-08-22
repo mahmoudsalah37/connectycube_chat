@@ -1,8 +1,6 @@
 import 'package:connectycube_chat/features/chat/data/datasources/chat_remote_data_source.dart';
 import 'package:connectycube_chat/features/chat/domin/repositories/chat_repository.dart';
-import 'package:connectycube_sdk/connectycube_sdk.dart'
-    show CubeDialog, CubeUser, PagedResult;
-import 'package:connectycube_sdk/src/chat/models/cube_message.dart';
+import 'package:connectycube_sdk/connectycube_sdk.dart';
 
 class ChatRepositoryImp implements ChatRepository {
   const ChatRepositoryImp({required this.chatRemoteDataSource});
@@ -19,4 +17,12 @@ class ChatRepositoryImp implements ChatRepository {
   Future<CubeMessage> sendMessage(String message) {
     return chatRemoteDataSource.sendMessage(message);
   }
+
+  @override
+  Stream<CubeMessage>? streamMessages() {
+    return chatRemoteDataSource.streamMessages();
+  }
+
+  @override
+  CubeDialog get getDialog => chatRemoteDataSource.getDialog;
 }

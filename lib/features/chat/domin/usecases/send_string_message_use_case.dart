@@ -1,11 +1,10 @@
 import 'package:connectycube_chat/core/usecases/usecase.dart';
-import 'package:connectycube_chat/features/chat/data/repositories/chat_repository_imp.dart';
 import 'package:connectycube_chat/features/chat/domin/repositories/chat_repository.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:equatable/equatable.dart';
 
 class SendStringMessageUseCase
-    extends UseCase<CubeMessage, StringMessageParam> {
+    extends UseCase<Future<CubeMessage>, StringMessageParam> {
   SendStringMessageUseCase({required this.chatRepository});
   final ChatRepository chatRepository;
 

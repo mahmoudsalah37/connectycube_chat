@@ -3,7 +3,8 @@ import '../repositories/auth_repository.dart';
 import 'package:connectycube_sdk/connectycube_calls.dart';
 import 'package:equatable/equatable.dart';
 
-class UpdateUserDataUseCase extends UseCase<CubeUser, UpdateUserDataParams> {
+class UpdateUserDataUseCase
+    extends UseCase<Future<CubeUser?>, UpdateUserDataParams> {
   final AuthRepository authRepository;
 
   UpdateUserDataUseCase({required this.authRepository});
@@ -15,12 +16,12 @@ class UpdateUserDataUseCase extends UseCase<CubeUser, UpdateUserDataParams> {
 }
 
 class UpdateUserDataParams extends Equatable {
-  final String userName, fullName,avatar;
+  final String userName, fullName, avatar;
 
   UpdateUserDataParams({
-   required this.userName,
-   required this.fullName,
-   required this.avatar,
+    required this.userName,
+    required this.fullName,
+    required this.avatar,
   });
 
   @override

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectycube_chat/core/src/colors.dart';
 import 'package:connectycube_chat/core/src/widgets/circle_image_widget.dart';
 import 'package:connectycube_chat/core/src/widgets/custom_button.dart';

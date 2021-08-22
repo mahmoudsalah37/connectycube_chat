@@ -3,7 +3,7 @@ import '../repositories/auth_repository.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:equatable/equatable.dart';
 
-class RegisterUseCase extends UseCase<CubeUser?, RegisterParams> {
+class RegisterUseCase extends UseCase<Future<CubeUser?>, RegisterParams> {
   final AuthRepository authRepository;
   RegisterUseCase({required this.authRepository});
   @override

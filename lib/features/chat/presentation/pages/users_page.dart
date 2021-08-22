@@ -2,10 +2,8 @@ import 'package:connectycube_chat/core/src/routes.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/channels_controller.dart';
 import 'package:connectycube_chat/features/chat/presentation/widgets/chat_item_widget.dart';
 import 'package:connectycube_chat/features/chat/presentation/widgets/no_message_widget.dart';
-import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class UsersPage extends GetView<ChannelsController> {
   @override

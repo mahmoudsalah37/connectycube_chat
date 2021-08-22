@@ -9,8 +9,10 @@ import 'package:connectycube_chat/features/chat/data/datasources/chat_remote_dat
 import 'package:connectycube_chat/features/chat/data/repositories/chat_repository_imp.dart';
 import 'package:connectycube_chat/features/chat/domin/repositories/chat_repository.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/create_new_private_dialog.dart';
+import 'package:connectycube_chat/features/chat/domin/usecases/get_dialog_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/get_users_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/send_string_message_use_case.dart';
+import 'package:connectycube_chat/features/chat/domin/usecases/get_stream_message_use_case.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/channels_controller.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/chat_controller.dart';
 
@@ -96,6 +98,10 @@ class Injection {
         () => CreateNewPrivateDialogUseCase(chatRepository: sl()));
     sl.registerLazySingleton<SendStringMessageUseCase>(
         () => SendStringMessageUseCase(chatRepository: sl()));
+    sl.registerLazySingleton<GetStreamMessagesUseCase>(
+        () => GetStreamMessagesUseCase(chatRepository: sl()));
+    sl.registerLazySingleton<GetDialogUseCase>(
+        () => GetDialogUseCase(chatRepository: sl()));
     // Controllers
     sl.registerFactory<ChannelsController>(
       () => ChannelsController(
@@ -105,8 +111,10 @@ class Injection {
         createNewPrivateDialogUseCase: sl(),
       ),
     );
-    sl.registerFactory<ChatController>(
-        () => ChatController(sendStringMessageUseCase: sl()));
+    sl.registerFactory<ChatController>(() => ChatController(
+        sendStringMessageUseCase: sl(),
+        getStreamMessagesUseCase: sl(),
+        getDialogUseCase: sl()));
     // Data sources
     sl.registerLazySingleton<ChatRemoteDataSource>(
         () => ChatRemoteDataSourceImp());
