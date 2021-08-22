@@ -68,15 +68,17 @@ class ChatPage extends GetView<ChatController> {
                     IconButton(
                       onPressed: () async => !controller.getTextFieldIsEmpty
                           ? await controller.sendStringMessage()
-                          : showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (_) => RecordDialogWidget(
-                                onTapCancel: () => Get.back(),
-                                onTapPause: () {},
-                                onTapSendVoice: () {},
-                              ),
-                            ),
+                          : () {
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (_) => RecordDialogWidget(
+                                  onTapCancel: () => Get.back(),
+                                  onTapPause: () {},
+                                  onTapSendVoice: () {},
+                                ),
+                              );
+                            },
                       icon: controller.getTextFieldIsEmpty
                           ? Icon(Icons.mic, color: CustomColors.primaryColor)
                           : Icon(Icons.send, color: CustomColors.primaryColor),
@@ -89,14 +91,5 @@ class ChatPage extends GetView<ChatController> {
         );
       },
     );
-  }
-
-  CubeMessage createCubeStringMsg(String message) {
-    final cubeMessage = CubeMessage();
-    cubeMessage.dateSent = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-    cubeMessage.markable = true;
-    cubeMessage.saveToHistory = true;
-    cubeMessage.body = message;
-    return cubeMessage;
   }
 }
