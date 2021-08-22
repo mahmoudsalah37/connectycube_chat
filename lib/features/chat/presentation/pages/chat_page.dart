@@ -44,10 +44,11 @@ class ChatPage extends GetView<ChatController> {
                 child: Row(
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () async => await controller.openGallery(),
                       child: CircleAvatar(
                         backgroundColor: CustomColors.primaryColor,
-                        child: Icon(Icons.add, size: 20, color: Colors.white),
+                        child: Icon(Icons.add_a_photo,
+                            size: 20, color: Colors.white),
                       ),
                     ),
                     Expanded(
@@ -67,7 +68,7 @@ class ChatPage extends GetView<ChatController> {
                     ),
                     IconButton(
                       onPressed: () async {
-                        await controller.sendStringMessage();
+                        final x  = await controller.sendStringMessage();
                       },
                       icon: controller.getTextFieldIsEmpty
                           ? Icon(Icons.mic, color: CustomColors.primaryColor)
