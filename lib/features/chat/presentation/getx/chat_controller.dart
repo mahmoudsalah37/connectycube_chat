@@ -34,7 +34,7 @@ class ChatController extends GetxController {
     return cubeMessage;
   }
 
-  Future<void> openGallery() async {
+  Future<void> sendImage() async {
     final pickedFile =
         await ImagePicker().getImage(source: ImageSource.gallery);
     if (pickedFile == null) return;
