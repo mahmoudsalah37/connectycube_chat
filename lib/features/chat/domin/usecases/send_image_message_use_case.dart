@@ -5,7 +5,8 @@ import 'package:connectycube_chat/features/chat/domin/repositories/chat_reposito
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:equatable/equatable.dart';
 
-class SendImageMessageUseCase extends UseCase<CubeMessage, ImageMessageParam> {
+class SendImageMessageUseCase
+    extends UseCase<Future<CubeMessage>, ImageMessageParam> {
   SendImageMessageUseCase({required this.chatRepository});
 
   final ChatRepository chatRepository;
