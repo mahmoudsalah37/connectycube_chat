@@ -58,7 +58,7 @@ class ProfileController extends GetxController {
 
   Future<void> pickImg() async {
     final pickedFile =
-        await ImagePicker().getImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile == null) return;
     pickedImgFile = File(pickedFile.path);
     uploadFile(pickedImgFile!, isPublic: true).then((cubeFile) {

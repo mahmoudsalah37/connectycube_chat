@@ -62,7 +62,7 @@ class UserRemoteDataSourceImp implements UserRemoteDataSource {
   Future<CubeUser> updateUserData(UpdateUserDataParams params) async {
     final userCachedData = Injection.sl<UserLocalDataSource>();
     final user = CubeUser(
-      id: userCachedData.getUser()?.id,
+      id: userCachedData.getCacheUser()?.id,
       login: params.userName,
       fullName: params.fullName,
       avatar: params.avatar,

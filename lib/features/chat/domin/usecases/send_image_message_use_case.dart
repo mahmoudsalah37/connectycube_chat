@@ -13,7 +13,7 @@ class SendImageMessageUseCase
 
   @override
   Future<CubeMessage> call({required ImageMessageParam params}) {
-    return chatRepository.sendImage(params.image);
+    return chatRepository.sendImageMessage(params.image);
   }
 }
 

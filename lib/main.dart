@@ -62,6 +62,6 @@ class _MyAppState extends State<MyApp> {
     // Chat
     Get.lazyPut(() => Injection.sl<ChannelsController>());
     //TODO: chat controller throw error without fenix
-    Get.lazyPut(() => Injection.sl<ChatController>(),fenix: true);
+    Get.lazyPut(() => Injection.sl<ChatController>(), fenix: true);
   }
 }

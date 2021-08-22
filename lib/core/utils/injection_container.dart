@@ -5,6 +5,7 @@ import 'package:connectycube_chat/features/auth/domin/usecases/update_user_data_
 import 'package:connectycube_chat/features/auth/presentation/getx/profile_controller.dart';
 import 'package:connectycube_chat/features/auth/presentation/getx/register_controller.dart';
 import 'package:connectycube_chat/features/chat/data/datasources/chat_remote_data_source.dart';
+import 'package:connectycube_chat/features/chat/data/datasources/record_data_source.dart';
 import 'package:connectycube_chat/features/chat/data/repositories/chat_repository_imp.dart';
 import 'package:connectycube_chat/features/chat/domin/repositories/chat_repository.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/create_new_private_dialog.dart';
@@ -13,13 +14,15 @@ import 'package:connectycube_chat/features/chat/domin/usecases/get_users_use_cas
 import 'package:connectycube_chat/features/chat/domin/usecases/send_image_message_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/send_string_message_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/get_stream_message_use_case.dart';
+import 'package:connectycube_chat/features/chat/domin/usecases/upload_file_use_case.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/channels_controller.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/chat_controller.dart';
+import 'package:record/record.dart';
 
 import '../network/network_information.dart';
 import '../../features/auth/data/datasources/user_local_data_source.dart';
 import '../../features/auth/data/datasources/user_remote_data_source.dart';
-import '../../features/auth/data/repositories/auth_repository.dart';
+import '../../features/auth/data/repositories/auth_repository_imp.dart';
 import '../../features/auth/domin/repositories/auth_repository.dart';
 import '../../features/auth/domin/usecases/login_usecase.dart';
 import '../../features/auth/presentation/getx/login_controller.dart';
@@ -36,6 +39,7 @@ class Injection {
     sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
     sl.registerLazySingleton<InternetConnectionChecker>(
         () => InternetConnectionChecker());
+    sl.registerLazySingleton<Record>(() => Record());
     _auth();
     _chat();
   }
@@ -87,8 +91,10 @@ class Injection {
   }
 
   static void _chat() async {
-    sl.registerLazySingleton<ChatRepository>(
-        () => ChatRepositoryImp(chatRemoteDataSource: sl()));
+    sl.registerLazySingleton<ChatRepository>(() => ChatRepositoryImp(
+        chatRemoteDataSource: sl(),
+        userLocalDataSource: sl(),
+        recordDataSource: sl()));
     // Use cases
     sl.registerLazySingleton<GetUsersUseCase>(
         () => GetUsersUseCase(chatRepository: sl()));
@@ -102,6 +108,8 @@ class Injection {
         () => GetDialogUseCase(chatRepository: sl()));
     sl.registerLazySingleton<SendImageMessageUseCase>(
         () => SendImageMessageUseCase(chatRepository: sl()));
+    sl.registerLazySingleton<UploadFileUseCase>(
+        () => UploadFileUseCase(chatRepository: sl()));
     // Controllers
     sl.registerFactory<ChannelsController>(
       () => ChannelsController(
@@ -114,9 +122,14 @@ class Injection {
         sendStringMessageUseCase: sl(),
         getStreamMessagesUseCase: sl(),
         sendImageMessageUseCase: sl(),
-        getDialogUseCase: sl()));
+        getDialogUseCase: sl(),
+        uploadFileUseCase: sl()));
+
     // Data sources
     sl.registerLazySingleton<ChatRemoteDataSource>(
-        () => ChatRemoteDataSourceImp());
+      () => ChatRemoteDataSourceImp(),
+    );
+    sl.registerLazySingleton<RecordDataSource>(
+        () => RecordDataSourceImp(record: sl()));
   }
 }

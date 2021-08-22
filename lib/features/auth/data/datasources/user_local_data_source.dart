@@ -4,7 +4,7 @@ import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class UserLocalDataSource {
-  CubeUser? getUser();
+  CubeUser? getCacheUser();
   Future<bool> saveUser(CubeUser user);
   Future<bool> deleteUser();
 }
@@ -16,7 +16,7 @@ class UserLocalDataSourceImp implements UserLocalDataSource {
   final SharedPreferences sharedPreferences;
 
   @override
-  CubeUser? getUser() {
+  CubeUser? getCacheUser() {
     final jsonString = sharedPreferences.getString(CacheUser);
 
     if (jsonString != null) {

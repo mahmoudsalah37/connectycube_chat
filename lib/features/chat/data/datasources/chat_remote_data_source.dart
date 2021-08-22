@@ -1,9 +1,19 @@
 import 'dart:io';
 
-import 'package:connectycube_chat/core/utils/injection_container.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/get_cache_user_usecase.dart';
-import 'package:connectycube_sdk/connectycube_sdk.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:connectycube_sdk/connectycube_sdk.dart'
+    show
+        CubeAttachment,
+        CubeAttachmentType,
+        CubeChatConnection,
+        CubeDialog,
+        CubeDialogType,
+        CubeFile,
+        CubeMessage,
+        CubeUser,
+        PagedResult,
+        createDialog,
+        getAllUsers;
+import 'package:flutter/material.dart' show decodeImageFromList;
 
 abstract class ChatRemoteDataSource {
   Future<PagedResult<CubeUser>?> getUsers();
@@ -12,12 +22,15 @@ abstract class ChatRemoteDataSource {
 
   Future<CubeMessage> sendMessage(String message);
   Stream<CubeMessage>? streamMessages();
-  Future<CubeMessage> sendImage(File image);
+  Future<CubeMessage> sendImageMessage({
+    required CubeFile cubeFile,
+    required File imageFile,
+    CubeUser? cachedUser,
+  });
 }
 
 class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
   ChatRemoteDataSourceImp();
-
   @override
   Future<PagedResult<CubeUser>?> getUsers() => getAllUsers();
   late CubeDialog _dialog;
@@ -43,6 +56,20 @@ class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
     ..markable = true
     ..saveToHistory = true;
 
+  CubeAttachment _createCubeFileAttachment(
+          {required File file,
+          required String url,
+          required String type,
+          int? height,
+          int? width}) =>
+      CubeAttachment()
+        ..id = file.hashCode.toString()
+        ..type = type
+        ..url = url
+        ..height = height
+        ..width = width
+        ..size = file.lengthSync().toDouble();
+
   @override
   Stream<CubeMessage>? streamMessages() {
     return messagesStatusesManager;
@@ -51,39 +78,25 @@ class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
   @override
   CubeDialog get getDialog => _dialog;
 
-  Future<CubeMessage> sendImage(File imageFile) async {
-    final cubeUploadedFile = await uploadFile(
-      imageFile,
-      isPublic: true,
-      onProgress: (progress) {
-        print("uploadImageFile progress = $progress");
-      },
-    );
-    // if(cubeUploadedFile.getPublicUrl()!=null)
-    var url = cubeUploadedFile.getPublicUrl();
-    return onSendChatAttachment(url: url ?? '', imageFile: imageFile);
-  }
-
-  Future<CubeMessage> onSendChatAttachment({
-    required String url,
-    required File imageFile,
-  }) async {
+  Future<CubeMessage> sendImageMessage(
+      {required CubeFile cubeFile,
+      required File imageFile,
+      CubeUser? cachedUser}) async {
     var decodedImage = await decodeImageFromList(imageFile.readAsBytesSync());
-    final cachedUser =
-        Injection.sl<GetCacheUserUseCase>().authRepository.getCacheUser();
+    final url = cubeFile.getPublicUrl().toString();
+    final attachment = _createCubeFileAttachment(
+      file: imageFile,
+      url: url,
+      type: CubeAttachmentType.IMAGE_TYPE,
+      height: decodedImage.height,
+      width: decodedImage.width,
+    );
+    CubeMessage message = _createCubeMessage()
+      ..body = "Attachment"
+      ..attachments = [attachment]
+      ..senderId = cachedUser?.id;
 
-    final attachment = CubeAttachment();
-    attachment.id = imageFile.hashCode.toString();
-    attachment.type = CubeAttachmentType.IMAGE_TYPE;
-    attachment.url = url;
-    attachment.height = decodedImage.height;
-    attachment.width = decodedImage.width;
-    final message = _createCubeMessage();
-    message.body = "Attachment";
-    message.attachments = [attachment];
-    // onSendMessage(message: message);
-    if (cachedUser != null) message.senderId = cachedUser.id;
-    await _dialog.sendMessage(message);
+    message = await _dialog.sendMessage(message);
     return message;
   }
 }
