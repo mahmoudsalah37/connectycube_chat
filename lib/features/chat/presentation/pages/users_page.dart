@@ -27,7 +27,6 @@ class UsersPage extends GetView<ChannelsController> {
                     Get.toNamed(Routes.chatPage, arguments: privateDialog);
                   }
                 },
-                getFirstCharUseCase: controller.getFirstCharUseCase,
               );
             },
           );

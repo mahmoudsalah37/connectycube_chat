@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:connectycube_sdk/connectycube_sdk.dart'
     show CubeDialog, CubeMessage, CubeUser, PagedResult;
 
@@ -7,4 +9,5 @@ abstract class ChatRepository {
   Future<CubeMessage> sendMessage(String message);
   Stream<CubeMessage>? streamMessages();
   CubeDialog get getDialog;
+  Future<CubeMessage> sendImage(File image);
 }
