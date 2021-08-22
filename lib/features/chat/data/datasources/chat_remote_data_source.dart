@@ -7,11 +7,11 @@ import 'package:flutter/cupertino.dart';
 
 abstract class ChatRemoteDataSource {
   Future<PagedResult<CubeUser>?> getUsers();
-
+  CubeDialog get getDialog;
   Future<CubeDialog> createNewPrivateDialog(int id);
 
   Future<CubeMessage> sendMessage(String message);
-
+  Stream<CubeMessage>? streamMessages();
   Future<CubeMessage> sendImage(File image);
 }
 
@@ -20,20 +20,22 @@ class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
 
   @override
   Future<PagedResult<CubeUser>?> getUsers() => getAllUsers();
-  late CubeDialog dialog;
+  late CubeDialog _dialog;
+  Stream<CubeMessage>? messagesStatusesManager =
+      CubeChatConnection.instance.chatMessagesManager?.chatMessagesStream;
 
   @override
   Future<CubeDialog> createNewPrivateDialog(int id) async {
     final setDialog = CubeDialog(CubeDialogType.PRIVATE, occupantsIds: [id]);
-    dialog = await createDialog(setDialog);
-    return dialog;
+    _dialog = await createDialog(setDialog);
+    return _dialog;
   }
 
   @override
   Future<CubeMessage> sendMessage(String message) async {
     final newCubeMessage = _createCubeMessage();
     newCubeMessage.body = message;
-    return dialog.sendMessage(newCubeMessage);
+    return _dialog.sendMessage(newCubeMessage);
   }
 
   CubeMessage _createCubeMessage() => CubeMessage()
@@ -42,6 +44,13 @@ class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
     ..saveToHistory = true;
 
   @override
+  Stream<CubeMessage>? streamMessages() {
+    return messagesStatusesManager;
+  }
+
+  @override
+  CubeDialog get getDialog => _dialog;
+
   Future<CubeMessage> sendImage(File imageFile) async {
     final cubeUploadedFile = await uploadFile(
       imageFile,
@@ -74,7 +83,7 @@ class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
     message.attachments = [attachment];
     // onSendMessage(message: message);
     if (cachedUser != null) message.senderId = cachedUser.id;
-    await dialog.sendMessage(message);
+    await _dialog.sendMessage(message);
     return message;
   }
 }

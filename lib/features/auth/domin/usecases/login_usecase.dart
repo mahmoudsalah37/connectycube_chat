@@ -3,7 +3,7 @@ import '../repositories/auth_repository.dart';
 import 'package:connectycube_sdk/connectycube_calls.dart';
 import 'package:equatable/equatable.dart';
 
-class LoginUseCase extends UseCase<CubeUser, LoginParams> {
+class LoginUseCase extends UseCase<Future<CubeUser?>, LoginParams> {
   final AuthRepository authRepository;
   LoginUseCase({required this.authRepository});
   @override

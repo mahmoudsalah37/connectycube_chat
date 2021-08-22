@@ -1,6 +1,5 @@
 import 'package:connectycube_chat/core/src/styles.dart';
 import 'package:connectycube_chat/core/src/widgets/circle_image_widget.dart';
-import 'package:connectycube_chat/core/utils/resposive.dart';
 import 'package:connectycube_sdk/connectycube_calls.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +14,6 @@ class ChatItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final res = Responsive(context);
     final theme = Theme.of(context);
     return GestureDetector(
       onTap: onPressed,

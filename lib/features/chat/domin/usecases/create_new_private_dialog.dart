@@ -4,7 +4,7 @@ import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:equatable/equatable.dart';
 
 class CreateNewPrivateDialogUseCase
-    extends UseCase<CubeDialog, PrivateDialogParam> {
+    extends UseCase<Future<CubeDialog>, PrivateDialogParam> {
   CreateNewPrivateDialogUseCase({required this.chatRepository});
   final ChatRepository chatRepository;
 
