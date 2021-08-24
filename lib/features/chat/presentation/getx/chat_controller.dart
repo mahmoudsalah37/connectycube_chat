@@ -38,6 +38,8 @@ class ChatController extends GetxController {
     super.onInit();
   }
 
+  List<CubeMessage> get getMessagesList => _messages.obs;
+
   Future<CubeMessage?> sendStringMessage(String message) async {
     if (message.isNotEmpty) {
       final cubeMessage = await sendStringMessageUseCase(
@@ -47,8 +49,6 @@ class ChatController extends GetxController {
       return cubeMessage;
     }
   }
-
-  List<CubeMessage> get getMessagesList => _messages.obs;
 
   void _recieveMessage(CubeMessage message) {
     addMessageToList(message);
@@ -83,10 +83,5 @@ class ChatController extends GetxController {
     final cubeMessageList = await paginatedCubeMsg?.items ?? [];
     _messages.addAll(cubeMessageList);
     return cubeMessageList;
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 }

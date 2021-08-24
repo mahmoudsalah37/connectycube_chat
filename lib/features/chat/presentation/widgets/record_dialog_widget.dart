@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import '../../../../core/utils/resposive.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class RecordDialogWidget extends StatelessWidget {
+class RecordDialogWidget extends StatefulWidget {
   final VoidCallback onTapSendVoice, onTapStopVoice, onTapPauseVoice;
 
   RecordDialogWidget({
@@ -11,6 +13,11 @@ class RecordDialogWidget extends StatelessWidget {
     required this.onTapPauseVoice,
   });
 
+  @override
+  _RecordDialogWidgetState createState() => _RecordDialogWidgetState();
+}
+
+class _RecordDialogWidgetState extends State<RecordDialogWidget> {
   @override
   Widget build(BuildContext context) {
     final res = Responsive(context);
@@ -24,7 +31,7 @@ class RecordDialogWidget extends StatelessWidget {
         children: [
           Lottie.asset('assets/lottie/record_lottie.json', width: 120),
           Text(
-            '00:00',
+            '$minutes:$seconds',
             style: textTheme.headline1!.copyWith(
               color: Colors.black,
               fontSize: 30,
@@ -34,7 +41,7 @@ class RecordDialogWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ElevatedButton(
-                onPressed: onTapStopVoice,
+                onPressed: widget.onTapStopVoice,
                 child: Icon(Icons.close, color: Colors.red, size: 30),
                 style: ElevatedButton.styleFrom(
                   shape: CircleBorder(),
@@ -42,7 +49,7 @@ class RecordDialogWidget extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: onTapPauseVoice,
+                onPressed: widget.onTapPauseVoice,
                 child: Icon(Icons.pause, color: Colors.black, size: 30),
                 style: ElevatedButton.styleFrom(
                   shape: CircleBorder(),
@@ -50,7 +57,7 @@ class RecordDialogWidget extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: onTapSendVoice,
+                onPressed: widget.onTapSendVoice,
                 child: Icon(Icons.send, color: Colors.white, size: 30),
                 style: ElevatedButton.styleFrom(
                   shape: CircleBorder(),
@@ -62,5 +69,39 @@ class RecordDialogWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  int seconds = 0;
+  int minutes = 0;
+  Timer? timer;
+
+  void startCountUp() {
+    timer = Timer.periodic(Duration(seconds: 1), (_) {
+      if (seconds != 59) {
+        setState(() => seconds++);
+      } else {
+        seconds = 0;
+        minutes++;
+        setState(() {});
+      }
+    });
+  }
+
+  void resetTimer() {
+    seconds = 0;
+    minutes = 0;
+    timer?.cancel();
+  }
+
+  @override
+  void initState() {
+    startCountUp();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    resetTimer();
+    super.dispose();
   }
 }

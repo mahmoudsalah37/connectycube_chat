@@ -43,7 +43,7 @@ class ChatPage extends GetView<ChatController> {
                         itemBuilder: (_, index) {
                           return MessageItemWidget(
                             index: index,
-                            isMe: false,
+                            isMe: true,
                             messagesList: controller.getMessagesList,
                           );
                         },

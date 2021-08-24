@@ -1,8 +1,12 @@
+import 'package:connectycube_chat/features/chat/presentation/widgets/image_message_widget.dart';
+
 import '../../../../core/src/colors.dart';
 import '../../../../core/src/styles.dart';
 import 'package:connectycube_sdk/connectycube_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import 'play_voice_message_widget.dart';
 
 class MessageItemWidget extends StatelessWidget {
   final List<CubeMessage> messagesList;
@@ -38,7 +42,7 @@ class MessageItemWidget extends StatelessWidget {
             decoration: CustomStyle.containerShadowDecoration.copyWith(
               color: isMe
                   ? CustomColors.primaryColor
-                  : CustomColors.brownLightColor,
+                  : CustomColors.yellowLightColor,
               borderRadius: BorderRadius.only(
                 topLeft: isMe ? Radius.circular(14) : Radius.circular(0),
                 bottomLeft: Radius.circular(14),
@@ -50,11 +54,7 @@ class MessageItemWidget extends StatelessWidget {
               crossAxisAlignment:
                   isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
               children: [
-                Text(
-                  messagesList.elementAt(index).body ?? 'empty',
-                  textAlign: isMe ? TextAlign.end : TextAlign.start,
-                  style: textTheme.headline4!.copyWith(color: Colors.black),
-                ),
+                messageWidget(),
                 Stack(
                   children: [
                     Icon(Icons.check, color: Colors.grey, size: 14),
@@ -71,4 +71,33 @@ class MessageItemWidget extends StatelessWidget {
       ),
     );
   }
+
+  Widget messageWidget() {
+    final attachmentList = messagesList.elementAt(index).attachments;
+    if (attachmentList != null)
+      for (int i = 0; i < attachmentList.length; i++) {
+        final attachment = attachmentList.elementAt(i);
+        switch (attachment.type) {
+          case 'image':
+            final imageUrl = attachment.url;
+            return ImageMessageWidget(imageUrl: imageUrl ?? '');
+          case 'audio':
+            final voiceUrl = attachment.url;
+            return PlayVoiceMessageWidget(voiceUrl: voiceUrl ?? '');
+        }
+      }
+    return stringMessageWidget(
+      messageBody: messagesList.elementAt(index).body ?? '',
+    );
+  }
+
+  Widget stringMessageWidget({required String messageBody}) => Text(
+        messageBody,
+        textAlign: isMe ? TextAlign.end : TextAlign.start,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+      );
 }
