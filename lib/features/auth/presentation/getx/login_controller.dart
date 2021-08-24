@@ -1,7 +1,7 @@
-import 'package:connectycube_chat/core/src/routes.dart';
-import 'package:connectycube_chat/core/usecases/usecase.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/delete_cache_user_usecase.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/get_cache_user_usecase.dart';
+import '../../../../core/src/routes.dart';
+import '../../../../core/usecases/usecase.dart';
+import '../../domin/usecases/delete_cache_user_usecase.dart';
+import '../../domin/usecases/get_cache_user_usecase.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:flutter/widgets.dart';
 

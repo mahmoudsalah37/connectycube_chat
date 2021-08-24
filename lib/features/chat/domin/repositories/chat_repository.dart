@@ -5,13 +5,13 @@ import 'package:connectycube_sdk/connectycube_sdk.dart'
 
 abstract class ChatRepository {
   Future<PagedResult<CubeUser>?> getUsers();
+  Future<PagedResult<CubeMessage>?> getMessageHistory();
   Future<CubeDialog> createNewPrivateDialog(int id);
   Future<CubeMessage> sendMessage(String message);
   Stream<CubeMessage>? streamMessages();
   CubeDialog get getDialog;
   Future<CubeMessage> sendImageMessage(String path);
   Future<CubeFile> uploadCubeFile(File file);
-  Future<bool> hasPermissionToVoiceRecord();
   Future<void> startVoiceRecord({String? path});
   Future<void> resumeVoiceRecord();
   Future<void> pauseVoiceRecord();

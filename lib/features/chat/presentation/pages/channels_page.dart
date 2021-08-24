@@ -1,6 +1,6 @@
-import 'package:connectycube_chat/core/src/widgets/circle_image_widget.dart';
-import 'package:connectycube_chat/features/auth/presentation/getx/login_controller.dart';
-import 'package:connectycube_chat/features/chat/presentation/getx/channels_controller.dart';
+import '../../../../core/src/widgets/circle_image_widget.dart';
+import '../../../auth/presentation/getx/login_controller.dart';
+import '../getx/channels_controller.dart';
 
 import '../../../../core/src/colors.dart';
 import '../../../../core/src/routes.dart';

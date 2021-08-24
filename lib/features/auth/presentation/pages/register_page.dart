@@ -1,5 +1,5 @@
-import 'package:connectycube_chat/core/src/colors.dart';
-import 'package:connectycube_chat/features/auth/presentation/getx/register_controller.dart';
+import '../../../../core/src/colors.dart';
+import '../getx/register_controller.dart';
 
 import '../../../../core/src/routes.dart';
 import '../../../../core/src/widgets/custom_button.dart';

@@ -1,7 +1,8 @@
-import '../../../../core/src/routes.dart';
-import '../../../../core/src/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../core/src/routes.dart';
+import '../../../../core/src/widgets/custom_button.dart';
 
 class WelcomeNewUserPage extends StatelessWidget {
   @override

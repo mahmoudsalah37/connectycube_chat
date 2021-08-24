@@ -1,5 +1,5 @@
-import 'package:connectycube_chat/core/utils/injection_container.dart';
-import 'package:connectycube_chat/features/auth/presentation/getx/login_controller.dart';
+import '../../../../core/utils/injection_container.dart';
+import '../getx/login_controller.dart';
 
 import '../../../../core/src/routes.dart';
 import 'package:flutter/material.dart';

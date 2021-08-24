@@ -1,6 +1,6 @@
-import 'package:connectycube_chat/features/auth/presentation/pages/welcome_new_user_page.dart';
-import 'package:connectycube_chat/features/chat/presentation/pages/create_group_page.dart';
-import 'package:connectycube_chat/features/auth/presentation/pages/profile_user_page.dart';
+import '../../features/auth/presentation/pages/welcome_new_user_page.dart';
+import '../../features/chat/presentation/pages/create_group_page.dart';
+import '../../features/auth/presentation/pages/profile_user_page.dart';
 
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';

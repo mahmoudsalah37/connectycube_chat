@@ -1,4 +1,4 @@
-import 'package:connectycube_chat/features/auth/domin/usecases/login_usecase.dart';
+import '../../domin/usecases/login_usecase.dart';
 
 import '../../../../core/src/colors.dart';
 import '../../../../core/src/routes.dart';

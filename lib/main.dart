@@ -1,4 +1,4 @@
-import 'package:connectycube_chat/core/usecases/usecase.dart';
+import 'core/usecases/usecase.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:flutter/services.dart';
 
@@ -65,6 +65,6 @@ class _MyAppState extends State<MyApp> {
     // Chat
     Get.lazyPut(() => Injection.sl<ChannelsController>());
     Get.lazyPut(() => Injection.sl<ChatController>(), fenix: true);
-    Get.lazyPut(() => Injection.sl<VoiceRecordController>());
+    Get.lazyPut(() => Injection.sl<VoiceRecordController>(), fenix: true);
   }
 }

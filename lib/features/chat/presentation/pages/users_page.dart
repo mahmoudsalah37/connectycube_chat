@@ -1,7 +1,7 @@
-import 'package:connectycube_chat/core/src/routes.dart';
-import 'package:connectycube_chat/features/chat/presentation/getx/channels_controller.dart';
-import 'package:connectycube_chat/features/chat/presentation/widgets/chat_item_widget.dart';
-import 'package:connectycube_chat/features/chat/presentation/widgets/no_message_widget.dart';
+import '../../../../core/src/routes.dart';
+import '../getx/channels_controller.dart';
+import '../widgets/chat_item_widget.dart';
+import '../widgets/no_message_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,6 +1,7 @@
-import 'package:connectycube_chat/core/usecases/usecase.dart';
-import 'package:connectycube_chat/features/chat/domin/repositories/chat_repository.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../../../core/usecases/usecase.dart';
+import '../repositories/chat_repository.dart';
 
 class StartVoiceRecordUseCase extends UseCase<Future<void>, StartRecordParams> {
   StartVoiceRecordUseCase({required this.chatRepository});

@@ -1,9 +1,7 @@
-import 'package:record/record.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:flutter_sound_platform_interface/flutter_sound_recorder_platform_interface.dart';
 
 abstract class VoiceRecordDataSource {
-  Future<bool> hasPermissionToVoiceRecord();
   Future<void> startVoiceRecord({String? path});
   Future<void> resumeVoiceRecord();
   Future<void> pauseVoiceRecord();
@@ -11,34 +9,9 @@ abstract class VoiceRecordDataSource {
   Future<void> disposeVoiceRecord();
 }
 
-class VoiceRecordDataSourceImp implements VoiceRecordDataSource {
-  const VoiceRecordDataSourceImp({required this.record});
-  final Record record;
-  @override
-  Future<bool> hasPermissionToVoiceRecord() => record.hasPermission();
-
-  @override
-  Future<void> pauseVoiceRecord() => record.pause();
-
-  @override
-  Future<void> startVoiceRecord({String? path}) =>
-      record.start(path: path, encoder: AudioEncoder.AMR_NB);
-
-  @override
-  Future<String?> stopVoiceRecord() => record.stop();
-
-  @override
-  Future<void> resumeVoiceRecord() => record.resume();
-
-  @override
-  Future<void> disposeVoiceRecord() => record.dispose();
-}
-
 class VoiceRecordDataSourceImp2 implements VoiceRecordDataSource {
-  const VoiceRecordDataSourceImp2(
-      {required this.flutterSoundRecorder, required this.record});
+  const VoiceRecordDataSourceImp2({required this.flutterSoundRecorder});
   final FlutterSoundRecorder flutterSoundRecorder;
-  final Record record;
 
   @override
   Future<void> pauseVoiceRecord() => flutterSoundRecorder.pauseRecorder();
@@ -54,16 +27,11 @@ class VoiceRecordDataSourceImp2 implements VoiceRecordDataSource {
 
   @override
   Future<String?> stopVoiceRecord() {
-    return (flutterSoundRecorder..closeAudioSession()).stopRecorder();
+    return flutterSoundRecorder.stopRecorder();
   }
 
   @override
   Future<void> resumeVoiceRecord() => flutterSoundRecorder.resumeRecorder();
-
-  @override
-  Future<bool> hasPermissionToVoiceRecord() {
-    return record.hasPermission();
-  }
 
   @override
   Future<void> disposeVoiceRecord() {

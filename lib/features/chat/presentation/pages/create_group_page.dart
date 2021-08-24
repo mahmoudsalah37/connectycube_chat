@@ -1,5 +1,5 @@
-import 'package:connectycube_chat/core/src/styles.dart';
-import 'package:connectycube_chat/core/src/widgets/custom_button.dart';
+import '../../../../core/src/styles.dart';
+import '../../../../core/src/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class CreateGroupPage extends StatelessWidget {

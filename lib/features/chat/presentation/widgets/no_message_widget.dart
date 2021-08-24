@@ -1,8 +1,7 @@
-import 'package:connectycube_chat/core/utils/resposive.dart';
+import '../../../../core/utils/resposive.dart';
 import 'package:flutter/material.dart';
 
 class NoMessageWidget extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final res = Responsive(context);

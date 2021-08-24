@@ -1,9 +1,9 @@
-import 'package:connectycube_chat/core/src/colors.dart';
-import 'package:connectycube_chat/core/src/widgets/circle_image_widget.dart';
-import 'package:connectycube_chat/core/src/widgets/custom_button.dart';
-import 'package:connectycube_chat/core/utils/resposive.dart';
-import 'package:connectycube_chat/features/auth/presentation/getx/profile_controller.dart';
-import 'package:connectycube_chat/features/auth/presentation/widgets/text_field_widget.dart';
+import '../../../../core/src/colors.dart';
+import '../../../../core/src/widgets/circle_image_widget.dart';
+import '../../../../core/src/widgets/custom_button.dart';
+import '../../../../core/utils/resposive.dart';
+import '../getx/profile_controller.dart';
+import '../widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

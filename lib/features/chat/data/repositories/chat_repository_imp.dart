@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:connectycube_chat/features/auth/data/datasources/user_local_data_source.dart';
-import 'package:connectycube_chat/features/chat/data/datasources/chat_remote_data_source.dart';
-import 'package:connectycube_chat/features/chat/data/datasources/voice_record_data_source.dart';
-import 'package:connectycube_chat/features/chat/domin/repositories/chat_repository.dart';
+import '../../../auth/data/datasources/user_local_data_source.dart';
+import '../datasources/chat_remote_data_source.dart';
+import '../datasources/voice_record_data_source.dart';
+import '../../domin/repositories/chat_repository.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 
 class ChatRepositoryImp implements ChatRepository {
@@ -11,12 +11,18 @@ class ChatRepositoryImp implements ChatRepository {
       {required this.chatRemoteDataSource,
       required this.userLocalDataSource,
       required this.recordDataSource});
+
   final ChatRemoteDataSource chatRemoteDataSource;
   final UserLocalDataSource userLocalDataSource;
   final VoiceRecordDataSource recordDataSource;
 
   @override
   Future<PagedResult<CubeUser>?> getUsers() => chatRemoteDataSource.getUsers();
+
+  @override
+  Future<PagedResult<CubeMessage>?> getMessageHistory() {
+    return chatRemoteDataSource.getMessageHistory();
+  }
 
   @override
   Future<CubeDialog> createNewPrivateDialog(int id) {
@@ -51,10 +57,6 @@ class ChatRepositoryImp implements ChatRepository {
 
   // @override
   // Future<void> deleteRecord() {}
-
-  @override
-  Future<bool> hasPermissionToVoiceRecord() =>
-      recordDataSource.hasPermissionToVoiceRecord();
 
   @override
   Future<void> pauseVoiceRecord() => recordDataSource.pauseVoiceRecord();

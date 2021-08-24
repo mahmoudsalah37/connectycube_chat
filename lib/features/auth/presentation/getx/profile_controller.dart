@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:connectycube_chat/features/auth/domin/usecases/get_cache_user_usecase.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/update_user_data_usecase.dart';
+import '../../domin/usecases/get_cache_user_usecase.dart';
+import '../../domin/usecases/update_user_data_usecase.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';

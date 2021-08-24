@@ -1,7 +1,8 @@
-import '../../../../core/usecases/usecase.dart';
-import '../repositories/auth_repository.dart';
 import 'package:connectycube_sdk/connectycube_calls.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../../../core/usecases/usecase.dart';
+import '../repositories/auth_repository.dart';
 
 class LoginUseCase extends UseCase<Future<CubeUser?>, LoginParams> {
   final AuthRepository authRepository;

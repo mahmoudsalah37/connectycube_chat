@@ -1,4 +1,4 @@
-import 'package:connectycube_chat/features/auth/domin/usecases/update_user_data_usecase.dart';
+import '../usecases/update_user_data_usecase.dart';
 
 import '../usecases/login_usecase.dart';
 import '../usecases/register_usecase.dart';

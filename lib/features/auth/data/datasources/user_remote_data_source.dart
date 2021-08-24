@@ -1,7 +1,7 @@
-import 'package:connectycube_chat/core/utils/injection_container.dart';
-import 'package:connectycube_chat/features/auth/data/datasources/user_local_data_source.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/register_usecase.dart';
-import 'package:connectycube_chat/features/auth/domin/usecases/update_user_data_usecase.dart';
+import '../../../../core/utils/injection_container.dart';
+import 'user_local_data_source.dart';
+import '../../domin/usecases/register_usecase.dart';
+import '../../domin/usecases/update_user_data_usecase.dart';
 
 import '../../domin/usecases/login_usecase.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';

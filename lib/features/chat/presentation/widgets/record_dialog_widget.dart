@@ -1,11 +1,9 @@
-import 'package:connectycube_chat/core/utils/resposive.dart';
+import '../../../../core/utils/resposive.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class RecordDialogWidget extends StatelessWidget {
-  final VoidCallback onTapSendVoice;
-  final VoidCallback onTapStopVoice;
-  final VoidCallback onTapPauseVoice;
+  final VoidCallback onTapSendVoice, onTapStopVoice, onTapPauseVoice;
 
   RecordDialogWidget({
     required this.onTapSendVoice,
