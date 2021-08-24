@@ -12,7 +12,8 @@ import 'package:connectycube_sdk/connectycube_sdk.dart'
         CubeUser,
         PagedResult,
         createDialog,
-        getAllUsers;
+        getAllUsers,
+        uploadFile;
 import 'package:flutter/material.dart' show decodeImageFromList;
 
 abstract class ChatRemoteDataSource {
@@ -27,6 +28,12 @@ abstract class ChatRemoteDataSource {
     required File imageFile,
     CubeUser? cachedUser,
   });
+  Future<CubeMessage> sendVoiceRecordMessage({
+    required CubeFile cubeFile,
+    required File file,
+    CubeUser? cachedUser,
+  });
+  Future<CubeFile> uploadCubeFile(File file);
 }
 
 class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
@@ -77,7 +84,7 @@ class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
 
   @override
   CubeDialog get getDialog => _dialog;
-
+  @override
   Future<CubeMessage> sendImageMessage(
       {required CubeFile cubeFile,
       required File imageFile,
@@ -90,6 +97,38 @@ class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
       type: CubeAttachmentType.IMAGE_TYPE,
       height: decodedImage.height,
       width: decodedImage.width,
+    );
+    CubeMessage message = _createCubeMessage()
+      ..body = "Attachment"
+      ..attachments = [attachment]
+      ..senderId = cachedUser?.id;
+
+    message = await _dialog.sendMessage(message);
+    return message;
+  }
+
+  @override
+  Future<CubeFile> uploadCubeFile(File file) {
+    print(file.toString());
+    return uploadFile(
+      file,
+      isPublic: true,
+      onProgress: (progress) {
+        print("uploadImageFile progress = $progress");
+      },
+    );
+  }
+
+  @override
+  Future<CubeMessage> sendVoiceRecordMessage(
+      {required CubeFile cubeFile,
+      required File file,
+      CubeUser? cachedUser}) async {
+    final url = cubeFile.getPublicUrl().toString();
+    final attachment = _createCubeFileAttachment(
+      file: file,
+      url: url,
+      type: CubeAttachmentType.AUDIO_TYPE,
     );
     CubeMessage message = _createCubeMessage()
       ..body = "Attachment"

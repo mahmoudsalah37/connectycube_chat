@@ -9,12 +9,14 @@ abstract class ChatRepository {
   Future<CubeMessage> sendMessage(String message);
   Stream<CubeMessage>? streamMessages();
   CubeDialog get getDialog;
-  Future<CubeMessage> sendImageMessage(File image);
+  Future<CubeMessage> sendImageMessage(String path);
   Future<CubeFile> uploadCubeFile(File file);
-  Future<bool> hasPermissionToRecord();
-  Future<void> startRecord({String? path});
-  Future<void> resumeRecord();
-  Future<void> pauseRecord();
-  Future<String?> stopRecord();
+  Future<bool> hasPermissionToVoiceRecord();
+  Future<void> startVoiceRecord({String? path});
+  Future<void> resumeVoiceRecord();
+  Future<void> pauseVoiceRecord();
+  Future<String?> stopVoiceRecord();
+  Future<void> disposeVoiceRecord();
+  Future<CubeMessage> sendVoiceRecord(String? path);
   // Future<void> deleteRecord();
 }

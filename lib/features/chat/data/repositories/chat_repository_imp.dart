@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:connectycube_chat/features/auth/data/datasources/user_local_data_source.dart';
 import 'package:connectycube_chat/features/chat/data/datasources/chat_remote_data_source.dart';
-import 'package:connectycube_chat/features/chat/data/datasources/record_data_source.dart';
+import 'package:connectycube_chat/features/chat/data/datasources/voice_record_data_source.dart';
 import 'package:connectycube_chat/features/chat/domin/repositories/chat_repository.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 
@@ -13,7 +13,7 @@ class ChatRepositoryImp implements ChatRepository {
       required this.recordDataSource});
   final ChatRemoteDataSource chatRemoteDataSource;
   final UserLocalDataSource userLocalDataSource;
-  final RecordDataSource recordDataSource;
+  final VoiceRecordDataSource recordDataSource;
 
   @override
   Future<PagedResult<CubeUser>?> getUsers() => chatRemoteDataSource.getUsers();
@@ -35,42 +35,49 @@ class ChatRepositoryImp implements ChatRepository {
 
   @override
   CubeDialog get getDialog => chatRemoteDataSource.getDialog;
-  Future<CubeMessage> sendImageMessage(File imageFile) async {
-    final cubeFile = await uploadCubeFile(imageFile);
+  Future<CubeMessage> sendImageMessage(String path) async {
+    final file = File(path);
+    final cubeFile = await uploadCubeFile(file);
 
-    final cachedUser = await userLocalDataSource.getCacheUser();
+    final cachedUser = userLocalDataSource.getCacheUser();
     return chatRemoteDataSource.sendImageMessage(
-        cachedUser: cachedUser, cubeFile: cubeFile, imageFile: imageFile);
+        cachedUser: cachedUser, cubeFile: cubeFile, imageFile: file);
   }
 
   @override
   Future<CubeFile> uploadCubeFile(File file) {
-    return uploadFile(
-      file,
-      isPublic: true,
-      onProgress: (progress) {
-        print("uploadImageFile progress = $progress");
-      },
-    );
+    return chatRemoteDataSource.uploadCubeFile(file);
   }
 
   // @override
   // Future<void> deleteRecord() {}
 
   @override
-  Future<bool> hasPermissionToRecord() =>
-      recordDataSource.hasPermissionToRecord();
+  Future<bool> hasPermissionToVoiceRecord() =>
+      recordDataSource.hasPermissionToVoiceRecord();
 
   @override
-  Future<void> pauseRecord() => recordDataSource.pauseRecord();
+  Future<void> pauseVoiceRecord() => recordDataSource.pauseVoiceRecord();
 
   @override
-  Future<void> startRecord({String? path}) =>
-      recordDataSource.startRecord(path: path);
+  Future<void> startVoiceRecord({String? path}) =>
+      recordDataSource.startVoiceRecord(path: path);
 
   @override
-  Future<String?> stopRecord() => recordDataSource.stopRecord();
+  Future<String?> stopVoiceRecord() => recordDataSource.stopVoiceRecord();
 
   @override
-  Future<void> resumeRecord() => recordDataSource.resumeRecord();
+  Future<void> resumeVoiceRecord() => recordDataSource.resumeVoiceRecord();
+
+  @override
+  Future<void> disposeVoiceRecord() => recordDataSource.disposeVoiceRecord();
+
+  @override
+  Future<CubeMessage> sendVoiceRecord(String? path) async {
+    final file = File(path!);
+    final cubeFile = await uploadCubeFile(file);
+    final cachedUser = userLocalDataSource.getCacheUser();
+    return chatRemoteDataSource.sendVoiceRecordMessage(
+        cachedUser: cachedUser, cubeFile: cubeFile, file: file);
+  }
 }

@@ -3,15 +3,17 @@ import 'package:connectycube_chat/core/src/colors.dart';
 import 'package:connectycube_chat/core/src/styles.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/channels_controller.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/chat_controller.dart';
+import 'package:connectycube_chat/features/chat/presentation/getx/voice_record_controller.dart';
 import 'package:connectycube_chat/features/chat/presentation/widgets/record_dialog_widget.dart';
-import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChatPage extends GetView<ChatController> {
+  final channelController = Get.find<ChannelsController>();
+  final voiceRecordController = Get.find<VoiceRecordController>();
+
   @override
   Widget build(BuildContext context) {
-    final channelController = Get.find<ChannelsController>();
     return GetBuilder<ChatController>(
       builder: (controller) {
         return Scaffold(
@@ -66,19 +68,34 @@ class ChatPage extends GetView<ChatController> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () async => !controller.getTextFieldIsEmpty
-                          ? await controller.sendStringMessage()
-                          : () {
-                              showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (_) => RecordDialogWidget(
-                                  onTapCancel: () => Get.back(),
-                                  onTapPause: () {},
-                                  onTapSendVoice: () {},
-                                ),
-                              );
-                            },
+                      onPressed: () async {
+                        final hasPermission =
+                            await voiceRecordController.hasPermissionToRecord();
+                        if (hasPermission) {
+                          await voiceRecordController.startRecord();
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (_) => RecordDialogWidget(
+                              onTapStopVoice: () async {
+                                print(await voiceRecordController.stopRecord());
+                                Get.back();
+                              },
+                              onTapPauseVoice: () async {
+                                await voiceRecordController.pauseRecord();
+                              },
+                              onTapSendVoice: () async {
+                                final path =
+                                    await voiceRecordController.stopRecord();
+                                await voiceRecordController.disposeRecord();
+                                await voiceRecordController
+                                    .sendVoiceRecord(path);
+                                Get.back();
+                              },
+                            ),
+                          );
+                        }
+                      },
                       icon: controller.getTextFieldIsEmpty
                           ? Icon(Icons.mic, color: CustomColors.primaryColor)
                           : Icon(Icons.send, color: CustomColors.primaryColor),

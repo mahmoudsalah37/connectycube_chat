@@ -4,13 +4,13 @@ import 'package:lottie/lottie.dart';
 
 class RecordDialogWidget extends StatelessWidget {
   final VoidCallback onTapSendVoice;
-  final VoidCallback onTapCancel;
-  final VoidCallback onTapPause;
+  final VoidCallback onTapStopVoice;
+  final VoidCallback onTapPauseVoice;
 
   RecordDialogWidget({
     required this.onTapSendVoice,
-    required this.onTapCancel,
-    required this.onTapPause,
+    required this.onTapStopVoice,
+    required this.onTapPauseVoice,
   });
 
   @override
@@ -36,7 +36,7 @@ class RecordDialogWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ElevatedButton(
-                onPressed: onTapCancel,
+                onPressed: onTapStopVoice,
                 child: Icon(Icons.close, color: Colors.red, size: 30),
                 style: ElevatedButton.styleFrom(
                   shape: CircleBorder(),
@@ -44,7 +44,7 @@ class RecordDialogWidget extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: onTapPause,
+                onPressed: onTapPauseVoice,
                 child: Icon(Icons.pause, color: Colors.black, size: 30),
                 style: ElevatedButton.styleFrom(
                   shape: CircleBorder(),

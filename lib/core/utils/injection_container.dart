@@ -5,18 +5,27 @@ import 'package:connectycube_chat/features/auth/domin/usecases/update_user_data_
 import 'package:connectycube_chat/features/auth/presentation/getx/profile_controller.dart';
 import 'package:connectycube_chat/features/auth/presentation/getx/register_controller.dart';
 import 'package:connectycube_chat/features/chat/data/datasources/chat_remote_data_source.dart';
-import 'package:connectycube_chat/features/chat/data/datasources/record_data_source.dart';
+import 'package:connectycube_chat/features/chat/data/datasources/voice_record_data_source.dart';
 import 'package:connectycube_chat/features/chat/data/repositories/chat_repository_imp.dart';
 import 'package:connectycube_chat/features/chat/domin/repositories/chat_repository.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/create_new_private_dialog.dart';
+import 'package:connectycube_chat/features/chat/domin/usecases/dispose_voice_recrod_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/get_dialog_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/get_users_use_case.dart';
+import 'package:connectycube_chat/features/chat/domin/usecases/has_permission_to_recrod_use_case.dart';
+import 'package:connectycube_chat/features/chat/domin/usecases/pause_voice_recrod_use_case.dart';
+import 'package:connectycube_chat/features/chat/domin/usecases/resume_voice_recrod_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/send_image_message_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/send_string_message_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/get_stream_message_use_case.dart';
+import 'package:connectycube_chat/features/chat/domin/usecases/send_voice_record_message_use_case.dart';
+import 'package:connectycube_chat/features/chat/domin/usecases/start__voice_recrod_use_case.dart';
+import 'package:connectycube_chat/features/chat/domin/usecases/stop_voice_recrod_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/upload_file_use_case.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/channels_controller.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/chat_controller.dart';
+import 'package:connectycube_chat/features/chat/presentation/getx/voice_record_controller.dart';
+import 'package:flutter_sound/flutter_sound.dart';
 import 'package:record/record.dart';
 
 import '../network/network_information.dart';
@@ -40,6 +49,8 @@ class Injection {
     sl.registerLazySingleton<InternetConnectionChecker>(
         () => InternetConnectionChecker());
     sl.registerLazySingleton<Record>(() => Record());
+    sl.registerLazySingleton<FlutterSoundRecorder>(
+        () => FlutterSoundRecorder());
     _auth();
     _chat();
   }
@@ -110,6 +121,21 @@ class Injection {
         () => SendImageMessageUseCase(chatRepository: sl()));
     sl.registerLazySingleton<UploadFileUseCase>(
         () => UploadFileUseCase(chatRepository: sl()));
+
+    sl.registerLazySingleton<StartVoiceRecordUseCase>(
+        () => StartVoiceRecordUseCase(chatRepository: sl()));
+    sl.registerLazySingleton<PauseVoiceRecordUseCase>(
+        () => PauseVoiceRecordUseCase(chatRepository: sl()));
+    sl.registerLazySingleton<ResumeVoiceRecordUseCase>(
+        () => ResumeVoiceRecordUseCase(chatRepository: sl()));
+    sl.registerLazySingleton<StopVoiceRecordUseCase>(
+        () => StopVoiceRecordUseCase(chatRepository: sl()));
+    sl.registerLazySingleton<DisposeVoiceRecordUseCase>(
+        () => DisposeVoiceRecordUseCase(chatRepository: sl()));
+    sl.registerLazySingleton<HasPermissionToRecordUseCase>(
+        () => HasPermissionToRecordUseCase(chatRepository: sl()));
+    sl.registerLazySingleton<SendVoiceRecordMessageUseCase>(
+        () => SendVoiceRecordMessageUseCase(chatRepository: sl()));
     // Controllers
     sl.registerFactory<ChannelsController>(
       () => ChannelsController(
@@ -124,12 +150,23 @@ class Injection {
         sendImageMessageUseCase: sl(),
         getDialogUseCase: sl(),
         uploadFileUseCase: sl()));
+    sl.registerFactory<VoiceRecordController>(() => VoiceRecordController(
+          startRecordUseCase: sl(),
+          pauseRecordUseCase: sl(),
+          resumeRecordUseCase: sl(),
+          stopRecordUseCase: sl(),
+          disposeRecordUseCase: sl(),
+          hasPermissionToRecordUseCase: sl(),
+          sendVoiceRecordMessageUseCase: sl(),
+        ));
 
     // Data sources
     sl.registerLazySingleton<ChatRemoteDataSource>(
       () => ChatRemoteDataSourceImp(),
     );
-    sl.registerLazySingleton<RecordDataSource>(
-        () => RecordDataSourceImp(record: sl()));
+    // sl.registerLazySingleton<VoiceRecordDataSource>(
+    //     () => VoiceRecordDataSourceImp(record: sl()));
+    sl.registerLazySingleton<VoiceRecordDataSource>(() =>
+        VoiceRecordDataSourceImp2(flutterSoundRecorder: sl(), record: sl()));
   }
 }

@@ -19,6 +19,7 @@ class ChatController extends GetxController {
     required this.getDialogUseCase,
     required this.uploadFileUseCase,
   });
+
   final SendStringMessageUseCase sendStringMessageUseCase;
   final GetStreamMessagesUseCase getStreamMessagesUseCase;
   final GetDialogUseCase getDialogUseCase;
@@ -61,9 +62,9 @@ class ChatController extends GetxController {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile == null) return;
-    imageFile = File(pickedFile.path);
+    final path = pickedFile.path;
     final imageMessage = await sendImageMessageUseCase(
-      params: ImageMessageParam(image: imageFile),
+      params: ImageMessageParam(path: path),
     );
     print('dateSent = ${imageMessage.dateSent}');
   }

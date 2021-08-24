@@ -13,15 +13,15 @@ class SendImageMessageUseCase
 
   @override
   Future<CubeMessage> call({required ImageMessageParam params}) {
-    return chatRepository.sendImageMessage(params.image);
+    return chatRepository.sendImageMessage(params.path);
   }
 }
 
 class ImageMessageParam extends Equatable {
-  final File image;
+  final String path;
 
-  ImageMessageParam({required this.image});
+  ImageMessageParam({required this.path});
 
   @override
-  List<Object?> get props => [image];
+  List<Object?> get props => [path];
 }
