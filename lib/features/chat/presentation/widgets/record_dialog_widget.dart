@@ -71,8 +71,7 @@ class _RecordDialogWidgetState extends State<RecordDialogWidget> {
     );
   }
 
-  int seconds = 0;
-  int minutes = 0;
+  double seconds = 0, minutes = 0;
   Timer? timer;
 
   void startCountUp() {

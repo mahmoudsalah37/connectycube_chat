@@ -16,8 +16,9 @@ class ProfileController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
   late String avatarUrl;
+  late var cacheAvatar = ''.obs;
 
-  File? pickedImgFile;
+  var pickedImgFile = File('').obs;
   UpdateUserDataUseCase updateUserDataUseCase;
   GetCacheUserUseCase getCacheUserUseCase;
 
@@ -29,7 +30,8 @@ class ProfileController extends GetxController {
   @override
   void onInit() async {
     avatarUrl = getCacheUserUseCase.authRepository.getCacheUser()!.avatar ?? '';
-
+    cacheAvatar.value =
+        getCacheUserUseCase.authRepository.getCacheUser()!.avatar ?? '';
     final cachedUser = getCacheUserUseCase.authRepository.getCacheUser();
     if (cachedUser != null) {
       fullNameTEC.text = cachedUser.fullName!;
@@ -60,8 +62,8 @@ class ProfileController extends GetxController {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile == null) return;
-    pickedImgFile = File(pickedFile.path);
-    uploadFile(pickedImgFile!, isPublic: true).then((cubeFile) {
+    pickedImgFile.value = File(pickedFile.path);
+    uploadFile(pickedImgFile.value, isPublic: true).then((cubeFile) {
       avatarUrl = cubeFile.getPublicUrl()!;
     });
     print('avatarUrl = $avatarUrl');
