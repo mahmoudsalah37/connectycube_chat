@@ -12,16 +12,23 @@ import 'package:connectycube_sdk/connectycube_sdk.dart'
         CubeUser,
         PagedResult,
         createDialog,
-        getAllUsers;
+        getAllUsers,
+        getMessages;
 import 'package:flutter/material.dart' show decodeImageFromList;
 
 abstract class ChatRemoteDataSource {
   Future<PagedResult<CubeUser>?> getUsers();
+
+  Future<PagedResult<CubeMessage>?> getMessageHistory(String dialogId);
+
   CubeDialog get getDialog;
+
   Future<CubeDialog> createNewPrivateDialog(int id);
 
   Future<CubeMessage> sendMessage(String message);
+
   Stream<CubeMessage>? streamMessages();
+
   Future<CubeMessage> sendImageMessage({
     required CubeFile cubeFile,
     required File imageFile,
@@ -31,6 +38,7 @@ abstract class ChatRemoteDataSource {
 
 class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
   ChatRemoteDataSourceImp();
+
   @override
   Future<PagedResult<CubeUser>?> getUsers() => getAllUsers();
   late CubeDialog _dialog;
@@ -50,7 +58,10 @@ class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
     newCubeMessage.body = message;
     return _dialog.sendMessage(newCubeMessage);
   }
-
+  @override
+  Future<PagedResult<CubeMessage>?> getMessageHistory(String dialogId) async {
+    return getMessages(dialogId);
+  }
   CubeMessage _createCubeMessage() => CubeMessage()
     ..dateSent = DateTime.now().millisecondsSinceEpoch ~/ 1000
     ..markable = true
@@ -99,4 +110,6 @@ class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
     message = await _dialog.sendMessage(message);
     return message;
   }
+
+
 }

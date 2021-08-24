@@ -10,6 +10,7 @@ import 'package:connectycube_chat/features/chat/data/repositories/chat_repositor
 import 'package:connectycube_chat/features/chat/domin/repositories/chat_repository.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/create_new_private_dialog.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/get_dialog_use_case.dart';
+import 'package:connectycube_chat/features/chat/domin/usecases/get_message_history_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/get_users_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/send_image_message_use_case.dart';
 import 'package:connectycube_chat/features/chat/domin/usecases/send_string_message_use_case.dart';
@@ -110,6 +111,8 @@ class Injection {
         () => SendImageMessageUseCase(chatRepository: sl()));
     sl.registerLazySingleton<UploadFileUseCase>(
         () => UploadFileUseCase(chatRepository: sl()));
+    sl.registerLazySingleton<GetMessageHistoryUseCase>(
+        () => GetMessageHistoryUseCase(chatRepository: sl()));
     // Controllers
     sl.registerFactory<ChannelsController>(
       () => ChannelsController(
@@ -118,12 +121,16 @@ class Injection {
         createNewPrivateDialogUseCase: sl(),
       ),
     );
-    sl.registerFactory<ChatController>(() => ChatController(
+    sl.registerFactory<ChatController>(
+      () => ChatController(
         sendStringMessageUseCase: sl(),
         getStreamMessagesUseCase: sl(),
         sendImageMessageUseCase: sl(),
         getDialogUseCase: sl(),
-        uploadFileUseCase: sl()));
+        uploadFileUseCase: sl(),
+        getMessageHistoryUseCase: sl(),
+      ),
+    );
 
     // Data sources
     sl.registerLazySingleton<ChatRemoteDataSource>(

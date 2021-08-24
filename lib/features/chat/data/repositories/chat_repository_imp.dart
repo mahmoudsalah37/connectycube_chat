@@ -11,12 +11,18 @@ class ChatRepositoryImp implements ChatRepository {
       {required this.chatRemoteDataSource,
       required this.userLocalDataSource,
       required this.recordDataSource});
+
   final ChatRemoteDataSource chatRemoteDataSource;
   final UserLocalDataSource userLocalDataSource;
   final RecordDataSource recordDataSource;
 
   @override
   Future<PagedResult<CubeUser>?> getUsers() => chatRemoteDataSource.getUsers();
+
+  @override
+  Future<PagedResult<CubeMessage>?> getMessageHistory(String dialogId) {
+    return chatRemoteDataSource.getMessageHistory(dialogId);
+  }
 
   @override
   Future<CubeDialog> createNewPrivateDialog(int id) {
@@ -35,6 +41,7 @@ class ChatRepositoryImp implements ChatRepository {
 
   @override
   CubeDialog get getDialog => chatRemoteDataSource.getDialog;
+
   Future<CubeMessage> sendImageMessage(File imageFile) async {
     final cubeFile = await uploadCubeFile(imageFile);
 
