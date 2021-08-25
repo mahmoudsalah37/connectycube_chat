@@ -1,3 +1,5 @@
+import 'package:connectycube_chat/core/src/colors.dart';
+
 import '../../../../core/src/routes.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../../domin/usecases/delete_cache_user_usecase.dart';
@@ -14,11 +16,10 @@ class LoginController extends GetxController with StateMixin<CubeUser?> {
   final TextEditingController userNameTEC = TextEditingController(text: ''),
       passwordTEC = TextEditingController(text: '');
   final formKey = GlobalKey<FormState>();
-
-  // final AuthRepositoryImp authRepositoryImp;
   final LoginUseCase loginUseCase;
   final GetCacheUserUseCase getCacheUserUseCase;
   final LogOutUserUseCase logOutUserUseCase;
+  var _loadingIndicator = false.obs;
 
   LoginController({
     required this.loginUseCase,
@@ -26,11 +27,12 @@ class LoginController extends GetxController with StateMixin<CubeUser?> {
     required this.logOutUserUseCase,
   });
 
+  get getLoadingIndicator => _loadingIndicator.value;
+
   @override
   void onInit() async {
     super.onInit();
     change(null, status: RxStatus.empty());
-    // await autoLogin();
   }
 
   Future<CubeUser?> autoLogin() async {
@@ -54,16 +56,29 @@ class LoginController extends GetxController with StateMixin<CubeUser?> {
     }
   }
 
-  void login({required LoginParams params}) async {
-    change(null, status: RxStatus.loading());
+  Future<void> login2() async {
+    final isValid = formKey.currentState?.validate() ?? false;
+    if (isValid) {
+      _loadingIndicator.value = true;
+      final userName = userNameTEC.text;
+      final password = passwordTEC.text;
+      final params = LoginParams(login: userName, password: password);
+      await login(params: params);
+    }
+  }
 
+  Future<void> login({required LoginParams params}) async {
+    change(null, status: RxStatus.loading());
     try {
       final user = await loginUseCase(params: params);
       change(user, status: RxStatus.success());
       clearTEC();
       Get.offNamed(Routes.channelsPage);
+      _loadingIndicator.value = false;
     } catch (e) {
-      Get.snackbar('home', '${e.toString()}');
+      Get.snackbar('home', '${e}', colorText: CustomColors.accentColor);
+      print(e);
+      _loadingIndicator.value = false;
       change(null, status: RxStatus.error(e.toString()));
     }
   }

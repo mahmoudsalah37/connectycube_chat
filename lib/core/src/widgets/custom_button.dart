@@ -6,7 +6,7 @@ class CustomButton extends StatelessWidget {
   final String title;
   final Alignment? alignment;
   final Color? backgroundColor;
-  final double? elevation;
+  final double? elevation,fonSize;
   final double paddingHorizontal;
   final Widget? child;
 
@@ -18,6 +18,7 @@ class CustomButton extends StatelessWidget {
     this.elevation = 6,
     this.child,
     this.paddingHorizontal = 20,
+    this.fonSize = 20,
   });
 
   @override
@@ -28,7 +29,7 @@ class CustomButton extends StatelessWidget {
       child: child ??
           Text(
             title,
-            style: theme.textTheme.headline2?.copyWith(fontSize: 20),
+            style: theme.textTheme.headline2?.copyWith(fontSize: fonSize),
           ),
       style: TextButton.styleFrom(
         padding:

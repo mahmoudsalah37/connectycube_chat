@@ -24,10 +24,12 @@ class ChannelsController extends GetxController
   PagedResult<CubeUser>? users;
   late CubeUser cubeUser;
   late PagingController<int, CubeUser> pagingController;
+  late CubeUser cachedUser;
+
   @override
   void onInit() {
     super.onInit();
-
+    cachedUser = getCacheUserUseCase.authRepository.getCacheUser()!;
     change(null, status: RxStatus.empty());
     getUsers();
     tabController = new TabController(length: 2, vsync: this);
@@ -36,6 +38,7 @@ class ChannelsController extends GetxController
   void getUsers() async {
     change(null, status: RxStatus.loading());
     users = await getUsersUseCase(params: NoParams());
+    users?.items.removeWhere((element) => element.id == cachedUser.id);
     change(users, status: RxStatus.success());
   }
 
@@ -45,6 +48,7 @@ class ChannelsController extends GetxController
   }
 
   CubeUser get getUser => cubeUser;
+
   Future<CubeDialog?> createNewPrivateDialog(CubeUser user) async {
     final id = user.id;
     if (id != null) {

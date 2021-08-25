@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:connectycube_chat/features/chat/presentation/getx/voice_record_controller.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_notifier.dart';
+
 import '../../../../core/usecases/usecase.dart';
 import '../../domin/usecases/get_dialog_use_case.dart';
 import '../../domin/usecases/get_message_history_use_case.dart';
@@ -11,7 +14,8 @@ import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ChatController extends GetxController {
+class ChatController extends GetxController
+    with StateMixin<List<CubeMessage>?> {
   ChatController({
     required this.sendStringMessageUseCase,
     required this.sendImageMessageUseCase,
@@ -33,8 +37,9 @@ class ChatController extends GetxController {
 
   @override
   void onInit() async {
-    _recieveStreamMessages();
     _getMessageHistory();
+    _recieveStreamMessages();
+
     super.onInit();
   }
 
@@ -45,26 +50,12 @@ class ChatController extends GetxController {
       final cubeMessage = await sendStringMessageUseCase(
         params: StringMessageParam(message: message),
       );
-      addMessageToList(cubeMessage);
+      change(addMessageToList(cubeMessage), status: RxStatus.success());
       return cubeMessage;
     }
   }
 
-  void _recieveMessage(CubeMessage message) {
-    addMessageToList(message);
-  }
-
-  Future<void> sendImageMessage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile == null) return;
-    final path = pickedFile.path;
-    final imageMessage = await sendImageMessageUseCase(
-      params: ImageMessageParam(path: path),
-    );
-    addMessageToList(imageMessage);
-    print('dateSent = ${imageMessage.dateSent}');
-  }
+  void _recieveMessage(CubeMessage message) => addMessageToList(message);
 
   void _recieveStreamMessages() {
     final streamMessages = getStreamMessagesUseCase(params: NoParams());
@@ -73,15 +64,50 @@ class ChatController extends GetxController {
     });
   }
 
-  void addMessageToList(CubeMessage message) {
+  List<CubeMessage> addMessageToList(CubeMessage message) {
     _messages.insert(0, message);
+    return _messages;
   }
 
   Future<List<CubeMessage>> _getMessageHistory() async {
+    change(null, status: RxStatus.loading());
     final paginatedCubeMsg =
         await getMessageHistoryUseCase.chatRepository.getMessageHistory();
     final cubeMessageList = await paginatedCubeMsg?.items ?? [];
     _messages.addAll(cubeMessageList);
+    _messages.isEmpty
+        ? change(_messages, status: RxStatus.empty())
+        : change(_messages, status: RxStatus.success());
     return cubeMessageList;
+  }
+
+  Future<void> sendImageMessage() async {
+    final pickedImage = await pathOfPickedImage();
+    if (pickedImage != null) {
+      change(null, status: RxStatus.loading());
+      final imageMessage = await sendImageMessageUseCase(
+        params: ImageMessageParam(path: pickedImage),
+      );
+      change(addMessageToList(imageMessage), status: RxStatus.success());
+    }
+  }
+
+  Future<String?> pathOfPickedImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile == null) return null;
+    final path = pickedFile.path;
+    return path;
+  }
+
+//TODO: we need to know the way of passing send voice to chat controller if this method bad
+  void sendVoiceMessage() async {
+    final voiceRecordController = Get.find<VoiceRecordController>();
+    final path = await voiceRecordController.stopRecord();
+    await voiceRecordController.disposeRecord();
+    final voiceRecordMessage =
+        await voiceRecordController.sendVoiceRecord(path);
+    change(addMessageToList(voiceRecordMessage), status: RxStatus.success());
+    Get.back();
   }
 }
