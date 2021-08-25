@@ -1,3 +1,6 @@
+import 'package:connectycube_sdk/connectycube_chat.dart';
+import 'package:get/get.dart';
+
 import '../../../../core/usecases/usecase.dart';
 import '../../domin/usecases/dispose_voice_recrod_use_case.dart';
 import '../../domin/usecases/pause_voice_recrod_use_case.dart';
@@ -5,8 +8,6 @@ import '../../domin/usecases/resume_voice_recrod_use_case.dart';
 import '../../domin/usecases/send_voice_record_message_use_case.dart';
 import '../../domin/usecases/start__voice_recrod_use_case.dart';
 import '../../domin/usecases/stop_voice_recrod_use_case.dart';
-import 'package:connectycube_sdk/connectycube_chat.dart';
-import 'package:get/get.dart';
 
 class VoiceRecordController extends GetxController {
   final StartVoiceRecordUseCase startRecordUseCase;

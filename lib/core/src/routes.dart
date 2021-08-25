@@ -1,15 +1,15 @@
-import '../../features/auth/presentation/pages/welcome_new_user_page.dart';
-import '../../features/chat/presentation/pages/create_group_page.dart';
-import '../../features/auth/presentation/pages/profile_user_page.dart';
+import 'package:get/get.dart';
 
 import '../../features/auth/presentation/pages/login_page.dart';
+import '../../features/auth/presentation/pages/profile_user_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
 import '../../features/auth/presentation/pages/splash_page.dart';
-import '../../features/chat/presentation/pages/chat_page.dart';
-import '../../features/chat/presentation/pages/groups_page.dart';
+import '../../features/auth/presentation/pages/welcome_new_user_page.dart';
 import '../../features/chat/presentation/pages/channels_page.dart';
+import '../../features/chat/presentation/pages/chat_page.dart';
+import '../../features/chat/presentation/pages/create_group_page.dart';
+import '../../features/chat/presentation/pages/groups_page.dart';
 import '../../features/chat/presentation/pages/users_page.dart';
-import 'package:get/get.dart';
 
 class Routes {
   static const String splashPage = '/',

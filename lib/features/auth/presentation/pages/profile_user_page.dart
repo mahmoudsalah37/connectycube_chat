@@ -1,3 +1,5 @@
+import '../../../../core/utils/validator.dart';
+
 import '../../../../core/src/colors.dart';
 import '../../../../core/src/widgets/circle_image_widget.dart';
 import '../../../../core/src/widgets/custom_button.dart';
@@ -62,12 +64,7 @@ class ProfileUserPage extends GetView<ProfileController> {
               hint: 'Full Name',
               inputType: TextInputType.text,
               prefixIcon: Icons.person_outline,
-              validator: (v) {
-                final value = v ?? '';
-                if (value.isEmpty) {
-                  return 'Invalid';
-                }
-              },
+              validator: CustomValidator.fullNameValidation,
             ),
             SizedBox(height: res.getHeight(4)),
             TextFieldWidget(
@@ -75,12 +72,7 @@ class ProfileUserPage extends GetView<ProfileController> {
               hint: 'User Name',
               inputType: TextInputType.text,
               prefixIcon: Icons.person_outline,
-              validator: (v) {
-                final value = v ?? '';
-                if (value.isEmpty) {
-                  return 'Invalid';
-                }
-              },
+              validator: CustomValidator.userNameValidation,
             ),
             SizedBox(height: res.getHeight(4)),
             Padding(

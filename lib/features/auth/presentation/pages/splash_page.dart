@@ -1,10 +1,10 @@
-import '../../../../core/utils/injection_container.dart';
-import '../getx/login_controller.dart';
-
-import '../../../../core/src/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+
+import '../../../../core/src/routes.dart';
+import '../../../../core/utils/injection_container.dart';
+import '../getx/login_controller.dart';
 
 class SplashPage extends StatefulWidget {
   @override

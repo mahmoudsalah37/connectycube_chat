@@ -1,3 +1,5 @@
+import '../../../../core/utils/validator.dart';
+
 import '../../domin/usecases/login_usecase.dart';
 
 import '../../../../core/src/colors.dart';
@@ -33,10 +35,10 @@ class LoginPage extends GetView<LoginController> {
               children: [
                 TextFieldWidget(
                   controller: controller.userNameTEC,
-                  hint: 'Login',
+                  hint: 'User Name',
                   inputType: TextInputType.text,
                   prefixIcon: Icons.person_outline,
-                  validator: isEmpty,
+                  validator: CustomValidator.userNameValidation,
                 ),
                 SizedBox(height: res.getHeight(2)),
                 TextFieldWidget(
@@ -45,12 +47,7 @@ class LoginPage extends GetView<LoginController> {
                   inputType: TextInputType.visiblePassword,
                   obscureText: true,
                   prefixIcon: Icons.lock_outline,
-                  validator: (v) {
-                    final value = v ?? '';
-                    if (value.isEmpty) {
-                      return 'أدخل قيمة';
-                    }
-                  },
+                  validator: CustomValidator.passwordValidator,
                 ),
               ],
             ),
@@ -105,12 +102,5 @@ class LoginPage extends GetView<LoginController> {
         ),
       ),
     );
-  }
-
-  String? isEmpty(v) {
-    final value = v ?? '';
-    if (value.isEmpty) {
-      return 'أدخل قيمة';
-    }
   }
 }

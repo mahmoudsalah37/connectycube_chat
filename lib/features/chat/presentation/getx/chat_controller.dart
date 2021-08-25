@@ -1,15 +1,16 @@
 import 'dart:io';
 
-import '../../../../core/usecases/usecase.dart';
-import '../../domin/usecases/get_dialog_use_case.dart';
-import '../../domin/usecases/get_message_history_use_case.dart';
-import '../../domin/usecases/send_image_message_use_case.dart';
-import '../../domin/usecases/send_string_message_use_case.dart';
-import '../../domin/usecases/get_stream_message_use_case.dart';
-import '../../domin/usecases/upload_file_use_case.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../../../core/usecases/usecase.dart';
+import '../../domin/usecases/get_dialog_use_case.dart';
+import '../../domin/usecases/get_message_history_use_case.dart';
+import '../../domin/usecases/get_stream_message_use_case.dart';
+import '../../domin/usecases/send_image_message_use_case.dart';
+import '../../domin/usecases/send_string_message_use_case.dart';
+import '../../domin/usecases/upload_file_use_case.dart';
 
 class ChatController extends GetxController {
   ChatController({

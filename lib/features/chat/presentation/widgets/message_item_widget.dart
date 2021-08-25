@@ -1,4 +1,4 @@
-import 'package:connectycube_chat/features/chat/presentation/widgets/image_message_widget.dart';
+import 'image_message_widget.dart';
 
 import '../../../../core/src/colors.dart';
 import '../../../../core/src/styles.dart';

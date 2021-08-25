@@ -1,3 +1,5 @@
+import '../../../../core/utils/validator.dart';
+
 import '../../../../core/src/colors.dart';
 import '../getx/register_controller.dart';
 
@@ -33,7 +35,7 @@ class RegisterPage extends GetView<RegisterController> {
               hint: 'Full Name',
               inputType: TextInputType.text,
               prefixIcon: Icons.person_outline,
-              validator: isEmpty,
+              validator: CustomValidator.fullNameValidation,
             ),
             SizedBox(height: res.getHeight(4)),
             TextFieldWidget(
@@ -41,7 +43,7 @@ class RegisterPage extends GetView<RegisterController> {
               hint: 'User Name',
               inputType: TextInputType.text,
               prefixIcon: Icons.person_outline,
-              validator: isEmpty,
+              validator: CustomValidator.userNameValidation,
             ),
             SizedBox(height: res.getHeight(4)),
             TextFieldWidget(
@@ -50,7 +52,7 @@ class RegisterPage extends GetView<RegisterController> {
               inputType: TextInputType.text,
               prefixIcon: Icons.lock_outline,
               obscureText: true,
-              validator: isEmpty,
+              validator: CustomValidator.passwordValidator,
             ),
             SizedBox(height: res.getHeight(4)),
             TextFieldWidget(
@@ -61,7 +63,7 @@ class RegisterPage extends GetView<RegisterController> {
               obscureText: true,
               validator: (v) {
                 if (v?.trim() != controller.rePasswordTEC.text.trim())
-                  return 'غير متطابق';
+                  return 'Not Match';
               },
             ),
             SizedBox(height: res.getHeight(4)),
@@ -97,12 +99,5 @@ class RegisterPage extends GetView<RegisterController> {
         ),
       ),
     );
-  }
-}
-
-String? isEmpty(v) {
-  final value = v ?? '';
-  if (value.isEmpty) {
-    return 'أدخل قيمة';
   }
 }
