@@ -1,9 +1,9 @@
-import '../../../../core/src/routes.dart';
-import '../../domin/usecases/login_usecase.dart';
-import '../../domin/usecases/register_usecase.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/src/routes.dart';
+import '../../domin/usecases/login_usecase.dart';
+import '../../domin/usecases/register_usecase.dart';
 import 'login_controller.dart';
 
 class RegisterController extends GetxController {

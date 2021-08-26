@@ -1,10 +1,11 @@
 import 'dart:io';
 
+import 'package:connectycube_sdk/connectycube_sdk.dart';
+
 import '../../../auth/data/datasources/user_local_data_source.dart';
+import '../../domin/repositories/chat_repository.dart';
 import '../datasources/chat_remote_data_source.dart';
 import '../datasources/voice_record_data_source.dart';
-import '../../domin/repositories/chat_repository.dart';
-import 'package:connectycube_sdk/connectycube_sdk.dart';
 
 class ChatRepositoryImp implements ChatRepository {
   const ChatRepositoryImp(
@@ -17,7 +18,14 @@ class ChatRepositoryImp implements ChatRepository {
   final VoiceRecordDataSource recordDataSource;
 
   @override
-  Future<PagedResult<CubeUser>?> getUsers() => chatRemoteDataSource.getUsers();
+  Future<PagedResult<CubeUser>?> getUsers() async {
+    final currentUser = userLocalDataSource.getCacheUser();
+    final currentUserID = currentUser?.id;
+    final pageResult = await chatRemoteDataSource.getUsers();
+    final items = pageResult?.items ?? [];
+    items.removeAt(items.indexWhere((element) => element.id == currentUserID));
+    return pageResult;
+  }
 
   @override
   Future<PagedResult<CubeMessage>?> getMessageHistory() {

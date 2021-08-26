@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import '../../../../core/src/styles.dart';
 import '../../../../core/src/widgets/custom_button.dart';
-import 'package:flutter/material.dart';
 
 class CreateGroupPage extends StatelessWidget {
   final TextEditingController searchTEC = TextEditingController(text: '');

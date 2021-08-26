@@ -47,7 +47,7 @@ class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
   ChatRemoteDataSourceImp();
 
   @override
-  Future<PagedResult<CubeUser>?> getUsers() => getAllUsers();
+  Future<PagedResult<CubeUser>?> getUsers() async => getAllUsers();
   late CubeDialog _dialog;
   Stream<CubeMessage>? messagesStatusesManager =
       CubeChatConnection.instance.chatMessagesManager?.chatMessagesStream;

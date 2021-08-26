@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 import '../../../../core/src/colors.dart';
 import '../../../../core/src/styles.dart';
 import 'record_dialog_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class ChatBottomBarWidget extends StatefulWidget {
   final VoidCallback onSendImage,

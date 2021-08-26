@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:connectycube_chat/core/utils/resposive.dart';
-import 'package:connectycube_chat/features/chat/presentation/pages/full_image_message_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../core/utils/resposive.dart';
+import '../pages/full_image_message_page.dart';
 
 class ImageMessageWidget extends StatelessWidget {
   final String imageUrl;
