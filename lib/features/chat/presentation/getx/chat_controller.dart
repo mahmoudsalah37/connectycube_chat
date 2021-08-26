@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:connectycube_chat/features/auth/domin/usecases/get_cache_user_usecase.dart';
 import 'package:connectycube_chat/features/chat/presentation/getx/voice_record_controller.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_notifier.dart';
 
@@ -23,6 +24,7 @@ class ChatController extends GetxController
     required this.getDialogUseCase,
     required this.uploadFileUseCase,
     required this.getMessageHistoryUseCase,
+    required this.getCacheUserUseCase,
   });
 
   final SendStringMessageUseCase sendStringMessageUseCase;
@@ -31,7 +33,7 @@ class ChatController extends GetxController
   final SendImageMessageUseCase sendImageMessageUseCase;
   final UploadFileUseCase uploadFileUseCase;
   final GetMessageHistoryUseCase getMessageHistoryUseCase;
-
+  final GetCacheUserUseCase getCacheUserUseCase;
   final List<CubeMessage> _messages = <CubeMessage>[].obs;
   late File imageFile;
 
@@ -39,9 +41,16 @@ class ChatController extends GetxController
   void onInit() async {
     _getMessageHistory();
     _recieveStreamMessages();
-
     super.onInit();
   }
+
+  // bool senderMessageIsMe(int index) {
+  //   bool isMe = _messages.elementAt(index).senderId ==
+  //           getCacheUserUseCase.authRepository.getCacheUser()?.id
+  //       ? true
+  //       : false;
+  //   return isMe;
+  // }
 
   List<CubeMessage> get getMessagesList => _messages.obs;
 
@@ -55,12 +64,10 @@ class ChatController extends GetxController
     }
   }
 
-  void _recieveMessage(CubeMessage message) => addMessageToList(message);
-
   void _recieveStreamMessages() {
     final streamMessages = getStreamMessagesUseCase(params: NoParams());
     streamMessages?.listen((message) {
-      _recieveMessage(message);
+      change(addMessageToList(message), status: RxStatus.success());
     });
   }
 

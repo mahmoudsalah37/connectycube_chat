@@ -144,12 +144,14 @@ class Injection {
       ),
     );
     sl.registerFactory<ChatController>(() => ChatController(
-        sendStringMessageUseCase: sl(),
-        getStreamMessagesUseCase: sl(),
-        sendImageMessageUseCase: sl(),
-        getDialogUseCase: sl(),
-        getMessageHistoryUseCase: sl(),
-        uploadFileUseCase: sl()));
+          sendStringMessageUseCase: sl(),
+          getStreamMessagesUseCase: sl(),
+          sendImageMessageUseCase: sl(),
+          getDialogUseCase: sl(),
+          getMessageHistoryUseCase: sl(),
+          uploadFileUseCase: sl(),
+          getCacheUserUseCase: sl(),
+        ));
     sl.registerFactory<VoiceRecordController>(() => VoiceRecordController(
           startRecordUseCase: sl(),
           pauseRecordUseCase: sl(),

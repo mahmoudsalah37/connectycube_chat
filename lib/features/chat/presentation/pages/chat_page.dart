@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectycube_chat/core/src/widgets/loading_indicator_widget.dart';
+import 'package:connectycube_chat/core/utils/injection_container.dart';
+import 'package:connectycube_chat/features/auth/domin/usecases/get_cache_user_usecase.dart';
 import 'package:connectycube_chat/features/chat/presentation/widgets/no_message_widget.dart';
 import '../getx/channels_controller.dart';
 import '../getx/chat_controller.dart';
@@ -49,7 +51,7 @@ class ChatPage extends GetView<ChatController> {
                   itemBuilder: (_, index) {
                     return MessageItemWidget(
                       index: index,
-                      isMe: true,
+                      isMe: false,
                       messagesList: messageList ?? [],
                     );
                   },
