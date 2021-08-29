@@ -38,7 +38,6 @@ class ChannelsController extends GetxController
   void getUsers() async {
     change(null, status: RxStatus.loading());
     users = await getUsersUseCase(params: NoParams());
-    users?.items.removeWhere((element) => element.id == cachedUser.id);
     change(users, status: RxStatus.success());
   }
 

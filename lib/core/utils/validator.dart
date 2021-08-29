@@ -8,7 +8,6 @@ class CustomValidator {
       ]),
       fullNameValidation = MultiValidator([
         RequiredValidator(errorText: 'full name is required'),
-        PatternValidator(r'^[a-zA-Z0-9]$', errorText: 'full name is required'),
         MinLengthValidator(4,
             errorText: 'user name must be at least 4 digits long'),
       ]),
