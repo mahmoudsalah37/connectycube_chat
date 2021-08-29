@@ -1,3 +1,4 @@
+import '../../features/auth/presentation/pages/offline_page.dart';
 import 'package:get/get.dart';
 
 import '../../features/auth/presentation/pages/login_page.dart';
@@ -21,7 +22,8 @@ class Routes {
       personsPage = '/personsPage',
       profileUserPage = '/profileUserPage',
       createGroupPage = '/searchPage',
-      chatPage = '/chatPage';
+      chatPage = '/chatPage',
+      offlinePage = '/offlinePage';
   //All Routes
   static List<GetPage> setPages() {
     return <GetPage>[
@@ -35,6 +37,7 @@ class Routes {
       GetPage(name: profileUserPage, page: () => ProfileUserPage()),
       GetPage(name: createGroupPage, page: () => CreateGroupPage()),
       GetPage(name: chatPage, page: () => ChatPage()),
+      GetPage(name: offlinePage, page: () => OfflinePage()),
     ];
   }
 }

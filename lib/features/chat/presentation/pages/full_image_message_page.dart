@@ -1,7 +1,8 @@
-import 'package:connectycube_chat/core/src/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
+
+import '../../../../core/src/colors.dart';
 
 class FullImageMessagePage extends StatelessWidget {
   final String imageUrl;

@@ -1,4 +1,4 @@
-import 'package:connectycube_chat/core/src/widgets/custom_button.dart';
+import '../../../../core/src/widgets/custom_button.dart';
 
 import '../../../../core/src/widgets/circle_image_widget.dart';
 import '../../../auth/presentation/getx/login_controller.dart';

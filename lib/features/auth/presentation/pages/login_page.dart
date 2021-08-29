@@ -1,5 +1,5 @@
-import 'package:connectycube_chat/core/src/widgets/loading_indicator_widget.dart';
-import 'package:connectycube_chat/core/utils/validator.dart';
+import '../../../../core/src/widgets/loading_indicator_widget.dart';
+import '../../../../core/utils/validator.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../../../core/src/colors.dart';
@@ -66,7 +66,7 @@ class LoginPage extends GetView<LoginController> {
                   padding: EdgeInsets.symmetric(horizontal: res.getWidth(20)),
                   child: CustomButton(
                     title: 'Login',
-                    onPressed: controller.login2,
+                    onPressed: controller.login,
                   ),
                 ),
                 SizedBox(height: res.getHeight(16)),

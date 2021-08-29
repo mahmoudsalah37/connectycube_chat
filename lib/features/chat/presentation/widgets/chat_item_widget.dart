@@ -1,7 +1,8 @@
-import '../../../../core/src/styles.dart';
-import '../../../../core/src/widgets/circle_image_widget.dart';
 import 'package:connectycube_sdk/connectycube_calls.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../core/src/styles.dart';
+import '../../../../core/src/widgets/circle_image_widget.dart';
 
 class ChatItemWidget extends StatelessWidget {
   final VoidCallback onPressed;

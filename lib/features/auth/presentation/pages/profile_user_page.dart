@@ -1,14 +1,14 @@
-import 'package:connectycube_chat/core/src/widgets/loading_indicator_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../../../core/src/colors.dart';
 import '../../../../core/src/widgets/circle_image_widget.dart';
 import '../../../../core/src/widgets/custom_button.dart';
+import '../../../../core/src/widgets/loading_indicator_widget.dart';
 import '../../../../core/utils/resposive.dart';
 import '../getx/profile_controller.dart';
 import '../widgets/text_field_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class ProfileUserPage extends GetView<ProfileController> {
   @override

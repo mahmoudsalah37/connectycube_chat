@@ -1,13 +1,14 @@
-import '../../../../core/usecases/usecase.dart';
-import '../../../auth/domin/usecases/get_cache_user_usecase.dart';
-import '../../domin/usecases/create_new_private_dialog.dart';
-import '../../domin/usecases/get_users_use_case.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart'
     show CubeDialog, CubeUser, PagedResult;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart'
     show PagingController;
+
+import '../../../../core/usecases/usecase.dart';
+import '../../../auth/domin/usecases/get_cache_user_usecase.dart';
+import '../../domin/usecases/create_new_private_dialog.dart';
+import '../../domin/usecases/get_users_use_case.dart';
 
 class ChannelsController extends GetxController
     with SingleGetTickerProviderMixin, StateMixin<PagedResult<CubeUser>?> {

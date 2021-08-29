@@ -1,5 +1,6 @@
-import '../../../../core/utils/resposive.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../core/utils/resposive.dart';
 
 class NoMessageWidget extends StatelessWidget {
   @override
@@ -7,7 +8,7 @@ class NoMessageWidget extends StatelessWidget {
     final res = Responsive(context);
     ThemeData theme = Theme.of(context);
     return Padding(
-      padding:  EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

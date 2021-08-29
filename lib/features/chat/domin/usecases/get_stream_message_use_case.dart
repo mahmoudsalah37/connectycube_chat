@@ -1,6 +1,7 @@
+import 'package:connectycube_sdk/connectycube_sdk.dart';
+
 import '../../../../core/usecases/usecase.dart';
 import '../repositories/chat_repository.dart';
-import 'package:connectycube_sdk/connectycube_sdk.dart';
 
 class GetStreamMessagesUseCase extends UseCase<Stream<CubeMessage>?, NoParams> {
   GetStreamMessagesUseCase({required this.chatRepository});

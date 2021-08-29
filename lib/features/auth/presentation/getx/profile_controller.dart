@@ -1,14 +1,13 @@
 import 'dart:io';
 
-import '../../domin/usecases/get_cache_user_usecase.dart';
-import '../../domin/usecases/update_user_data_usecase.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
+import '../../domin/usecases/get_cache_user_usecase.dart';
+import '../../domin/usecases/update_user_data_usecase.dart';
 
 class ProfileController extends GetxController {
   final TextEditingController userNameTEC = TextEditingController(text: ''),

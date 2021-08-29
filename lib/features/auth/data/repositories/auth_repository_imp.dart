@@ -1,13 +1,13 @@
-import '../../domin/usecases/update_user_data_usecase.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
+import 'package:connectycube_sdk/src/core/users/models/cube_user.dart';
 
 import '../../../../core/network/network_information.dart';
+import '../../domin/repositories/auth_repository.dart';
+import '../../domin/usecases/login_usecase.dart';
+import '../../domin/usecases/register_usecase.dart';
+import '../../domin/usecases/update_user_data_usecase.dart';
 import '../datasources/user_local_data_source.dart';
 import '../datasources/user_remote_data_source.dart';
-import '../../domin/repositories/auth_repository.dart';
-import 'package:connectycube_sdk/src/core/users/models/cube_user.dart';
-import '../../domin/usecases/register_usecase.dart';
-import '../../domin/usecases/login_usecase.dart';
 
 class AuthRepositoryImp implements AuthRepository {
   final UserLocalDataSource userLocalDataSource;
@@ -56,4 +56,7 @@ class AuthRepositoryImp implements AuthRepository {
     await userLocalDataSource.saveUser(user);
     return user;
   }
+
+  @override
+  Future<bool> isOnline() => networkInformation.isConnected;
 }

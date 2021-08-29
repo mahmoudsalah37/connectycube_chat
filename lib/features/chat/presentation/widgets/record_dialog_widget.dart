@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:connectycube_chat/core/src/widgets/loading_indicator_widget.dart';
+import '../../../../core/src/widgets/loading_indicator_widget.dart';
 
 import '../../../../core/utils/resposive.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,20 @@
+import '../../features/auth/domin/usecases/is_online_usecase.dart';
+import '../../features/auth/presentation/getx/offline_controller.dart';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../features/auth/data/datasources/user_local_data_source.dart';
+import '../../features/auth/data/datasources/user_remote_data_source.dart';
+import '../../features/auth/data/repositories/auth_repository_imp.dart';
+import '../../features/auth/domin/repositories/auth_repository.dart';
 import '../../features/auth/domin/usecases/delete_cache_user_usecase.dart';
 import '../../features/auth/domin/usecases/get_cache_user_usecase.dart';
+import '../../features/auth/domin/usecases/login_usecase.dart';
 import '../../features/auth/domin/usecases/register_usecase.dart';
 import '../../features/auth/domin/usecases/update_user_data_usecase.dart';
+import '../../features/auth/presentation/getx/login_controller.dart';
 import '../../features/auth/presentation/getx/profile_controller.dart';
 import '../../features/auth/presentation/getx/register_controller.dart';
 import '../../features/chat/data/datasources/chat_remote_data_source.dart';
@@ -12,12 +25,12 @@ import '../../features/chat/domin/usecases/create_new_private_dialog.dart';
 import '../../features/chat/domin/usecases/dispose_voice_recrod_use_case.dart';
 import '../../features/chat/domin/usecases/get_dialog_use_case.dart';
 import '../../features/chat/domin/usecases/get_message_history_use_case.dart';
+import '../../features/chat/domin/usecases/get_stream_message_use_case.dart';
 import '../../features/chat/domin/usecases/get_users_use_case.dart';
 import '../../features/chat/domin/usecases/pause_voice_recrod_use_case.dart';
 import '../../features/chat/domin/usecases/resume_voice_recrod_use_case.dart';
 import '../../features/chat/domin/usecases/send_image_message_use_case.dart';
 import '../../features/chat/domin/usecases/send_string_message_use_case.dart';
-import '../../features/chat/domin/usecases/get_stream_message_use_case.dart';
 import '../../features/chat/domin/usecases/send_voice_record_message_use_case.dart';
 import '../../features/chat/domin/usecases/start__voice_recrod_use_case.dart';
 import '../../features/chat/domin/usecases/stop_voice_recrod_use_case.dart';
@@ -25,18 +38,7 @@ import '../../features/chat/domin/usecases/upload_file_use_case.dart';
 import '../../features/chat/presentation/getx/channels_controller.dart';
 import '../../features/chat/presentation/getx/chat_controller.dart';
 import '../../features/chat/presentation/getx/voice_record_controller.dart';
-import 'package:flutter_sound/flutter_sound.dart';
-
 import '../network/network_information.dart';
-import '../../features/auth/data/datasources/user_local_data_source.dart';
-import '../../features/auth/data/datasources/user_remote_data_source.dart';
-import '../../features/auth/data/repositories/auth_repository_imp.dart';
-import '../../features/auth/domin/repositories/auth_repository.dart';
-import '../../features/auth/domin/usecases/login_usecase.dart';
-import '../../features/auth/presentation/getx/login_controller.dart';
-import 'package:get_it/get_it.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Injection {
   static final sl = GetIt.instance;
@@ -72,16 +74,22 @@ class Injection {
         () => RegisterUseCase(authRepository: sl()));
     sl.registerLazySingleton<UpdateUserDataUseCase>(
         () => UpdateUserDataUseCase(authRepository: sl()));
-
+    sl.registerLazySingleton<IsOnlineUseCase>(
+        () => IsOnlineUseCase(authRepository: sl()));
     // Controller
     sl.registerFactory<LoginController>(
       () => LoginController(
           loginUseCase: sl(),
           getCacheUserUseCase: sl(),
-          logOutUserUseCase: sl()),
+          logOutUserUseCase: sl(),
+          isOnlineUseCase: sl()),
     );
     sl.registerFactory<RegisterController>(
-      () => RegisterController(registerUseCase: sl()),
+      () => RegisterController(
+          registerUseCase: sl(), loginUseCase: sl(), isOnlineUseCase: sl()),
+    );
+    sl.registerFactory<OfflineController>(
+      () => OfflineController(isOnlineUseCase: sl()),
     );
     sl.registerFactory<ProfileController>(
       () => ProfileController(

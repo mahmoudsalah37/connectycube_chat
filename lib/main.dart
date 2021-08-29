@@ -10,6 +10,7 @@ import 'core/utils/configs.dart';
 import 'core/utils/injection_container.dart';
 import 'features/auth/domin/usecases/get_cache_user_usecase.dart';
 import 'features/auth/presentation/getx/login_controller.dart';
+import 'features/auth/presentation/getx/offline_controller.dart';
 import 'features/auth/presentation/getx/profile_controller.dart';
 import 'features/auth/presentation/getx/register_controller.dart';
 import 'features/chat/presentation/getx/channels_controller.dart';
@@ -57,6 +58,7 @@ class _MyAppState extends State<MyApp> {
   void _initControllers() {
     // Auth
     Get.lazyPut(() => Injection.sl<LoginController>());
+    Get.lazyPut(() => Injection.sl<OfflineController>(), fenix: true);
     Get.lazyPut(() => Injection.sl<RegisterController>(), fenix: true);
     Get.lazyPut(() => Injection.sl<ProfileController>(), fenix: true);
 

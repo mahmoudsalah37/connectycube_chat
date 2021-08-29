@@ -1,10 +1,10 @@
+import 'package:connectycube_sdk/connectycube_sdk.dart';
+
 import '../../../../core/utils/injection_container.dart';
-import 'user_local_data_source.dart';
+import '../../domin/usecases/login_usecase.dart';
 import '../../domin/usecases/register_usecase.dart';
 import '../../domin/usecases/update_user_data_usecase.dart';
-
-import '../../domin/usecases/login_usecase.dart';
-import 'package:connectycube_sdk/connectycube_sdk.dart';
+import 'user_local_data_source.dart';
 
 abstract class UserRemoteDataSource {
   Future<CubeUser?> login(LoginParams params);
@@ -24,6 +24,7 @@ class UserRemoteDataSourceImp implements UserRemoteDataSource {
       CubeChatConnectionSettings.instance.totalReconnections = 0;
       user = await CubeChatConnection.instance.login(user);
     }
+
     return user;
   }
 

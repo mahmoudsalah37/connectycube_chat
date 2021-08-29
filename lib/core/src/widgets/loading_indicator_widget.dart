@@ -1,6 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:connectycube_chat/core/src/styles.dart';
 import 'package:flutter/material.dart';
+
+import '../styles.dart';
 
 class LoadingIndicatorWidget extends StatelessWidget {
   @override

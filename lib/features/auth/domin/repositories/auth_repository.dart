@@ -10,4 +10,5 @@ abstract class AuthRepository {
   Future<CubeUser?> updateUserData(UpdateUserDataParams params);
   CubeUser? getCacheUser();
   Future<bool> logoutUser();
+  Future<bool> isOnline();
 }

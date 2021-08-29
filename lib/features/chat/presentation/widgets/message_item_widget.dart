@@ -1,11 +1,10 @@
-import 'image_message_widget.dart';
-
-import '../../../../core/src/colors.dart';
-import '../../../../core/src/styles.dart';
 import 'package:connectycube_sdk/connectycube_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/src/colors.dart';
+import '../../../../core/src/styles.dart';
+import 'image_message_widget.dart';
 import 'play_voice_message_widget.dart';
 
 class MessageItemWidget extends StatelessWidget {

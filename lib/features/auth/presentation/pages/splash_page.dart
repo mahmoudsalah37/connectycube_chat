@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../core/src/routes.dart';
 import '../../../../core/utils/injection_container.dart';
 import '../getx/login_controller.dart';
 
@@ -20,12 +18,9 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void newMethod() async {
-    final v = await loginController.autoLogin();
+    await loginController.autoLogin();
     Future.delayed(
       Duration(milliseconds: 1000),
-      () => v != null
-          ? Get.offNamed(Routes.channelsPage)
-          : Get.offNamed(Routes.loginPage),
     );
   }
 
