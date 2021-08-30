@@ -14,7 +14,7 @@ class ProfileController extends GetxController {
       fullNameTEC = TextEditingController(text: '');
   final formKey = GlobalKey<FormState>();
 
-  late String avatarUrl;
+  final  avatarUrl = ''.obs;
 
   var _loadingIndicator = false.obs;
 
@@ -31,7 +31,7 @@ class ProfileController extends GetxController {
 
   @override
   void onInit() async {
-    avatarUrl = getCacheUserUseCase.authRepository.getCacheUser()!.avatar ?? '';
+    avatarUrl.value = getCacheUserUseCase.authRepository.getCacheUser()!.avatar ?? '';
 
     final cachedUser = getCacheUserUseCase.authRepository.getCacheUser();
     if (cachedUser != null) {
@@ -49,7 +49,7 @@ class ProfileController extends GetxController {
         final params = UpdateUserDataParams(
           fullName: fullNameTEC.text,
           userName: userNameTEC.text,
-          avatar: avatarUrl,
+          avatar: avatarUrl.value,
         );
         await updateUserDataUseCase.call(params: params);
         print('User updated');
@@ -62,18 +62,45 @@ class ProfileController extends GetxController {
     }
   }
 
+  // Future<void> pickImg() async {
+  //   final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   if (pickedFile == null) return;
+  //   pickedImgFile = File(pickedFile.path);
+  //   uploadFile(pickedImgFile!, isPublic: true).then((cubeFile) {
+  //     avatarUrl = cubeFile.getPublicUrl()!;
+  //   });
+  //   print('avatarUrl = $avatarUrl');
+  //   update();
+  // }
+
   Future<void> pickImg() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile == null) return;
-    pickedImgFile = File(pickedFile.path);
-    uploadFile(pickedImgFile!, isPublic: true).then((cubeFile) {
-      avatarUrl = cubeFile.getPublicUrl()!;
-    });
-    print('avatarUrl = $avatarUrl');
+    final pickedImage = await _pathOfPickedImage();
+    if (pickedImage != null) {
+      pickedImgFile = File(pickedImage);
+      uploadFile(pickedImgFile!, isPublic: true).then((cubeFile) {
+        avatarUrl.value = cubeFile.getPublicUrl()!;
+      });
+    }
     update();
   }
 
+  // Future<void> pickImg() async {
+  //   final pickedImage = await _pathOfPickedImage();
+  //   if (pickedImage == null) return;
+  //   pickedImgFile = File(pickedImage);
+  //   uploadFile(pickedImgFile!, isPublic: true).then((cubeFile) {
+  //     avatarUrl = cubeFile.getPublicUrl()!;
+  //   });
+  //   update();
+  // }
+  //
+  Future<String?> _pathOfPickedImage() async {
+    final pickedFile =
+    await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile == null) return null;
+    final path = pickedFile.path;
+    return path;
+  }
   @override
   void onClose() {
     formKey.currentState?.dispose();

@@ -21,6 +21,10 @@ class ProfileUserPage extends GetView<ProfileController> {
         inAsyncCall: controller.getLoadingIndicator,
         progressIndicator: LoadingIndicatorWidget(),
         child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            shadowColor: Colors.transparent,
+          ),
           body: Form(
             key: controller.formKey,
             child: ListView(
@@ -33,22 +37,24 @@ class ProfileUserPage extends GetView<ProfileController> {
                     onTap: controller.pickImg,
                     child: Stack(
                       children: [
-                        Hero(
-                          tag: 'profile_hero',
-                          child: controller.pickedImgFile != null
-                              ? ClipOval(
-                                  child: Image.file(
-                                    controller.pickedImgFile!,
-                                    fit: BoxFit.cover,
-                                    width: res.getWidth(40),
-                                    height: res.getHeight(20),
+                        GetBuilder<ProfileController>(
+                          builder: (controller) => Hero(
+                            tag: 'profile_hero',
+                            child: controller.pickedImgFile != null
+                                ? ClipOval(
+                                    child: Image.file(
+                                      controller.pickedImgFile!,
+                                      fit: BoxFit.cover,
+                                      width: res.getWidth(40),
+                                      height: res.getHeight(20),
+                                    ),
+                                  )
+                                : CircleImageWidget(
+                                    avatar: avatar.toString(),
+                                    fullName: controller.fullNameTEC.text,
+                                    imageSize: 80,
                                   ),
-                                )
-                              : CircleImageWidget(
-                                  avatar: avatar.toString(),
-                                  fullName: controller.fullNameTEC.text,
-                                  imageSize: 80,
-                                ),
+                          ),
                         ),
                         Positioned(
                           bottom: 0,

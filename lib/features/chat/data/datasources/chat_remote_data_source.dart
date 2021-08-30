@@ -26,7 +26,7 @@ abstract class ChatRemoteDataSource {
 
   Future<CubeDialog> createNewPrivateDialog(int id);
 
-  Future<CubeMessage> sendMessage(String message);
+  Future<CubeMessage> sendMessage(String message,CubeUser? cachedUser);
 
   Stream<CubeMessage>? streamMessages();
 
@@ -60,9 +60,10 @@ class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
   }
 
   @override
-  Future<CubeMessage> sendMessage(String message) async {
+  Future<CubeMessage> sendMessage(String message,CubeUser? cachedUser) async {
     final newCubeMessage = _createCubeMessage();
     newCubeMessage.body = message;
+    newCubeMessage.senderId=cachedUser?.id;
     return _dialog.sendMessage(newCubeMessage);
   }
 

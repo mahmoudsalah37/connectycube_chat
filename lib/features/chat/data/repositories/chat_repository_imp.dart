@@ -39,7 +39,8 @@ class ChatRepositoryImp implements ChatRepository {
 
   @override
   Future<CubeMessage> sendMessage(String message) {
-    return chatRemoteDataSource.sendMessage(message);
+    return chatRemoteDataSource.sendMessage(
+        message, userLocalDataSource.getCacheUser());
   }
 
   @override
@@ -49,6 +50,7 @@ class ChatRepositoryImp implements ChatRepository {
 
   @override
   CubeDialog get getDialog => chatRemoteDataSource.getDialog;
+
   Future<CubeMessage> sendImageMessage(String path) async {
     final file = File(path);
     final cubeFile = await uploadCubeFile(file);

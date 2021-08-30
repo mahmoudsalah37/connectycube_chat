@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../core/src/colors.dart';
 import '../../../../core/src/styles.dart';
+import 'chat_item_clipper_shape.dart';
 import 'image_message_widget.dart';
 import 'play_voice_message_widget.dart';
 
@@ -27,7 +28,6 @@ class MessageItemWidget extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment:
             isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
@@ -36,35 +36,54 @@ class MessageItemWidget extends StatelessWidget {
             style:
                 textTheme.headline3!.copyWith(color: Colors.grey, fontSize: 8),
           ),
-          Container(
-            padding: EdgeInsets.all(8),
-            decoration: CustomStyle.containerShadowDecoration.copyWith(
-              color: isMe
-                  ? CustomColors.primaryColor
-                  : CustomColors.yellowLightColor,
-              borderRadius: BorderRadius.only(
-                topLeft: isMe ? Radius.circular(14) : Radius.circular(0),
-                bottomLeft: Radius.circular(14),
-                bottomRight: Radius.circular(14),
-                topRight: isMe ? Radius.circular(0) : Radius.circular(14),
+          Stack(
+            children: [
+              Align(
+                alignment: isMe ? Alignment.topRight : Alignment.topLeft,
+                child: CustomPaint(
+                  size: Size(12, 16),
+                  painter: isMe
+                      ? SenderMessageItemCustomPainter()
+                      : RecieverMessageItemCustomPainter(),
+                ),
               ),
-            ),
-            child: Column(
-              crossAxisAlignment:
-                  isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-              children: [
-                messageWidget(),
-                Stack(
-                  children: [
-                    Icon(Icons.check, color: Colors.grey, size: 14),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
-                      child: Icon(Icons.check, color: Colors.grey, size: 14),
+              Align(
+                alignment: isMe ? Alignment.topRight : Alignment.topLeft,
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 12),
+                  padding: EdgeInsets.all(8),
+                  decoration: CustomStyle.containerShadowDecoration.copyWith(
+                    color: isMe
+                        ? CustomColors.primaryColor
+                        : CustomColors.brownLightColor,
+                    borderRadius: BorderRadius.only(
+                      topLeft: isMe ? Radius.circular(14) : Radius.circular(0),
+                      bottomLeft: Radius.circular(14),
+                      bottomRight: Radius.circular(14),
+                      topRight: isMe ? Radius.circular(0) : Radius.circular(14),
                     ),
-                  ],
-                )
-              ],
-            ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: isMe
+                        ? CrossAxisAlignment.end
+                        : CrossAxisAlignment.start,
+                    children: [
+                      messageWidget(),
+                      Stack(
+                        children: [
+                          Icon(Icons.check, color: Colors.grey, size: 14),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 4),
+                            child:
+                                Icon(Icons.check, color: Colors.grey, size: 14),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
