@@ -16,24 +16,37 @@ class RegisterController extends GetxController {
   final RegisterUseCase registerUseCase;
   final LoginUseCase loginUseCase;
   final IsOnlineUseCase isOnlineUseCase;
+  RxBool _loadingIndicator = false.obs;
+
   RegisterController(
       {required this.registerUseCase,
       required this.loginUseCase,
       required this.isOnlineUseCase});
+
   Future<bool> get isOnline async => isOnlineUseCase(params: NoParams());
+
+  get getLoadingIndicator => _loadingIndicator.value;
+
   Future<void> registerUser() async {
     if (await isOnline) {
       final isValid = formKey.currentState?.validate() ?? false;
       if (isValid) {
-        final fullName = fullNameTEC.text;
-        final userName = userNameTEC.text;
-        final password = passwordTEC.text;
+        try {
+          _loadingIndicator.value = true;
+          final fullName = fullNameTEC.text;
+          final userName = userNameTEC.text;
+          final password = passwordTEC.text;
 
-        final registerParams = RegisterParams(
-            fullName: fullName, login: userName, password: password);
-        await registerUseCase(params: registerParams);
-        await _login(userName, password);
-        _clearTEC();
+          final registerParams = RegisterParams(
+              fullName: fullName, login: userName, password: password);
+          await registerUseCase(params: registerParams);
+          await _login(userName, password);
+          _clearTEC();
+          _loadingIndicator.value = false;
+        } catch (e) {
+          _loadingIndicator.value = false;
+          Get.snackbar('Error:', 'Something went wrong.');
+        }
       }
     } else {
       Get.toNamed(Routes.offlinePage);

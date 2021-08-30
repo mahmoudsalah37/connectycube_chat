@@ -36,24 +36,21 @@ class ChatController extends GetxController
   final GetCacheUserUseCase getCacheUserUseCase;
   final List<CubeMessage> _messages = <CubeMessage>[].obs;
   late File imageFile;
-  late bool senderMessage;
 
   @override
-  void onInit() async {
+  void onInit() {
     _getMessageHistory();
     _recieveStreamMessages();
     super.onInit();
   }
 
   bool senderMessageIsMe(int index) {
-    bool isMe = _messages.elementAt(index).senderId ==
+    final senderIsMe = _messages.elementAt(index).senderId ==
             getCacheUserUseCase.authRepository.getCacheUser()?.id
         ? true
         : false;
-    return isMe;
+    return senderIsMe;
   }
-
-  List<CubeMessage> get getMessagesList => _messages.obs;
 
   Future<CubeMessage?> sendStringMessage(String message) async {
     if (message.isNotEmpty) {
@@ -90,7 +87,7 @@ class ChatController extends GetxController
   }
 
   Future<void> sendImageMessage() async {
-    final pickedImage = await pathOfPickedImage();
+    final pickedImage = await _pathOfPickedImage();
     if (pickedImage != null) {
       change(null, status: RxStatus.loading());
       final imageMessage = await sendImageMessageUseCase(
@@ -100,7 +97,7 @@ class ChatController extends GetxController
     }
   }
 
-  Future<String?> pathOfPickedImage() async {
+  Future<String?> _pathOfPickedImage() async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile == null) return null;

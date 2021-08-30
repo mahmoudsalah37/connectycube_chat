@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../core/src/routes.dart';
 import '../../../../core/utils/injection_container.dart';
 import '../getx/login_controller.dart';
 
@@ -11,6 +13,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   final loginController = Injection.sl<LoginController>();
+
   @override
   void initState() {
     newMethod();
@@ -19,8 +22,13 @@ class _SplashPageState extends State<SplashPage> {
 
   void newMethod() async {
     await loginController.autoLogin();
+    final cacheUer =
+        loginController.getCacheUserUseCase.authRepository.getCacheUser();
     Future.delayed(
       Duration(milliseconds: 1000),
+      () => cacheUer != null
+          ? Get.offNamed(Routes.channelsPage)
+          : Get.offNamed(Routes.loginPage),
     );
   }
 
