@@ -1,20 +1,6 @@
 import 'dart:io';
 
-import 'package:connectycube_sdk/connectycube_sdk.dart'
-    show
-        CubeAttachment,
-        CubeAttachmentType,
-        CubeChatConnection,
-        CubeDialog,
-        CubeDialogType,
-        CubeFile,
-        CubeMessage,
-        CubeUser,
-        PagedResult,
-        createDialog,
-        getAllUsers,
-        getMessages,
-        uploadFile;
+import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:flutter/material.dart' show decodeImageFromList;
 
 abstract class ChatRemoteDataSource {
@@ -26,7 +12,7 @@ abstract class ChatRemoteDataSource {
 
   Future<CubeDialog> createNewPrivateDialog(int id);
 
-  Future<CubeMessage> sendMessage(String message);
+  Future<CubeMessage> sendMessage(String message, CubeUser? cachedUser);
 
   Stream<CubeMessage>? streamMessages();
 
@@ -60,9 +46,10 @@ class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
   }
 
   @override
-  Future<CubeMessage> sendMessage(String message) async {
-    final newCubeMessage = _createCubeMessage();
-    newCubeMessage.body = message;
+  Future<CubeMessage> sendMessage(String message, CubeUser? cachedUser) async {
+    final newCubeMessage = _createCubeMessage()
+      ..senderId = cachedUser?.id
+      ..body = message;
     return _dialog.sendMessage(newCubeMessage);
   }
 

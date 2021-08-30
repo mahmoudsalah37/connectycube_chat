@@ -39,7 +39,8 @@ class ChatRepositoryImp implements ChatRepository {
 
   @override
   Future<CubeMessage> sendMessage(String message) {
-    return chatRemoteDataSource.sendMessage(message);
+    final cacheUser = userLocalDataSource.getCacheUser();
+    return chatRemoteDataSource.sendMessage(message, cacheUser);
   }
 
   @override
