@@ -1,4 +1,4 @@
-import 'package:connectycube_chat/core/src/widgets/loading_indicator_widget.dart';
+import '../../../../core/src/widgets/loading_indicator_widget.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../../../core/utils/validator.dart';

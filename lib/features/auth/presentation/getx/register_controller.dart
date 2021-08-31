@@ -68,7 +68,7 @@ class RegisterController extends GetxController {
 
   @override
   void onClose() {
-    formKey.currentState?.dispose();
+    // formKey.currentState?.dispose();
     fullNameTEC.dispose();
     userNameTEC.dispose();
     passwordTEC.dispose();

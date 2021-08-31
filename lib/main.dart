@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
 
   void _initControllers() {
     // Auth
-    Get.lazyPut(() => Injection.sl<LoginController>());
+    Get.lazyPut(() => Injection.sl<LoginController>(), fenix: true);
     Get.lazyPut(() => Injection.sl<OfflineController>(), fenix: true);
     Get.lazyPut(() => Injection.sl<RegisterController>(), fenix: true);
     Get.lazyPut(() => Injection.sl<ProfileController>(), fenix: true);

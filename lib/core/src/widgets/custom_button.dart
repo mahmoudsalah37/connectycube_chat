@@ -1,12 +1,13 @@
-import '../colors.dart';
 import 'package:flutter/material.dart';
+
+import '../colors.dart';
 
 class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String title;
   final Alignment? alignment;
   final Color? backgroundColor;
-  final double? elevation,fonSize;
+  final double? elevation, fonSize;
   final double paddingHorizontal;
   final Widget? child;
 

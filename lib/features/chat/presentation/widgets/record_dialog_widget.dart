@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import '../../../../core/src/widgets/loading_indicator_widget.dart';
-
-import '../../../../core/utils/resposive.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+
+import '../../../../core/src/widgets/loading_indicator_widget.dart';
+import '../../../../core/utils/resposive.dart';
 
 class RecordDialogWidget extends StatefulWidget {
   final VoidCallback onTapSendVoice, onTapStopVoice, onTapPauseVoice;

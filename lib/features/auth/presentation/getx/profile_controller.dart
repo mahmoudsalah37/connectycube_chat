@@ -14,7 +14,7 @@ class ProfileController extends GetxController {
       fullNameTEC = TextEditingController(text: '');
   final formKey = GlobalKey<FormState>();
 
-  final  avatarUrl = ''.obs;
+  final avatarUrl = ''.obs;
 
   var _loadingIndicator = false.obs;
 
@@ -31,7 +31,8 @@ class ProfileController extends GetxController {
 
   @override
   void onInit() async {
-    avatarUrl.value = getCacheUserUseCase.authRepository.getCacheUser()!.avatar ?? '';
+    avatarUrl.value =
+        getCacheUserUseCase.authRepository.getCacheUser()!.avatar ?? '';
 
     final cachedUser = getCacheUserUseCase.authRepository.getCacheUser();
     if (cachedUser != null) {
@@ -96,14 +97,15 @@ class ProfileController extends GetxController {
   //
   Future<String?> _pathOfPickedImage() async {
     final pickedFile =
-    await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile == null) return null;
     final path = pickedFile.path;
     return path;
   }
+
   @override
   void onClose() {
-    formKey.currentState?.dispose();
+    // formKey.currentState?.dispose();
     fullNameTEC.dispose();
     userNameTEC.dispose();
     super.onClose();
