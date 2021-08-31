@@ -1,3 +1,6 @@
+import 'package:connectycube_chat/features/chat/domin/usecases/create_new_group_dialog_use_casr.dart';
+import 'package:connectycube_chat/features/chat/presentation/getx/create_group_controller.dart';
+
 import '../../features/auth/domin/usecases/is_online_usecase.dart';
 import '../../features/auth/presentation/getx/offline_controller.dart';
 import 'package:flutter_sound/flutter_sound.dart';
@@ -143,6 +146,9 @@ class Injection {
         () => SendVoiceRecordMessageUseCase(chatRepository: sl()));
     sl.registerLazySingleton<GetMessageHistoryUseCase>(
         () => GetMessageHistoryUseCase(chatRepository: sl()));
+    sl.registerLazySingleton<CreateNewGroupDialogUseCase>(
+      () => CreateNewGroupDialogUseCase(chatRepository: sl()),
+    );
     // Controllers
     sl.registerFactory<ChannelsController>(
       () => ChannelsController(
@@ -167,6 +173,11 @@ class Injection {
           stopRecordUseCase: sl(),
           disposeRecordUseCase: sl(),
           sendVoiceRecordMessageUseCase: sl(),
+        ));
+
+    sl.registerFactory<CreateGroupController>(() => CreateGroupController(
+          createNewGroupDialogUseCase: sl(),
+          getUsersUseCase: sl(),
         ));
 
     // Data sources

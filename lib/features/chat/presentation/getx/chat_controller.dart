@@ -44,6 +44,8 @@ class ChatController extends GetxController
     super.onInit();
   }
 
+  List<CubeMessage> get getMessageList => _messages;
+
   bool senderMessageIsMe(int index) {
     final senderIsMe = _messages.elementAt(index).senderId ==
             getCacheUserUseCase.authRepository.getCacheUser()?.id
@@ -105,7 +107,6 @@ class ChatController extends GetxController
     return path;
   }
 
-//TODO: we need to know the way of passing send voice to chat controller if this method bad
   void sendVoiceMessage() async {
     final voiceRecordController = Get.find<VoiceRecordController>();
     final path = await voiceRecordController.stopRecord();

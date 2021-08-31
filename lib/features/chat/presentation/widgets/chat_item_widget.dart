@@ -41,7 +41,7 @@ class ChatItemWidget extends StatelessWidget {
                           style: theme.textTheme.headline5!
                               .copyWith(fontSize: 14)),
                       Text(
-                        '${cubeUser.lastRequestAt!.hour.toString()}:${cubeUser.lastRequestAt!.minute}',
+                        '${cubeUser.lastRequestAt?.hour.toString()??'12'}:${cubeUser.lastRequestAt?.minute??'6'}',
                         style:
                             theme.textTheme.subtitle1!.copyWith(fontSize: 12),
                       ),

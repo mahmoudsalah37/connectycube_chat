@@ -21,12 +21,16 @@ abstract class ChatRemoteDataSource {
     required File imageFile,
     CubeUser? cachedUser,
   });
+
   Future<CubeMessage> sendVoiceRecordMessage({
     required CubeFile cubeFile,
     required File file,
     CubeUser? cachedUser,
   });
+
   Future<CubeFile> uploadCubeFile(File file);
+
+  Future<CubeDialog> createNewGroupDialog(List<int> users, String groupName);
 }
 
 class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
@@ -85,6 +89,7 @@ class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
 
   @override
   CubeDialog get getDialog => _dialog;
+
   @override
   Future<CubeMessage> sendImageMessage(
       {required CubeFile cubeFile,
@@ -138,5 +143,15 @@ class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
 
     message = await _dialog.sendMessage(message);
     return message;
+  }
+
+  @override
+  Future<CubeDialog> createNewGroupDialog(
+      List<int> users, String groupName) async {
+    final newGroupDialog =
+        CubeDialog(CubeDialogType.GROUP, occupantsIds: users);
+    newGroupDialog.name = groupName;
+    _dialog = await createDialog(newGroupDialog);
+    return _dialog;
   }
 }
