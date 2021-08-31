@@ -6,10 +6,9 @@ import 'colors.dart';
 
 class CustomStyle {
   static final InputDecoration chatSearchInputDecoration = InputDecoration(
-    hintText: 'Search...',
+    hintText: 'Group name',
     fillColor: CustomColors.yellowLightColor,
     filled: true,
-    prefixIcon: Icon(Icons.search,color: CustomColors.brownLightColor),
     hintStyle: TextStyle(fontSize: 12),
     contentPadding: EdgeInsets.all(10),
     border: OutlineInputBorder(

@@ -1,5 +1,5 @@
 import 'package:connectycube_sdk/connectycube_sdk.dart'
-    show CubeDialog, CubeUser, PagedResult;
+    show CubeDialog, CubeUser, PagedResult, getDialogs;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart'
@@ -12,10 +12,11 @@ import '../../domin/usecases/get_users_use_case.dart';
 
 class ChannelsController extends GetxController
     with SingleGetTickerProviderMixin, StateMixin<PagedResult<CubeUser>?> {
-  ChannelsController(
-      {required this.getCacheUserUseCase,
-      required this.getUsersUseCase,
-      required this.createNewPrivateDialogUseCase});
+  ChannelsController({
+    required this.getCacheUserUseCase,
+    required this.getUsersUseCase,
+    required this.createNewPrivateDialogUseCase,
+  });
 
   final GetUsersUseCase getUsersUseCase;
   final GetCacheUserUseCase getCacheUserUseCase;
@@ -24,13 +25,11 @@ class ChannelsController extends GetxController
   late TabController tabController;
   PagedResult<CubeUser>? users;
   late CubeUser cubeUser;
-  late PagingController<int, CubeUser> pagingController;
-  late CubeUser cachedUser;
+  List<CubeDialog> dialogList = [];
 
   @override
   void onInit() {
     super.onInit();
-    cachedUser = getCacheUserUseCase.authRepository.getCacheUser();
     change(null, status: RxStatus.empty());
     getUsers();
     tabController = new TabController(length: 2, vsync: this);

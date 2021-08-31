@@ -15,6 +15,7 @@ import 'features/auth/presentation/getx/profile_controller.dart';
 import 'features/auth/presentation/getx/register_controller.dart';
 import 'features/chat/presentation/getx/channels_controller.dart';
 import 'features/chat/presentation/getx/chat_controller.dart';
+import 'features/chat/presentation/getx/create_group_controller.dart';
 import 'features/chat/presentation/getx/voice_record_controller.dart';
 
 void main() async {
@@ -66,5 +67,6 @@ class _MyAppState extends State<MyApp> {
     Get.lazyPut(() => Injection.sl<ChannelsController>(), fenix: true);
     Get.lazyPut(() => Injection.sl<ChatController>(), fenix: true);
     Get.lazyPut(() => Injection.sl<VoiceRecordController>(), fenix: true);
+    Get.lazyPut(() => Injection.sl<CreateGroupController>(), fenix: true);
   }
 }

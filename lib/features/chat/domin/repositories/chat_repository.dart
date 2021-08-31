@@ -18,4 +18,6 @@ abstract class ChatRepository {
   Future<String?> stopVoiceRecord();
   Future<void> disposeVoiceRecord();
   Future<CubeMessage> sendVoiceRecord(String? path);
+  // Future<void> deleteRecord();
+  Future<CubeDialog> createNewGroupDialog(List<int> users, String groupName);
 }
