@@ -95,7 +95,7 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {
-    formKey.currentState?.dispose();
+    // formKey.currentState?.dispose();
     userNameTEC.dispose();
     passwordTEC.dispose();
     super.onClose();

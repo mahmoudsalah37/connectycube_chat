@@ -1,5 +1,3 @@
-import '../../features/auth/domin/usecases/is_online_usecase.dart';
-import '../../features/auth/presentation/getx/offline_controller.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -11,10 +9,12 @@ import '../../features/auth/data/repositories/auth_repository_imp.dart';
 import '../../features/auth/domin/repositories/auth_repository.dart';
 import '../../features/auth/domin/usecases/delete_cache_user_usecase.dart';
 import '../../features/auth/domin/usecases/get_cache_user_usecase.dart';
+import '../../features/auth/domin/usecases/is_online_usecase.dart';
 import '../../features/auth/domin/usecases/login_usecase.dart';
 import '../../features/auth/domin/usecases/register_usecase.dart';
 import '../../features/auth/domin/usecases/update_user_data_usecase.dart';
 import '../../features/auth/presentation/getx/login_controller.dart';
+import '../../features/auth/presentation/getx/offline_controller.dart';
 import '../../features/auth/presentation/getx/profile_controller.dart';
 import '../../features/auth/presentation/getx/register_controller.dart';
 import '../../features/chat/data/datasources/chat_remote_data_source.dart';

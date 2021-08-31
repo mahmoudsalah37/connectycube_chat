@@ -1,16 +1,13 @@
-import '../../../../core/src/widgets/custom_button.dart';
-
-import '../../../../core/src/widgets/circle_image_widget.dart';
-import '../../../auth/presentation/getx/login_controller.dart';
-import '../getx/channels_controller.dart';
-
-import '../../../../core/src/colors.dart';
-import '../../../../core/src/routes.dart';
-import '../../../../core/utils/resposive.dart';
-import 'users_page.dart';
-import 'groups_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../core/src/routes.dart';
+import '../../../../core/src/widgets/circle_image_widget.dart';
+import '../../../../core/src/widgets/custom_button.dart';
+import '../../../../core/utils/resposive.dart';
+import '../../../auth/presentation/getx/login_controller.dart';
+import '../getx/channels_controller.dart';
+import 'users_page.dart';
 
 class ChannelsPage extends GetView<ChannelsController> {
   @override

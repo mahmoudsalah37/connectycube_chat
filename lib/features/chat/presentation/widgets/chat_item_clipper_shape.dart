@@ -1,4 +1,4 @@
-import 'package:connectycube_chat/core/src/colors.dart';
+import '../../../../core/src/colors.dart';
 import 'package:flutter/material.dart';
 
 class SenderMessageItemCustomPainter extends CustomPainter {
@@ -18,7 +18,6 @@ class SenderMessageItemCustomPainter extends CustomPainter {
     path_0.lineTo(0, 0);
     path_0.quadraticBezierTo(0, size.height * 0.2500000, 0, size.height);
     path_0.close();
-
 
     Paint paintFill = Paint()..style = PaintingStyle.fill;
     paintFill.color = CustomColors.primaryColor;
