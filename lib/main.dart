@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
     Get.lazyPut(() => Injection.sl<ProfileController>(), fenix: true);
 
     // Chat
-    Get.lazyPut(() => Injection.sl<ChannelsController>());
+    Get.lazyPut(() => Injection.sl<ChannelsController>(), fenix: true);
     Get.lazyPut(() => Injection.sl<ChatController>(), fenix: true);
     Get.lazyPut(() => Injection.sl<VoiceRecordController>(), fenix: true);
   }

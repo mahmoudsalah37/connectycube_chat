@@ -6,6 +6,6 @@ class LogOutUserUseCase extends UseCase<Future<bool>, NoParams> {
   LogOutUserUseCase({required this.authRepository});
   @override
   Future<bool> call({required NoParams params}) async {
-    return await authRepository.logoutUser();
+    return authRepository.logoutUser();
   }
 }

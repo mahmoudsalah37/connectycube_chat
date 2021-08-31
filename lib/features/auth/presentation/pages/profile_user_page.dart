@@ -13,8 +13,6 @@ import '../widgets/text_field_widget.dart';
 class ProfileUserPage extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
-    final avatar =
-        controller.getCacheUserUseCase.authRepository.getCacheUser()!.avatar;
     final res = Responsive(context);
     return Obx(
       () => ModalProgressHUD(
@@ -50,7 +48,8 @@ class ProfileUserPage extends GetView<ProfileController> {
                                     ),
                                   )
                                 : CircleImageWidget(
-                                    avatar: avatar.toString(),
+                                    avatar:
+                                        controller.getCacheUser.avatar ?? '',
                                     fullName: controller.fullNameTEC.text,
                                     imageSize: 80,
                                   ),

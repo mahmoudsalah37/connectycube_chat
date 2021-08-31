@@ -1,25 +1,29 @@
 import 'package:connectycube_sdk/connectycube_sdk.dart';
-
-import '../../../../core/utils/injection_container.dart';
-import '../../domin/usecases/login_usecase.dart';
-import '../../domin/usecases/register_usecase.dart';
-import '../../domin/usecases/update_user_data_usecase.dart';
-import 'user_local_data_source.dart';
+import 'package:flutter/material.dart';
 
 abstract class UserRemoteDataSource {
-  Future<CubeUser?> login(LoginParams params);
+  Future<CubeUser?> login({required String login, required String password});
 
-  Future<CubeUser?> newSession(LoginParams params);
+  Future<CubeUser?> newSession(
+      {required String login, required String password});
 
-  Future<CubeUser> register(RegisterParams params);
+  Future<CubeUser> register(
+      {required String fullName,
+      required String login,
+      required String password});
 
-  Future<CubeUser> updateUserData(UpdateUserDataParams params);
+  Future<CubeUser> updateUserData(
+      {required int? id,
+      required String? fullName,
+      required String? login,
+      required String? avatar});
 }
 
 class UserRemoteDataSourceImp implements UserRemoteDataSource {
   @override
-  Future<CubeUser?> login(LoginParams params) async {
-    CubeUser? user = await newSession(params);
+  Future<CubeUser?> login(
+      {required String login, required String password}) async {
+    CubeUser? user = await newSession(login: login, password: password);
     if (user != null) {
       CubeChatConnectionSettings.instance.totalReconnections = 0;
       user = await CubeChatConnection.instance.login(user);
@@ -29,29 +33,26 @@ class UserRemoteDataSourceImp implements UserRemoteDataSource {
   }
 
   @override
-  Future<CubeUser?> newSession(LoginParams params) async {
-    CubeUser? cubeUser =
-        CubeUser(login: params.login, password: params.password);
-    final cubeSession = await createSession(
-        CubeUser(login: params.login, password: params.password));
-    return cubeUser = cubeSession.user?..password = cubeUser.password;
+  Future<CubeUser?> newSession(
+      {required String login, required String password}) async {
+    CubeUser? cubeUser = CubeUser(login: login, password: password);
+    final cubeSession =
+        await createSession(CubeUser(login: login, password: password));
+    return cubeUser = (cubeSession.user?..password = cubeUser.password);
   }
 
   @override
-  Future<CubeUser> register(RegisterParams params) async {
-    if (!CubeSessionManager.instance.isActiveSessionValid()) {
-      try {
-        await createSession();
-      } catch (error) {
-        print('registerError>>> $error');
-      }
-    } else {
-      print('Active session not valid');
+  Future<CubeUser> register(
+      {required String fullName,
+      required String login,
+      required String password}) async {
+    if (isSessionNotActive()) {
+      await createSession();
     }
     final user = CubeUser(
-      fullName: params.fullName,
-      login: params.login,
-      password: params.password,
+      fullName: fullName,
+      login: login,
+      password: password,
     );
 
     final data = await signUp(user);
@@ -59,20 +60,22 @@ class UserRemoteDataSourceImp implements UserRemoteDataSource {
     return user;
   }
 
+  bool isSessionNotActive() =>
+      !CubeSessionManager.instance.isActiveSessionValid();
+
   @override
-  Future<CubeUser> updateUserData(UpdateUserDataParams params) async {
-    final userCachedData = Injection.sl<UserLocalDataSource>();
+  Future<CubeUser> updateUserData(
+      {@required int? id,
+      required String? fullName,
+      required String? login,
+      required String? avatar}) async {
     final user = CubeUser(
-      id: userCachedData.getCacheUser()?.id,
-      login: params.userName,
-      fullName: params.fullName,
-      avatar: params.avatar,
+      id: id,
+      login: login,
+      fullName: fullName,
+      avatar: avatar,
     );
-    try {
-      await updateUser(user);
-    } catch (e) {
-      print('updateUserError = $e');
-    }
-    return user;
+
+    return updateUser(user);
   }
 }

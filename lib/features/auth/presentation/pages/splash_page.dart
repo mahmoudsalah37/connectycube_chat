@@ -21,15 +21,15 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void newMethod() async {
-    await loginController.autoLogin();
-    final cacheUer =
-        loginController.getCacheUserUseCase.authRepository.getCacheUser();
-    Future.delayed(
-      Duration(milliseconds: 1000),
-      () => cacheUer != null
-          ? Get.offNamed(Routes.channelsPage)
-          : Get.offNamed(Routes.loginPage),
-    );
+    try {
+      await loginController.autoLogin();
+      Future.delayed(
+        Duration(milliseconds: 1000),
+        () => Get.offNamed(Routes.channelsPage),
+      );
+    } catch (e) {} finally {
+      Get.offNamed(Routes.loginPage);
+    }
   }
 
   @override

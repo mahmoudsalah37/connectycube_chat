@@ -6,6 +6,6 @@ class IsOnlineUseCase extends UseCase<Future<bool>, NoParams> {
   IsOnlineUseCase({required this.authRepository});
   @override
   Future<bool> call({required NoParams params}) async {
-    return await authRepository.isOnline();
+    return authRepository.isOnline();
   }
 }

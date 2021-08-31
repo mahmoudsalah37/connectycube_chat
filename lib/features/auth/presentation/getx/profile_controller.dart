@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:connectycube_chat/core/usecases/usecase.dart';
 import 'package:connectycube_sdk/connectycube_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -18,8 +19,6 @@ class ProfileController extends GetxController {
 
   var _loadingIndicator = false.obs;
 
-  get getLoadingIndicator => _loadingIndicator.value;
-
   File? pickedImgFile;
   UpdateUserDataUseCase updateUserDataUseCase;
   GetCacheUserUseCase getCacheUserUseCase;
@@ -30,18 +29,16 @@ class ProfileController extends GetxController {
   });
 
   @override
-  void onInit() async {
-    avatarUrl.value =
-        getCacheUserUseCase.authRepository.getCacheUser()!.avatar ?? '';
-
-    final cachedUser = getCacheUserUseCase.authRepository.getCacheUser();
-    if (cachedUser != null) {
-      fullNameTEC.text = cachedUser.fullName!;
-      userNameTEC.text = cachedUser.login!;
-    }
+  void onInit() {
     super.onInit();
+    avatarUrl.value = getCacheUser.avatar ?? '';
+    fullNameTEC.text = getCacheUser.fullName ?? '';
+    userNameTEC.text = getCacheUser.login ?? '';
   }
 
+  get getLoadingIndicator => _loadingIndicator.value;
+
+  CubeUser get getCacheUser => getCacheUserUseCase(params: NoParams());
   void updateUserData() async {
     _loadingIndicator.value = true;
     final isValid = formKey.currentState?.validate() ?? false;
@@ -63,17 +60,6 @@ class ProfileController extends GetxController {
     }
   }
 
-  // Future<void> pickImg() async {
-  //   final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-  //   if (pickedFile == null) return;
-  //   pickedImgFile = File(pickedFile.path);
-  //   uploadFile(pickedImgFile!, isPublic: true).then((cubeFile) {
-  //     avatarUrl = cubeFile.getPublicUrl()!;
-  //   });
-  //   print('avatarUrl = $avatarUrl');
-  //   update();
-  // }
-
   Future<void> pickImg() async {
     final pickedImage = await _pathOfPickedImage();
     if (pickedImage != null) {
@@ -85,16 +71,6 @@ class ProfileController extends GetxController {
     update();
   }
 
-  // Future<void> pickImg() async {
-  //   final pickedImage = await _pathOfPickedImage();
-  //   if (pickedImage == null) return;
-  //   pickedImgFile = File(pickedImage);
-  //   uploadFile(pickedImgFile!, isPublic: true).then((cubeFile) {
-  //     avatarUrl = cubeFile.getPublicUrl()!;
-  //   });
-  //   update();
-  // }
-  //
   Future<String?> _pathOfPickedImage() async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);

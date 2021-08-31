@@ -1,3 +1,5 @@
+import 'package:connectycube_sdk/connectycube_calls.dart';
+
 import '../../domin/usecases/is_online_usecase.dart';
 
 import '../../../../core/src/routes.dart';
@@ -27,25 +29,24 @@ class LoginController extends GetxController {
       required this.logOutUserUseCase,
       required this.isOnlineUseCase});
 
-  get getLoadingIndicator => _loadingIndicator.value;
-
   @override
   void onInit() async {
     super.onInit();
   }
 
+  get getLoadingIndicator => _loadingIndicator.value;
+  CubeUser get getCacheUser => getCacheUserUseCase(params: NoParams());
   Future<bool> get isOnline async => isOnlineUseCase(params: NoParams());
   Future<void> autoLogin() async {
     if (await isOnline) {
-      final cacheUser = await getCacheUserUseCase(params: NoParams());
-      if (cacheUser != null) {
-        final login = cacheUser.login ?? '';
-        final password = cacheUser.password ?? '';
-        final params = LoginParams(login: login, password: password);
-        final user = await loginUseCase(params: params);
-        if (user != null) {
-          Get.offNamed(Routes.channelsPage);
-        }
+      final cacheUser = getCacheUser;
+
+      final login = cacheUser.login ?? '';
+      final password = cacheUser.password ?? '';
+      final params = LoginParams(login: login, password: password);
+      final user = await loginUseCase(params: params);
+      if (user != null) {
+        Get.offNamed(Routes.channelsPage);
       }
     } else {
       Get.toNamed(Routes.offlinePage);

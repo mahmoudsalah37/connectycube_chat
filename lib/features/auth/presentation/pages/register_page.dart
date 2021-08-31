@@ -17,7 +17,7 @@ class RegisterPage extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     final res = Responsive(context);
-    ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
 
     return Obx(
       () => ModalProgressHUD(

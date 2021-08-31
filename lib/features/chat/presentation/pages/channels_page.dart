@@ -15,7 +15,7 @@ class ChannelsPage extends GetView<ChannelsController> {
     final res = Responsive(context);
     final theme = Theme.of(context);
     final cachedUser =
-        controller.getCacheUserUseCase.authRepository.getCacheUser()!;
+        controller.getCacheUserUseCase.authRepository.getCacheUser();
     return Scaffold(
       body: Container(
         margin: EdgeInsets.all(10),

@@ -46,7 +46,7 @@ class ChatController extends GetxController
 
   bool senderMessageIsMe(int index) {
     final senderIsMe = _messages.elementAt(index).senderId ==
-            getCacheUserUseCase.authRepository.getCacheUser()?.id
+            getCacheUserUseCase.authRepository.getCacheUser().id
         ? true
         : false;
     return senderIsMe;

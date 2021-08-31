@@ -8,7 +8,10 @@ class RegisterUseCase extends UseCase<Future<CubeUser?>, RegisterParams> {
   RegisterUseCase({required this.authRepository});
   @override
   Future<CubeUser?> call({required RegisterParams params}) {
-    return authRepository.register(params);
+    return authRepository.register(
+        fullName: params.fullName,
+        login: params.login,
+        password: params.password);
   }
 }
 

@@ -9,7 +9,7 @@ class LoginUseCase extends UseCase<Future<CubeUser?>, LoginParams> {
   LoginUseCase({required this.authRepository});
   @override
   Future<CubeUser?> call({required LoginParams params}) {
-    return authRepository.login(params);
+    return authRepository.login(login: params.login, password: params.password);
   }
 }
 

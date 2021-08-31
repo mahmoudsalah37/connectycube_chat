@@ -30,7 +30,7 @@ class ChannelsController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    cachedUser = getCacheUserUseCase.authRepository.getCacheUser()!;
+    cachedUser = getCacheUserUseCase.authRepository.getCacheUser();
     change(null, status: RxStatus.empty());
     getUsers();
     tabController = new TabController(length: 2, vsync: this);

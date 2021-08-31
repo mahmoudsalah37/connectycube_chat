@@ -20,10 +20,13 @@ class ChatRepositoryImp implements ChatRepository {
   @override
   Future<PagedResult<CubeUser>?> getUsers() async {
     final currentUser = userLocalDataSource.getCacheUser();
-    final currentUserID = currentUser?.id;
+    final currentUserID = currentUser.id;
     final pageResult = await chatRemoteDataSource.getUsers();
     final items = pageResult?.items ?? [];
-    items.removeAt(items.indexWhere((element) => element.id == currentUserID));
+    try {
+      items
+          .removeAt(items.indexWhere((element) => element.id == currentUserID));
+    } catch (e) {}
     return pageResult;
   }
 

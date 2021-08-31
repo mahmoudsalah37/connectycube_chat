@@ -12,7 +12,10 @@ class UpdateUserDataUseCase
 
   @override
   Future<CubeUser?> call({required UpdateUserDataParams params}) {
-    return authRepository.updateUserData(params);
+    return authRepository.updateUserData(
+        login: params.userName,
+        fullName: params.fullName,
+        avatar: params.avatar);
   }
 }
 

@@ -3,9 +3,7 @@ import 'package:connectycube_sdk/src/core/users/models/cube_user.dart';
 
 import '../../../../core/network/network_information.dart';
 import '../../domin/repositories/auth_repository.dart';
-import '../../domin/usecases/login_usecase.dart';
-import '../../domin/usecases/register_usecase.dart';
-import '../../domin/usecases/update_user_data_usecase.dart';
+
 import '../datasources/user_local_data_source.dart';
 import '../datasources/user_remote_data_source.dart';
 
@@ -20,24 +18,30 @@ class AuthRepositoryImp implements AuthRepository {
       required this.networkInformation});
 
   @override
-  Future<CubeUser?> login(LoginParams params) async {
-    final user = await userRemoteDataSource.login(params);
+  Future<CubeUser?> login(
+      {required String login, required String password}) async {
+    final user =
+        await userRemoteDataSource.login(login: login, password: password);
 
-    if (userLocalDataSource.getCacheUser() == null && user != null) {
+    if (user != null) {
       await userLocalDataSource.saveUser(user);
     }
     return user;
   }
 
   @override
-  Future<CubeUser?> register(RegisterParams params) async {
-    final user = await userRemoteDataSource.register(params);
-    final isCached = await userLocalDataSource.saveUser(user);
-    return isCached ? user : null;
+  Future<CubeUser> register(
+      {required String fullName,
+      required String login,
+      required String password}) async {
+    final user = await userRemoteDataSource.register(
+        fullName: fullName, login: login, password: password);
+    await userLocalDataSource.saveUser(user);
+    return user;
   }
 
   @override
-  CubeUser? getCacheUser() {
+  CubeUser getCacheUser() {
     return userLocalDataSource.getCacheUser();
   }
 
@@ -51,8 +55,13 @@ class AuthRepositoryImp implements AuthRepository {
   }
 
   @override
-  Future<CubeUser?> updateUserData(UpdateUserDataParams params) async {
-    final user = await userRemoteDataSource.updateUserData(params);
+  Future<CubeUser> updateUserData(
+      {required String fullName,
+      required String login,
+      required String avatar}) async {
+    final cacheUser = getCacheUser();
+    final user = await userRemoteDataSource.updateUserData(
+        id: cacheUser.id, fullName: fullName, login: login, avatar: avatar);
     await userLocalDataSource.saveUser(user);
     return user;
   }

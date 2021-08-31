@@ -22,6 +22,10 @@ class RegisterController extends GetxController {
       {required this.registerUseCase,
       required this.loginUseCase,
       required this.isOnlineUseCase});
+  @override
+  void onInit() {
+    super.onInit();
+  }
 
   Future<bool> get isOnline async => isOnlineUseCase(params: NoParams());
 
