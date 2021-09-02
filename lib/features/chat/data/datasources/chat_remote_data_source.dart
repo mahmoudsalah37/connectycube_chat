@@ -115,7 +115,6 @@ class ChatRemoteDataSourceImp implements ChatRemoteDataSource {
 
   @override
   Future<CubeFile> uploadCubeFile(File file) {
-    print(file.toString());
     return uploadFile(
       file,
       isPublic: true,

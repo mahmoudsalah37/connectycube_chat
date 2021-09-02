@@ -68,9 +68,6 @@ class ChatRepositoryImp implements ChatRepository {
     return chatRemoteDataSource.uploadCubeFile(file);
   }
 
-  // @override
-  // Future<void> deleteRecord() {}
-
   @override
   Future<void> pauseVoiceRecord() => recordDataSource.pauseVoiceRecord();
 

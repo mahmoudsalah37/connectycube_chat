@@ -1,9 +1,7 @@
 import 'package:connectycube_sdk/connectycube_sdk.dart'
-    show CubeDialog, CubeUser, PagedResult, getDialogs;
+    show CubeDialog, CubeUser, PagedResult;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart'
-    show PagingController;
 
 import '../../../../core/usecases/usecase.dart';
 import '../../../auth/domin/usecases/get_cache_user_usecase.dart';

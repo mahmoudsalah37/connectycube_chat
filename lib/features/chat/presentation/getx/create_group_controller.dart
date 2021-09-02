@@ -18,7 +18,7 @@ class CreateGroupController extends GetxController
   final TextEditingController groupNameTEC = TextEditingController(text: '');
   RxBool _loadingIndicator = false.obs;
   PagedResult<CubeUser>? users;
-
+  RxList<CubeUser> selectedUsers = <CubeUser>[].obs;
   get getLoadingIndicator => _loadingIndicator.value;
 
   @override
